@@ -1,0 +1,88 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+
+
+%\pagenumbering{Roman}
+%\renewcommand\thepage{\arabic{page}}
+\usepackage{ragged2e}
+\usepackage{graphicx,float}
+\usepackage{wrapfig}
+\usepackage{hyperref}
+\usepackage[margin=1in]{geometry}
+\usepackage{subcaption}
+\usepackage{xcolor}
+\usepackage{tikz}
+%\usepackage{amssymb}
+%\usepackage{makecell}
+\usepackage{multirow}
+%\usepackage{boldline} 
+\usepackage{array}
+\usepackage{subcaption}
+\usepackage{booktabs}
+\usepackage{siunitx}
+\usepackage{cite}
+\usepackage{setspace}
+\usepackage[nottoc,notlot]{tocbibind}
+
+\usepackage{blindtext}
+
+\setlength{\parskip}{1em}
+\usepackage[most]{tcolorbox}
+
+\graphicspath{ {images/} }
+\usepackage{titling}
+
+\newcommand{\proposalTitle}{Complex-valued Convolutions and Differential Encoding for Deep Learning in Time-varying MIMO Channel State Estimation}
+\newcommand{\authorName}{Mason del Rosario}
+\newcommand{\authorDepartment}{Electrical and Computer Engineering}
+\newcommand{\authorUniversity}{University of California, Davis}
+\newcommand{\authorAddress}{Davis, CA 95616}
+\newcommand{\authorEmail}{mdelrosa@ucdavis.edu}
+
+\title{}
+
+\author{
+	\authorName\\
+	%  <Department> of Electrical and Computer Engineering\\
+	\authorDepartment\\
+	\authorAddress \\ % in US, this will be <City>, <State> <ZIP> for University
+	\authorEmail \\
+}
+
+\date{\today}
+
+\doublespacing
+
+\begin{document}
+	
+\input{sections/00_title.tex}
+
+\newpage
+\tableofcontents
+
+\newpage
+
+\section{Introduction}
+\input{sections/01_introduction.tex}
+
+\section{Previous Work \#1}
+\label{chap:previous_1}
+\input{sections/02_previous_work_first.tex}
+
+\section{Previous Work \#2}
+\label{chap:previous_2}
+\input{sections/03_previous_work_second.tex}
+
+\section{Proposed Work}
+\label{chap:proposed}
+\input{sections/04_proposed_work.tex}
+
+\section{Conclusion}
+\input{sections/05_conclusion.tex}
+
+\newpage
+\small
+\bibliographystyle{ieeetr}
+\bibliography{cited_works}
+
+\end{document}
