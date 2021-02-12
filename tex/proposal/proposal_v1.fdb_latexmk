@@ -1,12 +1,12 @@
 # Fdb version 3
-["bibtex proposal_v1"] 1613062846 "proposal_v1.aux" "proposal_v1.bbl" "proposal_v1" 1613062851
+["bibtex proposal_v1"] 1613147548 "proposal_v1.aux" "proposal_v1.bbl" "proposal_v1" 1613147561
+  "../cited_works.bib" 1613062433 311 f1abd96d36cbf53f9c7ba4435df166f1 ""
   "c:/texlive/2018/texmf-dist/bibtex/bst/base/ieeetr.bst" 1552687113 18361 1a00e58565e7f19bf2b3e1bfb82254ae ""
-  "cited_works.bib" 1613062433 311 f1abd96d36cbf53f9c7ba4435df166f1 ""
-  "proposal_v1.aux" 1613062850 5698 b191c941c723c5e12db39c130df8c27b ""
+  "proposal_v1.aux" 1613147558 5789 fb5c757b5ce320b5c18a0c40cc9070d3 ""
   (generated)
-  "proposal_v1.bbl"
   "proposal_v1.blg"
-["pdflatex"] 1613062847 "proposal_v1.tex" "proposal_v1.pdf" "proposal_v1" 1613062851
+  "proposal_v1.bbl"
+["pdflatex"] 1613147551 "proposal_v1.tex" "proposal_v1.pdf" "proposal_v1" 1613147561
   "c:/texlive/2018/texmf-dist/fonts/map/fontname/texfonts.map" 1552688378 3332 103109f5612ad95229751940c61aada0 ""
   "c:/texlive/2018/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1552686596 1004 54797486969f23fa377b128694d548df ""
   "c:/texlive/2018/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1552686596 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
@@ -205,20 +205,20 @@
   "images/ann_inputs_he_Aug17.pdf" 1612880465 550834 c449463545d318ca77300b918293eb40 ""
   "images/ann_outputs_he_Aug17.pdf" 1612880466 562587 adfacbe23aec529bc8944c3eb62a588e ""
   "nul" 0 0 d41d8cd98f00b204e9800998ecf8427e ""
-  "proposal_v1.aux" 1613062850 5698 b191c941c723c5e12db39c130df8c27b ""
-  "proposal_v1.bbl" 1613062846 283 b49910b49bd2a55120b8949b03edde24 "bibtex proposal_v1"
-  "proposal_v1.out" 1613062850 1573 ab5e36f91987c8b55de73470cd38ce58 ""
-  "proposal_v1.tex" 1613062641 1924 86c5afaa61138b47973de022424e6bd6 ""
-  "proposal_v1.toc" 1613062850 1968 98593e58c9fd37ebd1f816ef9704b6d0 ""
+  "proposal_v1.aux" 1613147558 5789 fb5c757b5ce320b5c18a0c40cc9070d3 ""
+  "proposal_v1.bbl" 1613147550 283 b49910b49bd2a55120b8949b03edde24 "bibtex proposal_v1"
+  "proposal_v1.out" 1613147558 1573 ab5e36f91987c8b55de73470cd38ce58 ""
+  "proposal_v1.tex" 1613147370 1927 d9823dca4ad94f99bf8c8d039e4075fd ""
+  "proposal_v1.toc" 1613147558 1968 98593e58c9fd37ebd1f816ef9704b6d0 ""
   "sections/00_title.tex" 1613062628 367 3c67f1c064315f75a9fce5ce9e24fb01 ""
   "sections/01_introduction.tex" 1613062823 1160 d8d62fcf36a3529b37d6db50f1c2e3c9 ""
-  "sections/02_previous_work_first.tex" 1613062784 1713 9976c275ca10a66d6e2fb780f3213d73 ""
+  "sections/02_previous_work_first.tex" 1613147431 1713 8eeed200480bf20cce8bd9e83e9df0ac ""
   "sections/03_previous_work_second.tex" 1613061610 1666 29c8bd7a51007989319f3f7d5531bc4c ""
   "sections/04_proposed_work.tex" 1613061507 198 7c3f6540a9a133ebddae45c00269c33d ""
   "sections/05_conclusion.tex" 1613061595 35 6d2ee58a97941fbc4d54b74f62b42081 ""
   (generated)
-  "proposal_v1.pdf"
   "proposal_v1.aux"
-  "proposal_v1.out"
   "proposal_v1.log"
+  "proposal_v1.out"
+  "proposal_v1.pdf"
   "proposal_v1.toc"

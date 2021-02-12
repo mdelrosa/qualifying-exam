@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018/W32TeX) (preloaded format=pdflatex 2019.3.15)  11 FEB 2021 09:00
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018/W32TeX) (preloaded format=pdflatex 2019.3.15)  12 FEB 2021 08:32
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1007,6 +1007,9 @@ LaTeX Warning: Label `table:notation' multiply defined.
 LaTeX Warning: Label `sect:methods_sub1' multiply defined.
 
 
+LaTeX Warning: Label `sect:methods_sub2' multiply defined.
+
+
 LaTeX Warning: Label `eq:conv' multiply defined.
 
 )
@@ -1236,19 +1239,8 @@ Package pdftex.def Info: images/ann_outputs_he_Aug17.pdf  used on input line 22
 .
 (pdftex.def)             Requested size: 211.38832pt x 192.73494pt.
 [3] [4 <./images/ann_inputs_he_Aug17.pdf> <./images/ann_outputs_he_Aug17.pdf>])
-[5] (./sections/02_previous_work_first.tex [6] [7] [8]
-Runaway argument?
-{sect:methods_sub2e 
-! Paragraph ended before \label was complete.
-<to be read again> 
-                   \par 
-l.64 
-     
-I suspect you've forgotten a `}', causing me to apply this
-control sequence to too much text. How can we recover?
-My plan is to forget the whole thing and hope for the best.
-
-[9]) (./sections/03_previous_work_second.tex [10] [11] [12] [13]) [14]
+[5] (./sections/02_previous_work_first.tex [6] [7] [8] [9])
+(./sections/03_previous_work_second.tex [10] [11] [12] [13]) [14]
 (./sections/04_proposed_work.tex) [15] (./sections/05_conclusion.tex) [16]
 [17] (./proposal_v1.bbl) [18]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 88.
