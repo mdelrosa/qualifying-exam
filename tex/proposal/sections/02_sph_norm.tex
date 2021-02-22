@@ -1,9 +1,8 @@
 % 02_previous_work_first.tex
 
 Most work in deep learning for CSI estimation focuses on different neural network architectures, training frameworks, or hyperparameter tuning. However, the normalization used in these works is typically the same; the extrema (i.e., the minimum and the maximum) of the dataset are used to perform minmax scaling on the entire dataset, 
-
 \begin{align*}
-	H^n_{\text{minmax}}(i,j) &= \frac{H^n(i,j)-H_{\text{min}}}{H_{\text{max}}-H_{\text{min}}}
+	\mathbf H_{k,\text{minmax}}(i,j) &= \frac{\mathbf H_k(i,j)-\mathbf H_{\text{min}}}{\mathbf H_{\text{max}}-\mathbf H_{\text{min}}}
 \end{align*}
 for $n \in [1,\dots,N]$ given a dataset of $N$ samples and $i,j$ indexing the rows/columns of the CSI matrices. The resulting samples are cast to the range $[0,1]$.
 
@@ -15,7 +14,7 @@ However, for CSI matrices, minmax normalization is applied to the real and imagi
 	\centering
 	\includegraphics[width=.9\textwidth]{imagenet_rgb_dist.pdf}
 	\medskip
-	\caption{Distribution and variance of ImageNet color channels ($N=50000$) images.}
+	\caption{Distribution and variance of minmax-normalized ImageNet color channels ($N=50000$) images.}
 	\label{fig:imagenet_dist}
 \end{figure}
 
@@ -23,7 +22,7 @@ However, for CSI matrices, minmax normalization is applied to the real and imagi
 	\centering
 	\includegraphics[width=.9\textwidth]{cost2100_indoor_dist.pdf}
 	\medskip
-	\caption{Distribution and variance of COST2100 real/imaginary channels ($N=99000$) images.}
+	\caption{Distribution and variance of minmax-normalized COST2100 real/imaginary channels ($N=99000$) images.}
 	\label{fig:cost_indoor_dist}
 \end{figure}
 
@@ -33,14 +32,9 @@ However, for CSI matrices, minmax normalization is applied to the real and imagi
 
 Several works have investigated normalization techniques for deep learning such as batch normalization \cite{ref:ioffe2015batch}, instance normalization \cite{ref:huang2017instance}, layer normalization \cite{ref:ba2016layer}, and group normalization \cite{ref:wu2018group}. These normalization techniques scale the outputs of latent layers in neural networks, which helps to solve the problem of covariate shift \cite{ref:ioffe2015batch} where the mean and variance of changes between subsequent layers of the network.
 
-Other works have studied normalization of the network's inputs. A number of works have investigated adaptive normalization techniques for time series estimation tasks \cite{ref:ogasawara2010adpative, ref:nayak2014impact, ref:shao2015self}. In \cite{ref:passalis2019dain}, the authors proposed a trainable input network which learns to shift, scale, and filter the unnormalized data while training the target network for a time series prediction task.
-
-\blindtext
-\blindtext
+Other works have studied normalization of the network's inputs. A number of works have investigated adaptive normalization techniques for time series estimation tasks \cite{ref:ogasawara2010adaptive, ref:nayak2014impact, ref:shao2015self}. In \cite{ref:passalis2019dain}, the authors proposed a trainable input network which learns to shift, scale, and filter the unnormalized data while training the target network for a time series prediction task.
 
 \subsection{Methods}
-
-
 
 \blindtext
 
@@ -95,7 +89,7 @@ Assuming $x$ is normally distributed, the resulting random variable, $z$, is a s
 \begin{align}
 	\mathbf{\check H}_d^k &= \frac{\mathbf H_d^k}{\|\mathbf H_d^k\|_2}. \label{eq:sph-intro}
 \end{align}
-Observe that (\ref{eq:sph-intro}) is similar to (\ref{eq:zscore}) without the mean shift in the numerator and with the power term of each CSI sample rather than the variance of the entire distribution. After applying (\ref{eq:sph-intro}) to each sample, minmax scaling is applied to the entire dataset. The resulting dataset under spherical normalization can exhibit a larger variance than the same dataset under minmax scaling, as is demonstrated in Fig.~\ref{fig:cost_indoor_sph_dist}. 
+Observe that (\ref{eq:sph-intro}) is similar to (\ref{eq:zscore}) without the mean shift in the numerator\footnote{Since the mean of COST2100 data is $\approx 10^{-10}$, we can safely ignore this mean shift in spherical normalization.} and with the power term of each CSI sample rather than the variance of the entire distribution. After applying (\ref{eq:sph-intro}) to each sample, minmax scaling is applied to the entire dataset. The resulting dataset under spherical normalization can exhibit a larger variance than the same dataset under minmax scaling (compare Fig.~\ref{fig:cost_indoor_sph_dist} with Fig.~\ref{fig:cost_indoor_dist}). 
 \begin{figure}[htb]
 	\centering
 	\includegraphics[width=.9\textwidth]{cost2100_indoor_sph_dist.pdf}
@@ -103,18 +97,41 @@ Observe that (\ref{eq:sph-intro}) is similar to (\ref{eq:zscore}) without the me
 	\caption{Distribution and variance of COST2100 real/imaginary channels under spherical normalization ($N=99000$) images.}
 	\label{fig:cost_indoor_sph_dist}
 \end{figure}
+Beyond desirable properties in the input distribution, spherical normalization also results in an objective function which is better matched with the evaluation criterion. Neural networks for CSI estimation are optimized using the mean-squared error loss,
+\begin{align} 
+	\text{MSE}&=\frac 1N \sum_{k=1}^N\Arrowvert\mathbf H_k - \hat{\mathbf H}_k\Arrowvert^2, \label{eq:mse}
+\end{align}
+while channel state reconstruction accuracy is measured in terms of normalized mean-squared error,
+\begin{align} 
+	\text{NMSE}&=\frac 1N \sum_{k=1}^N\frac{\Arrowvert\mathbf H_k - \hat{\mathbf H}_k\Arrowvert^2}{\Arrowvert\mathbf H_k\Arrowvert^2}. \label{eq:nmse}
+\end{align}
+Observe that when the $\mathbf H_k \; (\hat{\mathbf H}_k)$ in (\ref{eq:mse}) is replaced with $\check{\mathbf H}_k \; (\hat{\check{\mathbf H}}_k)$, we have
+\begin{align} 
+	\frac 1N \sum_{k=1}^N\Arrowvert\check{\mathbf H}_k - \hat{\check{\mathbf H}}_k\Arrowvert^2&= \frac 1N \sum_{k=1}^N\left\Arrowvert \frac{\mathbf H_k}{\Arrowvert\mathbf H_k\Arrowvert^2} - \frac{\hat{\mathbf H}_k}{\Arrowvert\mathbf H_k\Arrowvert^2}\right\Arrowvert^2 \\
+	&= \frac 1N \sum_{k=1}^N\frac{\Arrowvert\mathbf H_k - \hat{\mathbf H}_k\Arrowvert^2}{\Arrowvert\mathbf H_k\Arrowvert^2},
+\end{align}
+which is equivalent to (\ref{eq:nmse}). Thus, a neural network optimized with MSE as the loss function and trained using spherically normalized data is in fact being optimized with respect to NMSE of the original data.
 
-\blindtext
-\blindtext
+Training on spherically normalized data and optimizing with respect to NMSE can yield better accuracy. Fig.~\ref{fig:nmse_slot1} demonstrates this improvement for CsiNet and CsiNet Pro on the COST2100 dataset. For both networks, the number of 
+
+\begin{figure}[!hbtp] \centering 
+	\begin{subfigure}[t]{.45\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{nmse_slot1_indoor.eps}
+		\caption{Indoor}
+		\label{fig:slot1_indoor} 
+	\end{subfigure}
+	\begin{subfigure}[t]{.45\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{nmse_slot1_outdoor.eps}
+		\caption{Outdoor}
+		\label{fig:slot1_outdoor} 
+	\end{subfigure}
+		\label{fig:nmse_slot1} 
+\end{figure}
 
 \subsubsection{Methods Subsection \#2}
 \label{sect:methods_sub2}
 
 \blindtext
 
-\begin{equation}
-x_{n,i}^{(m)} = \sum_{j=1}^{T}z_{n-j+1}^{(m)}\times f_{j,i}^{(m)},
-\label{eq:conv}
-\end{equation}
-
-\blindtext
