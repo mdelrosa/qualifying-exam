@@ -37,6 +37,30 @@ For an example of a figure with subfigures, see Fig~\ref{fig:ann_inputs} or~\ref
 
 \blindtext 
 
-\subsection{Introduction Section \#3}
-\label{sect:intro_3}
-\blindtext
+\subsection{COST2100}
+\label{sect:cost2100}
+
+For all CSI tests, we mainly rely on the COST2100 MIMO channel model \cite{ref:liu2012cost2100}. We use two datasets with a single base station (gNB) and a single user equipment (UE) in the following scenarios:
+\begin{enumerate}
+	\item \textbf{Indoor} channels using a 5.3GHz downlink at
+	0.001 m/s UE velocity, served by a
+	gNB at center of a $20$m$\times 20$m coverage area.
+	\item \textbf{Outdoor} channels using a 300MHz downlink at 0.9 m/s UE velocity served by a gNB at center 
+	of a $400$m$\times 400$m coverage area.
+\end{enumerate}
+In both scenarios, we use the parameters listed in Table~\ref{tab:cost-params}.
+\begin{table}[]
+\centering
+\caption{Parameters used for COST2100 simulations for both Indoor and Outdoor datasets.}
+\label{tab:cost-params}
+\begin{tabular}{c|c|l}
+\toprule
+\textbf{Symbol} & \textbf{Value} & \textbf{Description} \\ \midrule
+$N_b$ 			& 32			 & Number of antennas at gNB  \\ \hline
+$N_f$ 			& 1024			 & Number of subcarriers for OFDM link  \\ \hline
+$R_d$ 			& 32			 & Number of delay elements kept after truncation  \\ \hline
+$N$ 			& $10^6$		 & Total number of samples per dataset  \\ \hline
+$T$ 			& 10		 	 & Number of timeslots  \\ \hline
+$\delta$		& 40ms, 80ms	 & Feedback delay interval between consecutive CSI timeslots  \\ \bottomrule
+\end{tabular}
+\end{table}
