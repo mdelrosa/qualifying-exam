@@ -27,18 +27,46 @@ For an example of a figure with subfigures, see Fig~\ref{fig:ann_inputs} or~\ref
 \caption{ANN input and output locations in San Francisco Bay and Sacramento-San Joaquin Delta Estuary (Bay-Delta Estuary).}
 \end{figure}
 
-\subsubsection{Introduction Subsection \#1}
-\label{sect:intro_1}
-\blindtext
-\blindtext
+\subsubsection{MIMO Channel Overview}
+\label{sect:mimo_model}
+
+In this work, we consider a MIMO channel with a multiple antennas ($n_B \gg 1$) at the transmitter (gNodeB or gNB) servicing one or more user equipment (UE) with single antennas. The network utilizes orthogonal frequency division multiplexing (OFDM) with $N_f$ subcarriers, the $m$-th downlink and uplink channels at the receiver are given as
+\begin{align*}
+	y_{d,m} &= \mathbf h_{d,m}^H\mathbf w_{t,m}x_{d,m} + n_{d,m}, \\
+	y_{u,m} &= \mathbf w_{r,m}^H\mathbf h_{u,m}x_{u,m} + \mathbf w_{r,m}^H\mathbf n_{u,m}.
+\end{align*}
+The resulting downlink and uplink CSI matrices are given as
+\begin{align*} 
+\overline{\mathbf H}_d &= \begin{bmatrix} \mathbf h_{d,1} & \dots & \mathbf h_{d,N_f}\end{bmatrix}^H \in \mathbb C^{N_f \times N_b}, \\
+\overline{\mathbf H}_u &= \begin{bmatrix} \mathbf h_{u,1} & \dots & \mathbf h_{u,N_f}\end{bmatrix}^H \in \mathbb C^{N_f \times N_b}.
+\end{align*}
+\begin{table}[]
+\centering
+\caption{MIMO system parameters and variables considered in this work.}
+\label{tab:cost-params}
+\begin{tabular}{c|c|l}
+\toprule
+\textbf{Symbol}   & \textbf{Dimension}          & \textbf{Description} \\ \midrule
+$y_{d,m}$ 		  & $\mathbb{C}^{1}$ 			& Received downlink symbol on $m$-th subcarrier  \\ \hline
+$\mathbf h_{d,m}$ & $\mathbb{C}^{N_b \times 1}$ & Downlink impulse response on $m$-th subcarrier  \\ \hline
+$\mathbf w_{t,m}$ & $\mathbb{C}^{N_b \times 1}$ & Transmitter precoding vector for $m$-th subcarrier  \\ \hline
+$x_{d,m}$ 		  & $\mathbb{C}^{1}$ 			& Trasmitted symbol on $m$-th subcarrier  \\ \hline
+$n_{d,m}$ 		  & $\mathbb{C}^{1}$ 			& Downlink noise on $m$-th subcarrier  \\ \hline
+$y_{u,m}$ 		  & $\mathbb{C}^{1}$ 			& Received uplink symbol on $m$-th subcarrier  \\ \hline
+$\mathbf h_{u,m}$ & $\mathbb{C}^{N_b \times 1}$ & Uplink impulse response on $m$-th subcarrier  \\ \hline
+$\mathbf w_{r,m}$ & $\mathbb{C}^{N_b \times 1}$ & Received precoding vector for $m$-th subcarrier  \\ \hline
+$x_{u,m}$ 		  & $\mathbb{C}^{1}$ 			& Received symbol on $m$-th subcarrier  \\ \hline
+$\mathbf n_{u,m}$ & $\mathbb{C}^{1}$ 			& Uplink noise on $m$-th subcarrier  \\ \hline
+\end{tabular}
+\end{table}
 
 \subsection{Introduction Section \#2}
 \label{sect:intro_2}
 
 \blindtext 
 
-\subsection{COST2100}
-\label{sect:cost2100}
+\subsection{Channel Model}
+\label{sect:channel_model}
 
 For all CSI tests, we mainly rely on the COST2100 MIMO channel model \cite{ref:liu2012cost2100}. We use two datasets with a single base station (gNB) and a single user equipment (UE) in the following scenarios:
 \begin{enumerate}
