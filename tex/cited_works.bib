@@ -16,16 +16,65 @@
 
 csinet paper
 @ARTICLE{ref:csinet,
-author={C. {Wen} and W. {Shih} and S. {Jin}},
-journal={IEEE Wireless Communications Letters},
-title={Deep Learning for Massive MIMO CSI Feedback},
-year={2018},
-volume={7},
-number={5},
-pages={748-751},
-doi={10.1109/LWC.2018.2818160},
-ISSN={2162-2345},
-month={Oct},}
+  author={C. {Wen} and W. {Shih} and S. {Jin}},
+  journal={IEEE Wireless Communications Letters},
+  title={Deep Learning for Massive MIMO CSI Feedback},
+  year={2018},
+  volume={7},
+  number={5},
+  pages={748-751},
+  doi={10.1109/LWC.2018.2818160},
+  ISSN={2162-2345},
+  month={Oct},
+}
+
+dualnet paper
+@article{ref:dualnet,
+  author = {Liu, Zhenyu and Zhang, Lin and Ding, Zhi},
+  doi = {10.1109/LWC.2019.2898662},
+  issn = {21622345},
+  journal = {IEEE Wireless Communications Letters},
+  number = {3},
+  pages = {889--892},
+  publisher = {IEEE},
+  title = {{Exploiting Bi-Directional Channel Reciprocity in Deep Learning for Low Rate Massive MIMO CSI Feedback}},
+  volume = {8},
+  year = {2019}
+}
+
+@INPROCEEDINGS{ref:Lu2020CRNet,
+  author={Z. {Lu} and J. {Wang} and J. {Song}},
+  booktitle={ICC 2020 - 2020 IEEE International Conference on Communications (ICC)}, 
+  title={Multi-resolution CSI Feedback with Deep Learning in Massive MIMO System}, 
+  year={2020},
+  volume={},
+  number={},
+  pages={1-6},
+  doi={10.1109/ICC40277.2020.9149229}
+}
+
+PRVNet (vae)
+@article{ref:Hussien2020PRVNet,
+  archivePrefix = {arXiv},
+  arxivId = {2011.04178},
+  author = {Hussien, Mostafa and Nguyen, Kim Khoa and Cheriet, Mohamed},
+  eprint = {2011.04178},
+  issn = {23318422},
+  journal = {arXiv},
+  title = {{PRVNet: Variational autoencoders for massive MIMO CSI feedback}},
+  year = {2020}
+}
+
+ANCINet
+@ARTICLE{ref:Sun2020AnciNet,
+  author={Y. {Sun} and W. {Xu} and L. {Fan} and G. Y. {Li} and G. K. {Karagiannidis}},
+  journal={IEEE Wireless Communications Letters}, 
+  title={AnciNet: An Efficient Deep Learning Approach for Feedback Compression of Estimated CSI in Massive MIMO Systems}, 
+  year={2020},
+  volume={9},
+  number={12},
+  pages={2192-2196},
+  doi={10.1109/LWC.2020.3017753}}
 
 csinet-lstm paper
 @ARTICLE{ref:csinet-lstm,
@@ -40,8 +89,6 @@ csinet-lstm paper
   ISSN={2162-2345},
   month={April}
 }
-
-
 
 % ==================
 % normalization papers
@@ -121,8 +168,9 @@ csinet-lstm paper
 }
 
 % ==================
-% mimo capacity
+% 1.1 system model
 % ==================
+
 
 @article{ref:goldsmith2003capacity,
   title={Capacity limits of MIMO channels},
@@ -135,8 +183,57 @@ csinet-lstm paper
   publisher={IEEE}
 }
 
+@article{ref:sayeed2002deconstructing,
+  title={Deconstructing multiantenna fading channels},
+  author={Sayeed, Akbar M},
+  journal={IEEE Transactions on Signal processing},
+  volume={50},
+  number={10},
+  pages={2563--2579},
+  year={2002},
+  publisher={IEEE}
+}
+
+channel reciprocity TDD 0
+
+
+channel reciprocity TDD 1
+@INPROCEEDINGS{ref:Kaltenberger2010relative,
+author={F. {Kaltenberger} and H. {Jiang} and M. {Guillaud} and R. {Knopp}},
+booktitle={2010 Future Network Mobile Summit},
+title={Relative channel reciprocity calibration in MIMO/TDD systems},
+year={2010},
+pages={1-10},
+month={June},}
+
+channel reciprocity TDD 2
+@article{ref:mi2017massive,
+  title={Massive MIMO performance with imperfect channel reciprocity and channel estimation error},
+  author={Mi, De and Dianati, Mehrdad and Zhang, Lei and Muhaidat, Sami and Tafazolli, Rahim},
+  journal={IEEE Transactions on Communications},
+  volume={65},
+  number={9},
+  pages={3734--3749},
+  year={2017},
+  publisher={IEEE}
+}
+
+channel reciprocity TDD 3
+@INPROCEEDINGS{ref:Gao2010utilization,
+author={Q. {Gao} and F. {Qin} and S. {Sun}},
+booktitle={2010 5th International ICST Conference on Communications and Networking in China},
+title={Utilization of channel reciprocity in advanced MIMO system},
+year={2010},
+volume={},
+number={},
+pages={1-5},
+doi={},
+ISSN={null},
+month={Aug},}
+
+
 % ==================
-% channel models
+% 1.2 channel models
 % ==================
 
 cost2100 paper
@@ -151,6 +248,88 @@ pages={92-99},
 doi={10.1109/MWC.2012.6393523},
 ISSN={1558-0687},
 month={December},}
+
+% ==================
+% 1.3 deep learning for compressed feedback for csi estimation 
+% ==================
+
+% ------------------
+% deep learning
+% ------------------
+
+@book{ref:Hastie2016Elements,
+  author = {Hastie, Trevor and Tibshiran, Robert and Friedman, Jerome},
+  biburl = {https://www.bibsonomy.org/bibtex/2fe44c08654a93486d89213182bcfec4a/lopusz_kdd},
+  interhash = {49e4dec156dcec805fe9e2818984755e},
+  intrahash = {fe44c08654a93486d89213182bcfec4a},
+  keywords = {general_machine_learning},
+  publisher = {Springer},
+  timestamp = {2019-10-12T23:45:53.000+0200},
+  title = {The Elements of Statistical Learning: Data Mining, Inference, and Prediction},
+  url = {https://web.stanford.edu/~hastie/ElemStatLearn/},
+  year = 2016
+}
+
+% ------------------
+% direct quantization methods
+% ------------------
+
+@article{ref:makki2012hybrid,
+  title={On hybrid ARQ and quantized CSI feedback schemes in quasi-static fading channels},
+  author={Makki, Behrooz and Eriksson, Thomas},
+  journal={IEEE transactions on communications},
+  volume={60},
+  number={4},
+  pages={986--997},
+  year={2012},
+  publisher={IEEE}
+}
+
+@article{ref:shirani2009channel,
+  title={Channel state feedback schemes for multiuser MIMO-OFDM downlink},
+  author={Shirani-Mehr, Hooman and Caire, Giuseppe},
+  journal={IEEE Transactions on Communications},
+  volume={57},
+  number={9},
+  pages={2713--2723},
+  year={2009},
+  publisher={IEEE}
+}
+
+% ------------------
+% compressed sensing
+% ------------------
+
+@article{ref:rao2014distributed,
+  title={Distributed compressive CSIT estimation and feedback for FDD multi-user massive MIMO systems},
+  author={Rao, Xiongbin and Lau, Vincent KN},
+  journal={IEEE Transactions on Signal Processing},
+  volume={62},
+  number={12},
+  pages={3261--3271},
+  year={2014},
+  publisher={IEEE}
+}
+
+@article{ref:eltayeb2014compressive,
+  title={Compressive sensing for feedback reduction in MIMO broadcast channels},
+  author={Eltayeb, Mohammed E and Al-Naffouri, Tareq Y and Bahrami, Hamid Reza},
+  journal={IEEE Transactions on communications},
+  volume={62},
+  number={9},
+  pages={3209--3222},
+  year={2014},
+  publisher={IEEE}
+}
+
+@inproceedings{ref:do2008sparsity,
+  title={Sparsity adaptive matching pursuit algorithm for practical compressed sensing},
+  author={Do, Thong T and Gan, Lu and Nguyen, Nam and Tran, Trac D},
+  booktitle={2008 42nd Asilomar conference on signals, systems and computers},
+  pages={581--587},
+  year={2008},
+  organization={IEEE}
+}
 
 % ==================
 % my papers

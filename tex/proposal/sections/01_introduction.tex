@@ -1,6 +1,6 @@
 % 01_introduction.tex
 
-Here is an example of a citation \cite{ref:oetiker1995not}. Citations are included in the \texttt{cited\_works.bib} file.
+Section \ref{sect:mimo_model} provides an overview of the MIMO channel and relevant notation. Section \ref{sect:channel_model} introduces the channel simulation used in this work, the COST2100 model. Section \ref{sect:dl_csi} provides an overview of recent works in deep learning for CSI estimation in MIMO networks. 
 
 \subsection{MIMO Channel Overview}
 \label{sect:mimo_model}
@@ -17,7 +17,7 @@ The resulting downlink and uplink channel state information (CSI) matrices are g
 \end{align*}
 \begin{table}[]
 \centering
-\caption{MIMO system parameters and variables considered in this work.}
+\caption{MIMO system variables considered in this work.}
 \label{tab:cost-params}
 \begin{tabular}{c|c|l}
 \toprule
@@ -34,12 +34,13 @@ $x_{u,m}$ 		  & $\mathbb{C}^{1}$ 			& Received symbol on $m$-th subcarrier  \\ \
 $\mathbf n_{u,m}$ & $\mathbb{C}^{1}$ 			& Uplink noise on $m$-th subcarrier  \\ \hline
 \end{tabular}
 \end{table}
-To achieve near-capacity transmission rates, the transmitter needs access to an appropriate estimate of $\bar{\mathbf H}_d$ \cite{ref:goldsmith2003capacity}. In time division duplex (TDD), downlink CSI estimation can be performed by using pilots in uplink frames due to channel reciprocity. In contrast, frequency domain duplex (FDD) does not admit channel reciprocity due to frequency-selective channels, and CSI estimates must be acquired using feedback.
+To achieve near-capacity transmission rates, the transmitter needs access to an appropriate estimate of $\bar{\mathbf H}_d$ \cite{ref:goldsmith2003capacity}. In time division duplex (TDD), downlink CSI estimation can be performed by using pilots in uplink frames due to channel reciprocity \cite{ref:Kaltenberger2010relative,ref:mi2017massive,ref:Gao2010utilization}. In contrast, frequency domain duplex (FDD) does not admit channel reciprocity due to frequency-selective channels, and CSI estimates must be acquired using feedback.
 
-Given their dimensionality, feeding back entire CSI matrices is impractical. Instead, we seek a compressed representation of a sparse transformation. We consider the angular-delay representation of CSI matrices. Denote the unitary DFT (inverse DFT) matrix $\mathbf F \in \mathbb C^{n_f \times n_f}$ ($\mathbf F^H \in \mathbb C^{n_f \times n_f}$), and denote the spatial-frequency CSI matrix as $\bar{\mathbf H}$. The angular-delay domain representation $\mathbf H$ is given as
+Given their dimensionality, feeding back entire CSI matrices is impractical. Instead, we seek a compressed representation of a sparse transformation. The sparse representation we consider is the angular-delay representation of CSI matrices \cite{ref:sayeed2002deconstructing}. Denote the unitary DFT (inverse DFT) matrix $\mathbf F \in \mathbb C^{N_f \times N_f}$ ($\mathbf F^H \in \mathbb C^{N_b \times N_b}$), and denote the spatial-frequency CSI matrix as $\bar{\mathbf H}$. The angular-delay domain representation $\mathbf H$ is given as % $\mathbf F \in \mathbb C^{(n_f \times n_f)}$ ($\mathbf F^H \in \mathbb C^{(n_f \times n_f)}$)
 \begin{align*}
-	\mathbf H &= \mathbf F^H \bar{\mathbf H} \mathbf F
+	\mathbf H &= \mathbf F^H \bar{\mathbf H} \mathbf F.
 \end{align*}
+The delay spread of the resulting $\mathbf H$ can typically be captured with a small number of delay elements, so we restrict our attention to the first $R_d$ elements of $\mathbf H$, resulting in a truncated angular-delay matrix which we denote as $\mathbf H_d \in \mathbb C^{(R_d\times N_b)}$ ($\mathbf H_u \in \mathbb C^{(R_d\times N_b)}$) for the downlink (uplink).
 
 \subsection{Channel Model}
 \label{sect:channel_model}
@@ -68,3 +69,33 @@ $T$ 			& 10		 	 & Number of timeslots  \\ \hline
 $\delta$		& 40ms, 80ms	 & Feedback delay interval between consecutive CSI timeslots  \\ \bottomrule
 \end{tabular}
 \end{table}
+
+\subsection{Classical CSI Estimation}
+
+Works in compressive feedback for CSI estimation in MIMO networks can be placed in three broad categories. The first category includes works which use direct quantization of continuous CSI elements to discrete levels. The quantized CSI are encoded and fed back to the transmitter \cite{ref:makki2012hybrid,ref:shirani2009channel}. The second category includes works which use compressed sensing, a technique which applying a random measurement matrix at the transmitter and the receiver \cite{ref:rao2014distributed, ref:eltayeb2014compressive}. Compressed sensing assumes matrices to be encoded and fed back meet certain sparsity requirements, and compressed sensing algorithms require iterative solvers \cite{ref:do2008sparsity} for decoding, resulting in undesired latency.
+
+The last category of work in compressive CSI feedback uses deep learning (DL), neural networks with numerous layers which are trained on large datasets using backpropagation. Before describing these works, we first provide an overview of 
+
+\subsection{Deep Learning}
+\label{sect:dl_overview}
+
+This section provides a brief overview of relevant deep learning concepts employed in this work, including convolutional neural networks (CNNs), autoencoders, and unsupervised learning. \textbf{Deep learning (DL)} is a subset of machine learning (ML), a broad class of algorithms which use data to ``fit'' models for prediction or classification tasks. The three predominant learning frameworks are supervised learning, unsupervised learning, and reinforcement learning. Here, we focus on \emph{unsupervised learning}, which seeks to find a compressed representation of the data without labels (see Chapter 14 of \cite{ref:Hastie2016Elements} for an overview).
+
+\begin{figure}[!hbtp]
+\centering
+\def\svgwidth{0.8\columnwidth}
+\input{images/autoencoder_schematic.pdf_tex}
+\caption{Abstract schematic for an autoencoder operating on CSI matrices $\mathbf H$. The encoder learns a latent representation, $\mathbf Z$, while the decoder learns to reconstruct estimates $\hat{\mathbf H}$.}
+\label{fig:autoencoder_schematic}
+\end{figure}
+
+A common architecture for deep unsupervised learning is the \emph{autoencoder}. Trained end-to-end on input data, an autoencoder is comprised of an encoder and a decoder which jointly learn a compressed latent representation and an estimate of the input. By choosing the latent variable $Z$ to have lower dimension than the input, the network is forced to learn a ``useful'' summary of the input data. The typical objective function for such a network is the mean squared error,
+\begin{align*}
+\underset{\theta_e, \theta_d}{\text{argmin}}\; \frac 1N \sum_{i=1}^N\Arrowvert \mathbf H_i - g(f(\mathbf H_i, \theta_e), \theta_d) \Arrowvert^2.
+\end{align*}
+Presuming the autoencoder is a neural network, we optimize network parameters $\vec \theta_e, \vec \theta_d$ by backpropagation and a stochastic optimization algorithm (e.g., stochastic gradient descent, ADAM).
+
+\subsubsection{CNNs for CSI Estimation}
+\label{sect:dl_csi}
+
+Successful efforts in DL for CSI estimation have typically utilized convolutional neural networks (CNNs) in an autoencoder structure \cite{ref:csinet}. Variations on the CNN-based autoencoder have investigated different network architectures \cite{ref:Lu2020CRNet}, variational training frameworks \cite{ref:Hussien2020PRVNet}, and denoising modules \cite{ref:Sun2020AnciNet}.

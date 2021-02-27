@@ -26,17 +26,11 @@ However, for CSI matrices, minmax normalization is applied to the real and imagi
 	\label{fig:cost_indoor_dist}
 \end{figure}
 
-\blindtext
-
 \subsection{Related Work}
 
 Several works have investigated normalization techniques for deep learning such as batch normalization \cite{ref:ioffe2015batch}, instance normalization \cite{ref:huang2017instance}, layer normalization \cite{ref:ba2016layer}, and group normalization \cite{ref:wu2018group}. These normalization techniques scale the outputs of latent layers in neural networks, which helps to solve the problem of covariate shift \cite{ref:ioffe2015batch} where the mean and variance of changes between subsequent layers of the network.
 
 Other works have studied normalization of the network's inputs. A number of works have investigated adaptive normalization techniques for time series estimation tasks \cite{ref:ogasawara2010adaptive, ref:nayak2014impact, ref:shao2015self}. In \cite{ref:passalis2019dain}, the authors proposed a trainable input network which learns to shift, scale, and filter the unnormalized data while training the target network for a time series prediction task.
-
-\subsection{Methods}
-
-\blindtext
 
 \subsubsection{Notation}
 
@@ -97,6 +91,7 @@ Observe that (\ref{eq:sph-intro}) is similar to (\ref{eq:zscore}) without the me
 	\caption{Distribution and variance of COST2100 real/imaginary channels under spherical normalization ($N=99000$) images.}
 	\label{fig:cost_indoor_sph_dist}
 \end{figure}
+
 Beyond desirable properties in the input distribution, spherical normalization also results in an objective function which is better matched with the evaluation criterion. Neural networks for CSI estimation are optimized using the mean-squared error loss,
 \begin{align} 
 	\text{MSE}&=\frac 1N \sum_{k=1}^N\Arrowvert\mathbf H_k - \hat{\mathbf H}_k\Arrowvert^2, \label{eq:mse}
@@ -112,6 +107,7 @@ Observe that when the $\mathbf H_k \; (\hat{\mathbf H}_k)$ in (\ref{eq:mse}) is 
 \end{align*}
 which is equivalent to (\ref{eq:nmse}). Thus, a neural network optimized with MSE as the loss function and trained using spherically normalized data is in fact being optimized with respect to NMSE of the original data.
 
+\subsection{Results}
 Training on spherically normalized data and optimizing with respect to NMSE can yield better accuracy. Fig.~\ref{fig:nmse_slot1} demonstrates this improvement for CsiNet and CsiNet Pro on the COST2100 dataset. For both networks, the number of 
 
 \begin{figure}[!hbtp] \centering 
@@ -130,9 +126,3 @@ Training on spherically normalized data and optimizing with respect to NMSE can 
 	\caption{Reconstruction error for CsiNet \cite{ref:csinet} and CsiNet Pro with and without spherical normalization. SphNet combines CsiNet Pro with spherical normalization \cite{ref:liu2020sphnet}.}
 	\label{fig:nmse_slot1} 
 \end{figure}
-
-\subsubsection{Methods Subsection \#2}
-\label{sect:methods_sub2}
-
-\blindtext
-
