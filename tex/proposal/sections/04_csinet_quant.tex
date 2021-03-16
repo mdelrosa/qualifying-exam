@@ -1,0 +1,35 @@
+% 04_csinet_quant.tex
+
+\subsection{Trainable Quantization for CSI Feedback Compression}
+
+While the previously discussed works investigate neural architectures for learned encoding-decoding of CSI data, such architectures rely on continuous valued latent representations. These works presume that the continuous valued representations are available at the receiver free from quantization noise, but modulation protocols require quantized data to accommodate bit string representations and IQ constellations. To make neural autoencoders compatible with common modulation schemes, trainable CSI compression techniques should incorporate quantized codewords in the learning process.
+
+\begin{figure}[!hbtp]
+\centering
+\def\svgwidth{0.8\columnwidth}
+\input{images/csinet_quant.pdf_tex}
+\caption{Abstract architecture for CsiNet-Quant. SoftQuantize layer ($Q(\tilde{\mathbf Z})$) is a continuous, softmax-based relaxation of a $d$-dimensional quantization of the latent layer $\mathbf Z$.}
+\label{fig:csinet_quant}
+\end{figure}
+
+\subsubsection{CsiNet-Quant: A Soft-to-Hard Vector Quantized Autoencoder for Trainable Discrete Latent Codewords}
+
+To incorporate learnable discrete latent codewords in the learning process, we propose to use soft-to-hard vector quantization framework proposed in \cite{ref:Agustsson2017SoftToHard}. We choose a vector dimension, $m$, by which to partition the latent space $\mathbf Z = f(\mathbf H, \theta_e)$, and we denote the vectorized version of $\mathbf Z \in \mathbb R^{r}$ as $\tilde{\mathbf Z} \in \mathbb R^{r/m \times m}$. We define the $m$-dimensional codebook of size $L$, $[L]^m$ with codewords $\mathbf C \in \mathbb R^m$. The soft assignments of the $j$-th latent vector $\tilde{\mathbf z}_j$ can be written as
+\begin{align}
+\phi(\tilde{\mathbf z}_j) &= \left[\frac{\text{exp}(-\sigma \Arrowvert \tilde{\mathbf z}_j - \mathbf c_\ell\Arrowvert^2)}{\sum_{i}^L\text{exp}(-\sigma \Arrowvert \tilde{\mathbf z}_j - \mathbf c_\ell\Arrowvert^2)}\right]_{i\in [1,\dots,L]} \in \mathbb R^L \label{eq:soft_assign}
+\end{align}
+(\ref{eq:soft_assign}) is typically referred to as the \emph{softmax} function, which is commonly used as a differentiable alternative to the maximum function. The hyperparameter $\sigma$ controls the temperature of the softmax scores, with a lower $\sigma$ yielding a more uniform distribution and a higher $\sigma$ yielding a ``peakier'' distribution (i.e., $\sigma \to \infty \Rightarrow \phi(\tilde z_j) \to \text{max}(\tilde z_j)$). Using the soft assignments, the latent vectors are quantized based on the codewords $\mathbf C \in \mathbb R^{L \times m}$,
+\begin{align}
+Q(\tilde{\mathbf z}_j) &= \phi(\tilde{\mathbf z}_j) \mathbf C. \label{eq:soft_quant}
+\end{align}
+An abstract illustration of an autoencoder using soft quantization can be seen in Figure~\ref{fig:csinet_quant}.
+
+To optimize the network with soft quantization, we adapt the loss function to resemble the canonical rate-distortion function by adding an entropy penalization term. Denote the true probabilities over the latent vectors as $p_j$ with entropy $H(p) = -\sum_{j}^m p_j\log_2 p_j$. In practice, we must estimate $p$ by finite sampling over the encoder's outputs, i.e.,
+\begin{align*}
+p_j &= \frac{|\{e\}|}{(r/m)N}
+\end{align*}
+The soft assignments of $\phi$ admit probability estimates, $q_j$, over the latent vectors.
+
+\subsubsection{Proposed Work Subsection \#2}
+\blindtext
+\blindtext

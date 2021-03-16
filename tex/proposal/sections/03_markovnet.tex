@@ -4,10 +4,10 @@ Assuming the channel does not change substantially within a certain window of ti
 a reasonably accurate CSI estimate at some time $t-1$ can be used to estimate the CSI at time $t$.
 Generically, we can write this estimator as
 \begin{align}
-\hat{\mathbf H}_t &= f(\hat{\mathbf H}_{t-1}) \label{eq:gen_estim}
+\hat{\mathbf H}_t &= h(\hat{\mathbf H}_{t-1}) \label{eq:gen_estim}
 \end{align}
-Where $\mathbf{H}_i$ is the CSI matrix at time $t_i$ and $\hat{\mathbf H}_i$ is its estimator. 
-This which admits an estimation error of 
+where $\mathbf{H}_t$ is the CSI matrix at time $t$ and $\hat{\mathbf H}_t$ is its estimator. 
+The estimation error under $\hat H_t$ is
 \begin{align}
 \mathbf E_{t} &= \mathbf H_{t} - \hat{\mathbf H}_{t}. \label{eq:diff_err}
 \end{align}
@@ -31,26 +31,42 @@ RNNs have been used extensively in natural language processing (NLP) for machine
 
 \subsection{Methods}
 
-Rather than use RNNs to extract temporal dependencies in CSI data, we proposed a lightweight network based on the principle of differential encoding. We propose to train a network to estimate the error (\ref{eq:diff_err}) when using a simple linear estimator,
+Rather than use RNNs to extract temporal dependencies in CSI data, we proposed a lightweight network based on the principle of differential encoding. We propose to train a network to estimate the error (\ref{eq:diff_err}) when using a simple linear estimator, 
 \begin{align*}
-\hat{\mathbf H}_t &= \gamma \hat{\mathbf H}_{t-1} 
+\hat{\mathbf H}_t &= \mathbf W \hat{\mathbf H}_{t-1} 
 \end{align*}
-where $\gamma$ is the minimum mean squared error (MMSE) estimator.
+where $\mathbf W \in \mathbb C^{R_b \times R_b}$ is the minimum mean squared error (MMSE) estimator.
 \begin{align*}
-\mathbf H_t &= \gamma\mathbf H_{t-1} + \mathbf E_t \\
-\mathbf H_{t-1}^H\mathbf H_t &= \gamma\mathbf H_{t-1}^H\mathbf H_{t-1} + \mathbf H_{t-1}^H\mathbf E_t \\
+\mathbf H_t &= \mathbf W\mathbf H_{t-1} + \mathbf E_t \\
+\mathbf H_{t-1}^H\mathbf H_t &= \mathbf W\mathbf H_{t-1}^H\mathbf H_{t-1} + \mathbf H_{t-1}^H\mathbf E_t \\
 \end{align*}
-Under the principle of orthogonality, the product $\mathbf H^H_{t-1}\mathbf E_t$ becomes a zero matrix. Denoting the cross correlation matrix as $\mathbf R_{i} = \mathbb{E}\left[\mathbf H_{t-i}^H\mathbf H_{t}\right]$.
-
+Under the principle of orthogonality, the error term $\mathbf E_t$ is orthogonal with the observed data, and the product $\mathbf H^H_{t-1}\mathbf E_t$ becomes a zero matrix. Denoting the cross correlation matrix as $\mathbf R_{i} = \mathbb{E}\left[\mathbf H_{t-i}^H\mathbf H_{t}\right]$.
 \begin{align*}
-\mathbf H_{t-1}^H\mathbf H_t &= \mathbf H_{t-1}^H\mathbf H_{t-1} 
+\mathbf W &= \mathbf R_0^{-1} \mathbf R_1 
+\end{align*}
+We can further simplify this estimator to a scalar, $\gamma \in \mathbb R$, as
+\begin{align*}
+\gamma &= \frac{\sum_i^{R_d}\sum_j^{N_b}\mathbf R_1(i,j)}{\sum_i^{R_d}\sum_j^{N_b}\mathbf R_0(i,j)},
+\end{align*}
+where $i$ ($j$) are the row (column) indices of the correlation matrices. Under the estimator $\gamma$, we proposed to encode the error, $\mathbf E_t$, using a convolutional autoencoder, $f(\mathbf E_t)$,
+\begin{align*}
+\hat{\mathbf E}_t &= g(f(\mathbf E_t, \vec\theta_e), \vec\theta_d),
+\end{align*}
+where $\mathbf E_t = \mathbf H_t - \gamma\hat{\mathbf H}_{t-1}$. The base station has access to the estimators $\gamma$ and $\hat{\mathbf H}_{t-1}$, and the resulting CSI estimate at $t$ is
+\begin{align*}
+\hat{\mathbf H}_t &= \gamma \hat{\mathbf H}_{t-1} + \hat{\mathbf{E}}_t
 \end{align*}
 
-\subsubsection{Notation}
+\subsection{Numerical Results}
 
-\subsubsection{Method Subsection \#1}
-\label{sect:methods_sub1}
+We compare MarkovNet with CsiNet-LSTM \cite{ref:Wang2019CsiNetLSTM} on the indoor and outdoor COST2100 datasets (for details, see Section~\ref{sect:channel_model}). For MarkovNet, we train the network at the first timeslot for 1000 epochs. In each subsequent timeslot, we initialize the network using the weights from the previous timeslot and train for 200 epochs. We use a batch size of 200. We perform a training/testing split of 75k/25k samples, and we estimate $\gamma$ using the training set. To compare the estimation accuracy of each network, we report the NMSE.
+%estimate of the previous timeslot with the scalar MMSE estimator, $\gamma$, to produce the error term $\mathbf E_t = \mathbf H_t - \gamma\hat{\mathbf H}_{t-1}$.
 
-\subsubsection{Methods Subsection \#2}
-\label{sect:methods_sub2}
+Figure~\ref{fig:csi_image} shows a random sample from the test set, $\mathbf H$, and the estimates produced by CsiNet-LSTM and MarkovNet for a CR of $\frac 14$. This sample contains three ``peak'' magnitude regions. While both networks manage to capture the two larger samples, MarkovNet is able to recover the small peak magnitude region which CsiNet-LSTM fails to produce.
 
+\begin{figure}[htb] \centering 
+	\includegraphics[width=0.9\linewidth]{batch0_csi_compare_cr512.pdf}
+	\caption{CSI ($\mathbf H$), MarkovNet estimates ($\hat{\mathbf H}_{\text{Markov}}$), and CsiNet-LSTM estimates ($\hat{\mathbf H}_{\text{LSTM}}$) across five timeslots ($T_1$ through $T_5$) on one outdoor channel sample from the test set,
+using $\text{CR}=\frac 14$.} 
+	\label{fig:csi_image} 
+\end{figure}
