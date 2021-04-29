@@ -5,12 +5,23 @@ Section \ref{sect:mimo_model} provides an overview of the MIMO channel and relev
 \subsection{MIMO Channel Overview}
 \label{sect:mimo_model}
 
-In this work, we consider a MIMO channel with a multiple antennas ($n_B \gg 1$) at the transmitter (gNodeB or gNB) servicing a single (or multiple) user equipment(s) (UE) with a single antenna. The network utilizes orthogonal frequency division multiplexing (OFDM) with $N_f$ subcarriers, the $m$-th downlink and uplink channels at the receiver are given as
+\begin{figure}[!hbtp]
+\centering
+{
+	\fontsize{6pt}{8pt}
+	\def\svgwidth{0.8\columnwidth}
+	\input{../images/mimo-schematic.pdf_tex}
+}
+\caption{Example multi-antenna transmitter (BS, gNB) and single-antenna user equipment (UE) and relevant system values.}
+\label{fig:mimo_schematic}
+\end{figure}
+
+In this work, we consider a MIMO channel with a multiple antennas ($n_B \gg 1$) at the transmitter (gNodeB or gNB) servicing a single user equipment (UE) with a single antenna. Under orthogonal frequency division multiplexing (OFDM) with $N_f$ subcarriers, the received symbols on the $m$-th subcarrier for the downlink and the uplink at the receiver are given as
 \begin{align*}
 	y_{d,m} &= \mathbf h_{d,m}^H\mathbf w_{t,m}x_{d,m} + n_{d,m}, \\
-	y_{u,m} &= \mathbf w_{r,m}^H\mathbf h_{u,m}x_{u,m} + \mathbf w_{r,m}^H\mathbf n_{u,m}.
+	y_{u,m} &= \mathbf w_{r,m}^H\mathbf h_{u,m}x_{u,m} + \mathbf w_{r,m}^H\mathbf n_{u,m},
 \end{align*}
-The resulting downlink and uplink channel state information (CSI) matrices are given as
+where the individual system values are defined in Table~\ref{tab:mimo-params}, and a representative system model is viewable in Figure~\ref{fig:mimo_schematic}. The resulting downlink and uplink channel state information (CSI) matrices are given as
 \begin{align*} 
 	\bar{\mathbf H}_d &= \begin{bmatrix} \mathbf h_{d,1} & \dots & \mathbf h_{d,N_f}\end{bmatrix}^H \in \mathbb C^{N_f \times N_b}, \\
 	\bar{\mathbf H}_u &= \begin{bmatrix} \mathbf h_{u,1} & \dots & \mathbf h_{u,N_f}\end{bmatrix}^H \in \mathbb C^{N_f \times N_b}.
@@ -18,29 +29,31 @@ The resulting downlink and uplink channel state information (CSI) matrices are g
 \begin{table}[]
 \centering
 \caption{MIMO system variables considered in this work.}
-\label{tab:cost-params}
+\label{tab:mimo-params}
 \begin{tabular}{c|c|l}
 \toprule
-\textbf{Symbol}   & \textbf{Dimension}          & \textbf{Description} \\ \midrule
-$y_{d,m}$ 		  & $\mathbb{C}^{1}$ 			& Received downlink symbol on $m$-th subcarrier  \\ \hline
-$\mathbf h_{d,m}$ & $\mathbb{C}^{N_b \times 1}$ & Downlink impulse response on $m$-th subcarrier  \\ \hline
-$\mathbf w_{t,m}$ & $\mathbb{C}^{N_b \times 1}$ & Transmitter precoding vector for $m$-th subcarrier  \\ \hline
-$x_{d,m}$ 		  & $\mathbb{C}^{1}$ 			& Trasmitted symbol on $m$-th subcarrier  \\ \hline
-$n_{d,m}$ 		  & $\mathbb{C}^{1}$ 			& Downlink noise on $m$-th subcarrier  \\ \hline
-$y_{u,m}$ 		  & $\mathbb{C}^{1}$ 			& Received uplink symbol on $m$-th subcarrier  \\ \hline
-$\mathbf h_{u,m}$ & $\mathbb{C}^{N_b \times 1}$ & Uplink impulse response on $m$-th subcarrier  \\ \hline
-$\mathbf w_{r,m}$ & $\mathbb{C}^{N_b \times 1}$ & Received precoding vector for $m$-th subcarrier  \\ \hline
-$x_{u,m}$ 		  & $\mathbb{C}^{1}$ 			& Received symbol on $m$-th subcarrier  \\ \hline
-$\mathbf n_{u,m}$ & $\mathbb{C}^{1}$ 			& Uplink noise on $m$-th subcarrier  \\ \hline
+\textbf{Symbol}   & \textbf{Dimension}            & \textbf{Description} \\ \midrule
+$y_{d,m}$ 		  & $\mathbb{C}^{1}$ 			  & Received downlink symbol on $m$-th subcarrier  \\ \hline
+$\mathbf h_{d,m}$ & $\mathbb{C}^{N_b \times 1}$   & Downlink channel on $m$-th subcarrier  \\ \hline
+$\mathbf H_{d}$   & $\mathbb{C}^{N_f \times N_b}$ & Downlink impulse response on $m$-th subcarrier  \\ \hline
+$\mathbf w_{t,m}$ & $\mathbb{C}^{N_b \times 1}$   & Transmitter precoding vector for $m$-th subcarrier  \\ \hline
+$x_{d,m}$ 		  & $\mathbb{C}^{1}$ 			  & Trasmitted symbol on $m$-th subcarrier  \\ \hline
+$n_{d,m}$ 		  & $\mathbb{C}^{1}$ 			  & Downlink noise on $m$-th subcarrier  \\ \hline
+$y_{u,m}$ 		  & $\mathbb{C}^{1}$ 			  & Received uplink symbol on $m$-th subcarrier  \\ \hline
+$\mathbf h_{u,m}$ & $\mathbb{C}^{N_b \times 1}$   & Uplink channel on $m$-th subcarrier  \\ \hline
+$\mathbf H_{u}$   & $\mathbb{C}^{N_f \times N_b}$ & Downlink impulse response on $m$-th subcarrier  \\ \hline
+$\mathbf w_{r,m}$ & $\mathbb{C}^{N_b \times 1}$   & Received precoding vector for $m$-th subcarrier  \\ \hline
+$x_{u,m}$ 		  & $\mathbb{C}^{1}$ 			  & Received symbol on $m$-th subcarrier  \\ \hline
+$\mathbf n_{u,m}$ & $\mathbb{C}^{1}$ 			  & Uplink noise on $m$-th subcarrier  \\ \hline
 \end{tabular}
 \end{table}
-To achieve near-capacity transmission rates, the transmitter needs access to an appropriate estimate of $\bar{\mathbf H}_d$ \cite{ref:goldsmith2003capacity}. In time division duplex (TDD), downlink CSI estimation can be performed by using pilots in uplink frames due to channel reciprocity \cite{ref:Kaltenberger2010relative,ref:mi2017massive,ref:Gao2010utilization}. In contrast, frequency domain duplex (FDD) does not admit channel reciprocity due to frequency-selective channels, and CSI estimates must be acquired using feedback.
+To achieve near-capacity transmission rates, the transmitter needs access to an appropriate estimate of $\bar{\mathbf H}_d$ \cite{ref:goldsmith2003capacity}. Such estimates enable the use of linear precoding techniques (e.g., conjugate beamforming or zero-forcing beamforming) to realize appreciable spectral and power efficiency gains \cite{ref:yang2013performance}. Downlink CSI estimation can be performed in time division duplex (TDD) by using uplink pilots due to channel reciprocity \cite{ref:Kaltenberger2010relative,ref:mi2017massive,ref:Gao2010utilization}. In contrast, frequency domain duplex (FDD) does not admit channel reciprocity due to frequency-selective channels, and CSI estimates must be acquired using feedback.
 
 Given their dimensionality, feeding back entire CSI matrices is impractical. Instead, we seek a compressed representation of a sparse transformation. The sparse representation we consider is the angular-delay representation of CSI matrices \cite{ref:sayeed2002deconstructing}. Denote the unitary DFT (inverse DFT) matrix $\mathbf F \in \mathbb C^{N_f \times N_f}$ ($\mathbf F^H \in \mathbb C^{N_b \times N_b}$), and denote the spatial-frequency CSI matrix as $\bar{\mathbf H}$. The angular-delay domain representation $\mathbf H$ is given as % $\mathbf F \in \mathbb C^{(n_f \times n_f)}$ ($\mathbf F^H \in \mathbb C^{(n_f \times n_f)}$)
 \begin{align*}
 	\mathbf H &= \mathbf F^H \bar{\mathbf H} \mathbf F.
 \end{align*}
-The delay spread of the resulting $\mathbf H$ can typically be captured with a small number of delay elements, so we restrict our attention to the first $R_d$ elements of $\mathbf H$, resulting in a truncated angular-delay matrix which we denote as $\mathbf H_d \in \mathbb C^{(R_d\times N_b)}$ ($\mathbf H_u \in \mathbb C^{(R_d\times N_b)}$) for the downlink (uplink).
+The delay spread of the resulting $\mathbf H$ can typically be captured with a small number of delay elements, so we restrict our attention to the first $R_d$ elements of $\mathbf H$, resulting in a truncated angular-delay matrix which we denote as $\mathbf H_d \in \mathbb C^{(R_d\times N_b)}$ ($\mathbf H_u \in \mathbb C^{(R_d\times N_b)}$) for the downlink (uplink) channel state.
 
 \subsection{Channel Model}
 \label{sect:channel_model}
@@ -73,19 +86,23 @@ $\delta$		& 40ms, 80ms	 & Feedback delay interval between consecutive CSI timesl
 \subsection{Classical CSI Estimation}
 \label{sect:classic_estimation}
 
-Works in compressive feedback for CSI estimation in MIMO networks can be placed in three broad categories. The first category includes works which use direct quantization of continuous CSI elements to discrete levels. The quantized CSI are encoded and fed back to the transmitter \cite{ref:makki2012hybrid,ref:shirani2009channel}. The second category includes works which use compressed sensing, a technique which applying a random measurement matrix at the transmitter and the receiver \cite{ref:rao2014distributed, ref:eltayeb2014compressive}. Compressed sensing assumes matrices to be encoded and fed back meet certain sparsity requirements, and compressed sensing algorithms require iterative solvers \cite{ref:do2008sparsity} for decoding, resulting in undesired latency.
+Works in compressive feedback for CSI estimation in MIMO networks can be placed in three broad categories. The first category includes works which use direct quantization of continuous CSI elements to discrete levels. The quantized CSI are encoded and fed back to the transmitter \cite{ref:makki2012hybrid,ref:shirani2009channel}. The second category includes works which use compressed sensing, a technique which applies a random measurement matrix at the transmitter and the receiver \cite{ref:rao2014distributed, ref:eltayeb2014compressive}. Compressed sensing assumes matrices to be encoded and fed back meet certain sparsity requirements, and compressed sensing algorithms require iterative solvers \cite{ref:do2008sparsity} for decoding, resulting in undesired latency.
 
-The last category of work in compressive CSI feedback uses deep learning (DL), neural networks with numerous layers which are trained on large datasets using backpropagation. Before describing these works, we first provide an overview of 
+The last category of work in compressive CSI feedback uses deep learning (DL), neural networks with numerous layers which are trained on large datasets using backpropagation. Before describing these works, we first describe a few pertinent concepts from deep learning.
 
 \subsection{Deep Learning}
 \label{sect:dl_overview}
 
-This section provides a brief overview of relevant deep learning concepts employed in this work, including convolutional neural networks (CNNs), autoencoders, and unsupervised learning. \textbf{Deep learning (DL)} is a subset of machine learning (ML), a broad class of algorithms which use data to ``fit'' models for prediction or classification tasks. The three predominant learning frameworks are supervised learning, unsupervised learning, and reinforcement learning. Here, we focus on \emph{unsupervised learning}, which seeks to find a compressed representation of the data without labels (see Chapter 14 of \cite{ref:Hastie2016Elements} for an overview).
+This section provides a brief overview of relevant deep learning concepts employed in this work, including convolutional neural networks (CNNs), autoencoders, and unsupervised learning.
+
+\textbf{Deep learning (DL)} is a subset of machine learning (ML), a broad class of algorithms which use data to ``fit'' models for prediction or classification tasks. The three predominant learning frameworks are supervised learning, unsupervised learning, and reinforcement learning. In the works proposed, we focus on \emph{unsupervised learning}, which seeks to find a compressed representation of the data without labels (see Chapter 14 of \cite{ref:Hastie2016Elements} for an overview).
+
+\textbf{Convolutional Neural Networks}: A neural network is a machine learning algorithm with multiple \emph{layers} of parameterized linear functions followed nonlinear functions (typically referred to as `activation' functions). The parameters for these layers can be updated via a stochastic optimizer (e.g., \cite{ref:Kingma2014ADAM}), and given enough layers, such networks can achieve arbitrarily accurate functional approximation \cite{ref:Hecht1992TheoryBackprop}. In recent years, neural networks with convolutional layers have established state-of-the-art performance in computer vision tasks such as image classification \cite{ref:Sabour2017Dynamic} and segmentation \cite{ref:He2017Mask}.
 
 \begin{figure}[!hbtp]
 \centering
 \def\svgwidth{0.8\columnwidth}
-\input{images/autoencoder_schematic.pdf_tex}
+\input{../images/autoencoder_schematic.pdf_tex}
 \caption{Abstract schematic for an autoencoder operating on CSI matrices $\mathbf H$. The encoder learns a latent representation, $\mathbf Z$, while the decoder learns to reconstruct estimates $\hat{\mathbf H}$.}
 \label{fig:autoencoder_schematic}
 \end{figure}
@@ -94,9 +111,9 @@ A common architecture for deep unsupervised learning is the \emph{autoencoder} (
 \begin{align*}
 \underset{\theta_e, \theta_d}{\text{argmin}}\; \frac 1N \sum_{i=1}^N\Arrowvert \mathbf H_i - g(f(\mathbf H_i, \theta_e), \theta_d) \Arrowvert^2.
 \end{align*}
-Presuming the autoencoder is a neural network, we optimize network parameters $\vec \theta_e, \vec \theta_d$ by backpropagation and a stochastic optimization algorithm (e.g., stochastic gradient descent, ADAM).
+We optimize network parameters $\vec \theta_e, \vec \theta_d$ by backpropagation and a stochastic optimization algorithm (e.g., stochastic gradient descent, ADAM).
 
 \subsubsection{CNNs for CSI Estimation}
 \label{sect:dl_csi}
 
-Successful efforts in DL for CSI estimation have typically utilized convolutional neural networks (CNNs) in an autoencoder structure \cite{ref:csinet}. Variations on the CNN-based autoencoder have investigated different network architectures \cite{ref:Lu2020CRNet}, variational training frameworks \cite{ref:Hussien2020PRVNet}, and denoising modules \cite{ref:Sun2020AnciNet}.
+Successful efforts in DL for CSI estimation have typically utilized convolutional neural networks (CNNs) in an autoencoder structure \cite{ref:csinet}. Variations on the CNN-based autoencoder have investigated different network architectures \cite{ref:Lu2020CRNet}, variational training frameworks \cite{ref:Hussien2020PRVNet}, and denoising modules \cite{ref:Sun2020AnciNet}. Other works have exploited physical channel characteristics such as downlink/uplink reciprocity \cite{ref:dualnet} and temporal coherence \cite{ref:Wang2019CsiNetLSTM}. To make CNNs practical for actual feedback transmission, authors have experimented with networks using entropy encoding for bit stream feedback \cite{ref:Yang2019DeepCMC} and networks with complex latent elements for IQ symbol feedback \cite{ref:Mashhadi2020AnalogDeepCMC}.

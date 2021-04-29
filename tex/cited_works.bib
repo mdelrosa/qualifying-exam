@@ -76,20 +76,6 @@ ANCINet
   pages={2192-2196},
   doi={10.1109/LWC.2020.3017753}}
 
-csinet-lstm paper
-@ARTICLE{ref:csinet-lstm,
-  author={T. {Wang} and C. {Wen} and S. {Jin} and G. Y. {Li}},
-  journal={IEEE Wireless Communications Letters},
-  title={Deep Learning-Based CSI Feedback Approach for Time-Varying Massive MIMO Channels},
-  year={2019},
-  volume={8},
-  number={2},
-  pages={416-419},
-  doi={10.1109/LWC.2018.2874264},
-  ISSN={2162-2345},
-  month={April}
-}
-
 % ==================
 % normalization papers
 % ==================
@@ -183,6 +169,17 @@ csinet-lstm paper
   publisher={IEEE}
 }
 
+@article{ref:yang2013performance,
+  title={Performance of conjugate and zero-forcing beamforming in large-scale antenna systems},
+  author={Yang, Hong and Marzetta, Thomas L},
+  journal={IEEE Journal on Selected Areas in Communications},
+  volume={31},
+  number={2},
+  pages={172--179},
+  year={2013},
+  publisher={IEEE}
+}
+
 @article{ref:sayeed2002deconstructing,
   title={Deconstructing multiantenna fading channels},
   author={Sayeed, Akbar M},
@@ -254,6 +251,20 @@ month={December},}
 % ==================
 
 % ------------------
+% neural networks
+% ------------------
+
+BPNN Theory
+@incollection{ref:Hecht1992TheoryBackprop,
+  title={Theory of the backpropagation neural network},
+  author={Hecht-Nielsen, Robert},
+  booktitle={Neural networks for perception},
+  pages={65--93},
+  year={1992},
+  publisher={Elsevier}
+}
+
+% ------------------
 % deep learning
 % ------------------
 
@@ -268,6 +279,34 @@ month={December},}
   title = {The Elements of Statistical Learning: Data Mining, Inference, and Prediction},
   url = {https://web.stanford.edu/~hastie/ElemStatLearn/},
   year = 2016
+}
+
+Dynamic Routing (classification sota)
+@article{ref:Sabour2017Dynamic,
+  title={Dynamic routing between capsules},
+  author={Sabour, Sara and Frosst, Nicholas and Hinton, Geoffrey E},
+  journal={arXiv preprint arXiv:1710.09829},
+  year={2017}
+}
+
+Mask RCNN (segmentation sota)
+@inproceedings{ref:He2017Mask,
+  title={Mask r-cnn},
+  author={He, Kaiming and Gkioxari, Georgia and Doll{\'a}r, Piotr and Girshick, Ross},
+  booktitle={Proceedings of the IEEE international conference on computer vision},
+  pages={2961--2969},
+  year={2017}
+}
+
+% ------------------
+% optimizers
+% ------------------
+
+@article{ref:Kingma2014ADAM,
+  title={Adam: A method for stochastic optimization},
+  author={Kingma, Diederik P and Ba, Jimmy},
+  journal={arXiv preprint arXiv:1412.6980},
+  year={2014}
 }
 
 % ------------------
@@ -335,6 +374,21 @@ month={December},}
 % 3 markovnet
 % ==================
 
+% markovnet arxiv
+@ARTICLE{ref:Liu2020MarkovNet,
+       author = {{Liu \textdagger}, Zhenyu  and \textbf{M. {del Rosario \textdagger}} and {Ding}, Zhi},
+        title = "{A Markovian Model-Driven Deep Learning Framework for Massive MIMO CSI Feedback}",
+      journal = {arXiv e-prints},
+         year = 2020,
+        month = sep,
+archivePrefix = {arXiv},
+       eprint = {2009.09468},
+ primaryClass = {eess.SP},
+       adsurl = {https://ui.adsabs.harvard.edu/abs/2020arXiv200909468L},
+      adsnote = {Provided by the SAO/NASA Astrophysics Data System},
+      note = "Submitted to IEEE Transactions on Wireless Communications."
+}
+
 % ------------------
 % 3.1 prior work - temporal correlation
 % ------------------
@@ -354,7 +408,6 @@ csinet-lstm paper
 }
 
 % Kalman filter
-
 @article{ref:Huber2006improved,
   title={Improved bayesian MIMO channel tracking for wireless communications: incorporating a dynamical model},
   author={Huber, Kris and Haykin, Simon},
@@ -495,13 +548,22 @@ year = {2009}
 }
 
 % ==================
-% 4 markovnet
+% 4 csinet-quant
 % ==================
 
 % ==================
 % unsupervised representations
 % ==================
 
+neural discrete rep learning
+@article{ref:Oord2017Neural,
+  title={Neural discrete representation learning},
+  author={Oord, Aaron van den and Vinyals, Oriol and Kavukcuoglu, Koray},
+  journal={arXiv preprint arXiv:1711.00937},
+  year={2017}
+}
+
+SHVQ
 @article{ref:Agustsson2017SoftToHard,
 archivePrefix = {arXiv},
 arxivId = {1704.00648},
@@ -516,11 +578,140 @@ volume = {2017-Decem},
 year = {2017}
 }
 
+CPCv1
+@article{oord2018representation,
+  title={Representation learning with contrastive predictive coding},
+  author={Oord, Aaron van den and Li, Yazhe and Vinyals, Oriol},
+  journal={arXiv preprint arXiv:1807.03748},
+  year={2018}
+}
 
+CPCv2
+@inproceedings{henaff2020data,
+  title={Data-efficient image recognition with contrastive predictive coding},
+  author={Henaff, Olivier},
+  booktitle={International Conference on Machine Learning},
+  pages={4182--4192},
+  year={2020},
+  organization={PMLR}
+}
+
+% ==================
+% feedback quantization
+% ==================
+
+DeepCMC (original paper)
+@INPROCEEDINGS{ref:Yang2019DeepCMC,
+  author={Q. {Yang} and M. B. {Mashhadi} and D. {Gündüz}},
+  booktitle={2019 IEEE 29th International Workshop on Machine Learning for Signal Processing (MLSP)}, 
+  title={Deep Convolutional Compression For Massive MIMO CSI Feedback}, 
+  year={2019},
+  volume={},
+  number={},
+  pages={1-6},
+  doi={10.1109/MLSP.2019.8918798}}
+
+AnalogDeepCMC
+@INPROCEEDINGS{ref:Mashhadi2020AnalogDeepCMC,
+  author={M. B. {Mashhadi} and Q. {Yang} and D. {Gündüz}},
+  booktitle={ICASSP 2020 - 2020 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP)}, 
+  title={CNN-Based Analog CSI Feedback in FDD MIMO-OFDM Systems}, 
+  year={2020},
+  volume={},
+  number={},
+  pages={8579-8583},
+  doi={10.1109/ICASSP40776.2020.9053850}}
+
+CMCNet (survey)
+@article{ref:Mashhadi2020CMCNet,
+  title={Deep learning for massive MIMO channel state acquisition and feedback},
+  author={Mashhadi, Mahdi Boloursaz and G{\"u}nd{\"u}z, Deniz},
+  journal={Journal of the Indian Institute of Science},
+  volume={100},
+  number={2},
+  pages={369--382},
+  year={2020},
+  publisher={Springer}
+}
+
+% ==================
+% entropy estimation
+% ==================
+
+@article{ref:Kozachenko1987SampleEstimate,
+  title={Sample estimate of the entropy of a random vector},
+  author={Kozachenko, LF and Leonenko, Nikolai N},
+  journal={Problemy Peredachi Informatsii},
+  volume={23},
+  number={2},
+  pages={9--16},
+  year={1987},
+  publisher={Russian Academy of Sciences, Branch of Informatics, Computer Equipment and~…}
+}
+
+@misc{ref:VerSteeg2019NPEET,
+  title={Non-Parametric Entropy Estimation (NPEET)},
+  author={Ver Steeg, Greg and Ballabio, Guido and Sennesh, Eli and Rebo, Maxwell and Ulianych, Danylo},
+  publisher={Github},
+  month={October},
+  date={13},
+  year={2019},
+  url={https://github.com/gregversteeg/NPEET}
+}
+
+% ==================
+% arithmetic coding 
+% ==================
+
+ArithmeticCoding
+@article{ref:Witten1987Arithmetic,
+  title={Arithmetic coding for data compression},
+  author={Witten, Ian H and Neal, Radford M and Cleary, John G},
+  journal={Communications of the ACM},
+  volume={30},
+  number={6},
+  pages={520--540},
+  year={1987},
+  publisher={ACM New York, NY, USA}
+}
+
+ArithmeticCoding
+@ARTICLE{ref:Howard1994Arithmetic,
+  author={P. G. {Howard} and J. S. {Vitter}},
+  journal={Proceedings of the IEEE}, 
+  title={Arithmetic coding for data compression}, 
+  year={1994},
+  volume={82},
+  number={6},
+  pages={857-865},
+  doi={10.1109/5.286189}}
+
+CABAC (context adaptive binary arith coding)
+@ARTICLE{ref:Marpe2003CABAC,
+  author={D. {Marpe} and H. {Schwarz} and T. {Wiegand}},
+  journal={IEEE Transactions on Circuits and Systems for Video Technology}, 
+  title={Context-based adaptive binary arithmetic coding in the H.264/AVC video compression standard}, 
+  year={2003},
+  volume={13},
+  number={7},
+  pages={620-636},
+  doi={10.1109/TCSVT.2003.815173}}
+
+Shannon
+@article{ref:Shannon1948Mathematical,
+  title={A mathematical theory of communication},
+  author={Shannon, Claude E},
+  journal={The Bell system technical journal},
+  volume={27},
+  number={3},
+  pages={379--423},
+  year={1948},
+  publisher={Nokia Bell Labs}
+}
 
 SphNet
 @INPROCEEDINGS{ref:liu2020sphnet,
-  author={Z. {Liu} and M. {del Rosario} and X. {Liang} and L. {Zhang} and Z. {Ding}},
+  author={Z. {Liu} and \textbf{M. {del Rosario}} and X. {Liang} and L. {Zhang} and Z. {Ding}},
   booktitle={2020 IEEE International Conference on Communications Workshops (ICC Workshops)}, 
   title={Spherical Normalization for Learned Compressive Feedback in Massive MIMO CSI Acquisition}, 
   year={2020},

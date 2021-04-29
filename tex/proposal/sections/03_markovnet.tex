@@ -14,7 +14,7 @@ The estimation error under $\hat H_t$ is
 
 \subsection{Related Work}
 
-Non ML-based work in temporal correlation for CSI estimation utilized state-space methods such as the Kalman filter \cite{ref:Huber2006improved,ref:Ali2020BayesKalmanFilter,ref:Kim2021KalmanVsML}. Since it relies on explicit state space and noise models, the Kalman filter's predictive power in CSI estimation is limited. Furthermore, such work generally does not propose a method for feedback compression, making comparison with the following ML methods difficult.
+Prior work in temporal correlation for CSI estimation utilized state-space methods such as the Kalman filter \cite{ref:Huber2006improved,ref:Ali2020BayesKalmanFilter,ref:Kim2021KalmanVsML}. Since it relies on explicit state space and noise models, the Kalman filter's predictive power in CSI estimation is limited. Furthermore, such work generally does not propose a method for feedback compression, making comparison with the following ML methods difficult.
 
 Recent works have leveraged recurrent neural networks (RNNs) to exploit temporal correlation for CSI estimation \cite{ref:Lu2019RecCsiNet, ref:Liao2019BiLSTM, ref:Li2020SpatTempLSTM,
  ref:Jang2019Delay,ref:Wang2019CsiNetLSTM}. RNNs include recurrent layers, such as the long short-term memory (LSTM) cell or the gated recurrent unit (GRU), which are capable of learning long-term dependencies of a given process through backpropagation \cite{ref:Hermans2013Training} and can be used to predict future states of the process \cite{ref:Pascanu2014HowTo}.
@@ -31,31 +31,54 @@ RNNs have been used extensively in natural language processing (NLP) for machine
 
 \subsection{Methods}
 
-Rather than use RNNs to extract temporal dependencies in CSI data, we proposed a lightweight network based on the principle of differential encoding. We propose to train a network to estimate the error (\ref{eq:diff_err}) when using a simple linear estimator, 
+Rather than use RNNs to extract temporal dependencies in CSI data, we proposed a lightweight network based on the principle of differential encoding. We trained a network to estimate the error (\ref{eq:diff_err}) under a linear estimator, 
 \begin{align*}
-\hat{\mathbf H}_t &= \mathbf W \hat{\mathbf H}_{t-1} 
+	\hat{\mathbf H}_t &=  \hat{\mathbf H}_{t-1} \mathbf W
 \end{align*}
 where $\mathbf W \in \mathbb C^{R_b \times R_b}$ is the minimum mean squared error (MMSE) estimator.
 \begin{align*}
-\mathbf H_t &= \mathbf W\mathbf H_{t-1} + \mathbf E_t \\
-\mathbf H_{t-1}^H\mathbf H_t &= \mathbf W\mathbf H_{t-1}^H\mathbf H_{t-1} + \mathbf H_{t-1}^H\mathbf E_t \\
+	\mathbf H_t &= \mathbf H_{t-1}\mathbf W + \mathbf E_t \\
+	\mathbf H_{t-1}^H\mathbf H_t &= \mathbf H_{t-1}^H\mathbf H_{t-1} \mathbf W + \mathbf H_{t-1}^H\mathbf E_t
 \end{align*}
 Under the principle of orthogonality, the error term $\mathbf E_t$ is orthogonal with the observed data, and the product $\mathbf H^H_{t-1}\mathbf E_t$ becomes a zero matrix. Denoting the cross correlation matrix as $\mathbf R_{i} = \mathbb{E}\left[\mathbf H_{t-i}^H\mathbf H_{t}\right]$.
 \begin{align*}
-\mathbf W &= \mathbf R_0^{-1} \mathbf R_1 
+	\mathbf W &= \mathbf R_0^{-1} \mathbf R_1 
+\end{align*}
+In practice, the population correlation matrices are estimated
+via finite samples of size $N$,
+\begin{align*}
+	\mathbf{\hat R}_i &= \frac 1N \sum_{j}^N \mathbf H_{t-i}^H(j)\mathbf H_{t}(j),
+\end{align*}
+where $\mathbf H_t(j)$ is the $j$-th sample in the training set.
+The MMSE estimator based on the sample correlation matrices is written as
+\begin{align*}
+	\hat{\mathbf W} &= \hat{\mathbf R}_0^{-1} \hat{\mathbf R}_1.
 \end{align*}
 We can further simplify this estimator to a scalar, $\gamma \in \mathbb R$, as
 \begin{align*}
-\gamma &= \frac{\sum_i^{R_d}\sum_j^{N_b}\mathbf R_1(i,j)}{\sum_i^{R_d}\sum_j^{N_b}\mathbf R_0(i,j)},
+	\hat \gamma &= \frac{\sum_k^{R_d}\sum_l^{N_b}\hat{\mathbf R}_1(k,l)}{\sum_k^{R_d}\sum_l^{N_b}\hat{\mathbf R}_0(k,l)},
 \end{align*}
-where $i$ ($j$) are the row (column) indices of the correlation matrices. Under the estimator $\gamma$, we proposed to encode the error, $\mathbf E_t$, using a convolutional autoencoder, $f(\mathbf E_t)$,
+where $k$ ($l$) are the row (column) indices of the correlation matrices. Under the estimator $\gamma$, we proposed to encode the error, $\mathbf E_t$, using a convolutional autoencoder, $f(\mathbf E_t)$,
 \begin{align*}
-\hat{\mathbf E}_t &= g(f(\mathbf E_t, \vec\theta_e), \vec\theta_d),
+	\hat{\mathbf E}_t &= g(f(\mathbf E_t, \vec\theta_e), \vec\theta_d),
 \end{align*}
 where $\mathbf E_t = \mathbf H_t - \gamma\hat{\mathbf H}_{t-1}$. The base station has access to the estimators $\gamma$ and $\hat{\mathbf H}_{t-1}$, and the resulting CSI estimate at $t$ is
 \begin{align*}
-\hat{\mathbf H}_t &= \gamma \hat{\mathbf H}_{t-1} + \hat{\mathbf{E}}_t
+	\hat{\mathbf H}_t &= \hat\gamma \hat{\mathbf H}_{t-1} + \hat{\mathbf{E}}_t
 \end{align*}
+
+\subsubsection*{MarkovNet}
+
+\begin{figure}[!hbtp]
+    \centering
+    {
+      \fontsize{6pt}{8pt}
+      \def\svgwidth{0.8\columnwidth}
+      \input{../images/markovnet_schematic.pdf_tex}
+    }
+    \caption{Abstract architecture for MarkovNet. Networks at $t \geq 2$ are trained to predict the estimation error, $\mathbf E_t$.}
+    \label{fig:markovnet_schema}
+\end{figure}
 
 \subsection{Numerical Results}
 

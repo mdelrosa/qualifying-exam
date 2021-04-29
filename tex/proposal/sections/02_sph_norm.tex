@@ -1,8 +1,8 @@
 % 02_previous_work_first.tex
 
-Most work in deep learning for CSI estimation focuses on different neural network architectures, training frameworks, or hyperparameter tuning. However, the normalization used in these works is typically the same; the extrema (i.e., the minimum and the maximum) of the dataset are used to perform minmax scaling on the entire dataset, 
+Most work in deep learning for CSI estimation focuses on different neural network architectures, training frameworks, or hyperparameter tuning. Such works treat the real and imaginary elements of $\mathbf H$ as separate channels similar to color channels in images. The normalization method used in these works is typically the same -- the extrema (i.e., the minimum and the maximum) of the real and imaginary channels are used to perform minmax scaling over the entire dataset, 
 \begin{align*}
-	\mathbf H_{k,\text{minmax}}(i,j) &= \frac{\mathbf H_k(i,j)-\mathbf H_{\text{min}}}{\mathbf H_{\text{max}}-\mathbf H_{\text{min}}}
+	\mathbf H_{n,\text{minmax}}(i,j) &= \frac{\mathbf H_n(i,j)-\mathbf H_{\text{min}}}{\mathbf H_{\text{max}}-\mathbf H_{\text{min}}},
 \end{align*}
 for $n \in [1,\dots,N]$ given a dataset of $N$ samples and $i,j$ indexing the rows/columns of the CSI matrices. The resulting samples are cast to the range $[0,1]$.
 
@@ -32,37 +32,37 @@ Several works have investigated normalization techniques for deep learning such 
 
 Other works have studied normalization of the network's inputs. A number of works have investigated adaptive normalization techniques for time series estimation tasks \cite{ref:ogasawara2010adaptive, ref:nayak2014impact, ref:shao2015self}. In \cite{ref:passalis2019dain}, the authors proposed a trainable input network which learns to shift, scale, and filter the unnormalized data while training the target network for a time series prediction task.
 
-\subsubsection{Notation}
+% \subsubsection{Notation}
 
-For an example of a table, see Table~\ref{table:notation}.
+% For an example of a table, see Table~\ref{table:notation}.
 
-\begin{table}[htb]
-	%	\small
-	\caption{Notations}
-	\label{table:notation}
-	\centering
-	\begin{tabular}[]{c|l}
-		\toprule
-		Variable & Definition \\
-		\midrule
-		$M$ & Number of input hydrological variables denoted in Fig.~\ref{fig:ann_inputs}\\
-		\hline
-		$N$ & Number of data samples, or days, in dataset \\
-		\hline
-		$T$ & Number of days' data used for estimation \\
-		\hline
-		$T_r$ & Dimension of data after pre-processing\\
-		\hline
-		$z_{n}$ & Time series used for estimating salinity level on day $n$, size is ${\rm I\!R}^{M\times T}$ \\
-		\hline
-		$x_{n}$ & Pre-processed time series with size ${\rm I\!R}^{M\times T_r}$ for day $n$\\
-		\hline
-		$f$ & A convolutional filter with size ${\rm I\!R}^{M \times T \times T_r}$ \\
-		\hline
-		$y_{n}$ & ANN-estimated salinity level for one or more locations on day $n$ \\
-		\bottomrule
-	\end{tabular}
-\end{table}
+% \begin{table}[htb]
+% 	%	\small
+% 	\caption{Notations}
+% 	\label{table:notation}
+% 	\centering
+% 	\begin{tabular}[]{c|l}
+% 		\toprule
+% 		Variable & Definition \\
+% 		\midrule
+% 		$M$ & Number of input hydrological variables denoted in Fig.~\ref{fig:ann_inputs}\\
+% 		\hline
+% 		$N$ & Number of data samples, or days, in dataset \\
+% 		\hline
+% 		$T$ & Number of days' data used for estimation \\
+% 		\hline
+% 		$T_r$ & Dimension of data after pre-processing\\
+% 		\hline
+% 		$z_{n}$ & Time series used for estimating salinity level on day $n$, size is ${\rm I\!R}^{M\times T}$ \\
+% 		\hline
+% 		$x_{n}$ & Pre-processed time series with size ${\rm I\!R}^{M\times T_r}$ for day $n$\\
+% 		\hline
+% 		$f$ & A convolutional filter with size ${\rm I\!R}^{M \times T \times T_r}$ \\
+% 		\hline
+% 		$y_{n}$ & ANN-estimated salinity level for one or more locations on day $n$ \\
+% 		\bottomrule
+% 	\end{tabular}
+% \end{table}
 
 % \begin{figure}[htb]
 % 	\centering
@@ -72,16 +72,20 @@ For an example of a table, see Table~\ref{table:notation}.
 % 	\label{fig:math_pipeline}
 % \end{figure}
 
+\subsection{SphNet: Power-based normalization for improved CSI reconstruction accuracy}
+
+Here, we discuss our work in spherical normalization (Section~\ref{sect:sph_norm_method}) and our optimized network architecture (Section~\ref{sect:csinet_pro}) \cite{ref:liu2020sphnet}.
+
 \subsubsection{Spherical Normalization}
 \label{sect:sph_norm_method}
-Rather than apply minmax normalization, which is adversely impacted by outliers, we propose spherical normalization. Before describing spherical normalization in detail, consider z-score normalization. Given a random variable, $x$, with mean $\mu x$ and standard deviation $\mu$. The z-score normalized version of this random variable is given as
+Rather than apply minmax normalization, which is adversely impacted by outliers, we propose spherical normalization. Before describing spherical normalization in detail, consider z-score normalization. Given a random variable, $x$, with mean $\mu$ and standard deviation $\sigma$. The z-score normalized version of this random variable is given as
 \begin{align}
 	z &= \frac{x - \mu}{\sigma^2}. \label{eq:zscore}
 \end{align}
 Assuming $x$ is normally distributed, the resulting random variable, $z$, is a standard normal distribution such that $z \sim \mathcal N(0,1)$. Inspired by $z$-score normalization, we seek a normalization scheme which adjusts the range of each channel sample. Under spherical normalization, each sample in the dataset is scaled by its power. Denote the $k$-th downlink CSI matrix of the dataset as $\mathbf H_d^k$. The spherically normalized version of the downlink CSI is given as
 % TODO: Does this make sense? "For CSI matrices, we could choose to scale each element by it's mean and by the inverse covariance matrix."
 \begin{align}
-	\mathbf{\check H}_d^k &= \frac{\mathbf H_d^k}{\|\mathbf H_d^k\|_2}. \label{eq:sph-intro}
+	\mathbf{\check H}_d^n &= \frac{\mathbf H_d^n}{\|\mathbf H_d^n\|_2}. \label{eq:sph-intro}
 \end{align}
 Observe that (\ref{eq:sph-intro}) is similar to (\ref{eq:zscore}) without the mean shift in the numerator\footnote{Since the mean of COST2100 data is $\approx 10^{-10}$, we can safely ignore this mean shift in spherical normalization.} and with the power term of each CSI sample rather than the variance of the entire distribution. After applying (\ref{eq:sph-intro}) to each sample, minmax scaling is applied to the entire dataset. The resulting dataset under spherical normalization can exhibit a larger variance than the same dataset under minmax scaling (compare Fig.~\ref{fig:cost_indoor_sph_dist} with Fig.~\ref{fig:cost_indoor_dist}). 
 \begin{figure}[htb]
@@ -106,6 +110,11 @@ Observe that when the $\mathbf H_k \; (\hat{\mathbf H}_k)$ in (\ref{eq:mse}) is 
 	&= \frac 1N \sum_{k=1}^N\frac{\Arrowvert\mathbf H_k - \hat{\mathbf H}_k\Arrowvert^2}{\Arrowvert\mathbf H_k\Arrowvert^2},
 \end{align*}
 which is equivalent to (\ref{eq:nmse}). Thus, a neural network optimized with MSE as the loss function and trained using spherically normalized data is in fact being optimized with respect to NMSE of the original data.
+
+\subsubsection{CsiNet Pro}
+\label{sect:csinet_pro}
+
+We proposed
 
 \subsection{Results}
 Training on spherically normalized data and optimizing with respect to NMSE can yield better accuracy. Fig.~\ref{fig:nmse_slot1} demonstrates this improvement for CsiNet and CsiNet Pro on the COST2100 dataset. For both networks, the number of 
