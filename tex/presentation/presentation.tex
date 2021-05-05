@@ -70,16 +70,6 @@
 \section*{Outline}\begin{frame}{Outline}\tableofcontents\end{frame}
 
 \section{Background}
-   %  \begin{frame}[plain]
-   %    \vfill
-   %    \centering
-   %    \begin{beamercolorbox}[sep=8pt,center,shadow=true,rounded=true]{title}
-   %      \usebeamerfont{title}\insertsectionhead\par%
-   %      \color{davisblue}\noindent\rule{10cm}{1pt} \\
-   %      % \LARGE{\faFileTextO}
-   %    \end{beamercolorbox}
-   %    \vfill
-  	% \end{frame}
 
   % Background section frame 
   \begin{frame}[plain]
@@ -89,81 +79,211 @@
       \usebeamerfont{title}\insertsectionhead\par%
       \color{davisblue}\noindent\rule{10cm}{1pt} \\
       % \LARGE{\faFileTextO}
+      \footnotesize{Feedback-based estimation of channel state information in MIMO networks.}
     \end{beamercolorbox}
     \vfill
   \end{frame}
 
 \subsection{Role of CSI in MIMO}
-  \nofoot{
-	\begin{frame}{Why MIMO?}
-		Massive MIMO is a key enabling technology for future wireless communications networks.
-		\begin{itemize}
-			\item 5G, Ultra-Dense Networks, IoT
-		\end{itemize}
-		\pause
-		The efficacy of MIMO depends on accurate \emph{Channel State Information (CSI)}.
-    \blfootnote{S. Marek, ``Sprint Spent \$1B on Massive MIMO for Its 5G Network in Q2," \emph{SDxCentral}, \url{https://www.sdxcentral.com/articles/news/sprint-spent-1b-on-massive-mimo-for-its-5g-network-in-q2/2018/06/}. Accessed: Feb 22, 2020.}
-	\end{frame}
-  }
+
+ %  \nofoot{
+	% \begin{frame}{Why MIMO?}
+	% 	Massive MIMO is a key enabling technology for future wireless communications networks.
+	% 	\begin{itemize}
+	% 		\item 5G, Ultra-Dense Networks, IoT
+	% 	\end{itemize}
+	% 	\pause
+	% 	The efficacy of MIMO depends on accurate \emph{Channel State Information (CSI)}.
+ %    \blfootnote{S. Marek, ``Sprint Spent \$1B on Massive MIMO for Its 5G Network in Q2," \emph{SDxCentral}, \url{https://www.sdxcentral.com/articles/news/sprint-spent-1b-on-massive-mimo-for-its-5g-network-in-q2/2018/06/}. Accessed: Feb 22, 2020.}
+	% \end{frame}
+ %  }
 
 	\begin{frame}{MIMO and CSI}
 		Massive MIMO uses numerous antennas to endow transceivers with spatial diversity.
-		\fignocap{0.8}{mimo-nopre.PNG}
+		% \fignocap{0.8}{mimo-nopre.PNG}
+    \begin{figure}[!hbtp]
+    \centering
+    {
+      \fontsize{4pt}{8pt}
+      \def\svgwidth{0.9\columnwidth}
+      \input{../images/mimo-schematic.pdf_tex}
+    }
+    \caption{Example multi-antenna transmitter (BS, gNB) and single-antenna user equipment (UE) and relevant system values.}
+    \label{fig:mimo_schematic}
+    \end{figure}
 	\end{frame}
 
 	\begin{frame}{MIMO and CSI}
-		The fading coefficients between each set of Tx/Rx antennas constitute \textbf{Channel State Information (CSI)}, $\mathbf{H}$. For $n_T$, $n_R$ antennas,
+		In OFDM, the fading coefficients between the Tx/Rx antennas constitute \textbf{Channel State Information (CSI)}, $\bar{\mathbf{H}}$. For $n_T$ transmit antennas and $n_f$ subcarriers,
 		\begin{align*}
-			\mathbf{H}&=\begin{bmatrix}
-							h_{1,1} & h_{1,2} & \dots  & h_{1,n_T} \\
-							h_{2,1} & h_{2,2} & \dots  & h_{2,n_T} \\
-							\vdots	& \vdots  & \vdots & \vdots    \\
-							h_{n_{R},1} & h_{n_{R},2} & \dots  & h_{n_{R},n_T} \\
-						\end{bmatrix}
+			\bar{\mathbf{H}}&=\begin{bmatrix}
+            							h_{1,1} & h_{1,2} & \dots  & h_{1,n_T} \\
+            							h_{2,1} & h_{2,2} & \dots  & h_{2,n_T} \\
+            							\vdots	& \vdots  & \vdots & \vdots    \\
+            							h_{n_{f},1} & h_{n_{f},2} & \dots  & h_{n_{f},n_T} \\
+            						\end{bmatrix}
+                        \in \mathbb C^{n_f \times n_T}
 		\end{align*}
 	\end{frame}
 
-	\begin{frame}{MIMO and Perfect CSI}
-		\textbf{Perfect CSI} (i.e., exact knowledge of the channel, $\mathbf{H}$) allows us to maximize the power of the received symbol by precoding.
-		\fignocap{0.8}{mimo-pre.PNG}
-	\end{frame}
+  \begin{frame}{MIMO and CSI}
+    However, transmitting $\bar{\mathbf{H}}$ is costly. Instead, generate \textbf{CSI Estimates}, $\hat{\bar{\mathbf{H}}}$, based on \textbf{compressed feedback}, $\mathbf z$.\\
+    \vspace{24pt}
+    \begin{figure}[!hbtp]
+    \centering
+    {
+      \fontsize{4pt}{6pt}
+      \def\svgwidth{0.9\columnwidth}
+      \input{../images/mimo-schematic-feedback.pdf_tex}
+    }
+    % \caption{Example multi-antenna transmitter (BS, gNB) and single-antenna user equipment (UE) and relevant system values.}
+    % \label{fig:mimo_schematic_feedback}
+    \end{figure}
+  \end{frame}
 
-	\begin{frame}{MIMO and CSI Estimation}
-		However, transmitting $\mathbf{H}$ is costly. Instead, generate \textbf{CSI Estimates}, $\hat{\mathbf{H}}$, based on \textbf{compressed feedback}.\\
-		\fignocap{0.8}{mimo-feed.PNG}
-    \textbf{Goal}: Find low-dimensional representation, feed back to transmitter for recovery of $\hat{\mathbf{H}}$ which is an accurate approximation of $\mathbf{H}$ in MSE sense. % add something about need fro compression
-	\end{frame}
+	% \begin{frame}{MIMO and Perfect CSI}
+	% 	\textbf{Perfect CSI} (i.e., exact knowledge of the channel, $\mathbf{H}$) allows us to maximize the power of the received symbol by precoding.
+
+	% 	\fignocap{0.8}{mimo-pre.PNG}
+	% \end{frame}
+
+	% \begin{frame}{MIMO and CSI Estimation}
+	% 	However, transmitting $\mathbf{H}$ is costly. Instead, generate \textbf{CSI Estimates}, $\hat{\mathbf{H}}$, based on \textbf{compressed feedback}.\\
+	% 	\fignocap{0.8}{mimo-feed.PNG}
+ %    \textbf{Goal}: Find low-dimensional representation, feed back to transmitter for recovery of $\hat{\mathbf{H}}$ which is an accurate approximation of $\mathbf{H}$ in MSE sense. % add something about need fro compression
+	% \end{frame}
+
+  \nofoot{
+  \begin{frame}{CSI Sparsity}
+      \footnotesize{ 
+        Denote the 2D inverse FFT of $\bar{\mathbf H}$ as
+       \begin{align*}
+       \mathbf H = \mathbf F^H\bar{\mathbf H}\mathbf F.
+       \end{align*}
+        While $\bar{\mathbf H}$ is used for beamforming, $\mathbf H$ is more amenable to compression.
+      }
+      \begin{figure}[htb]
+        \centering
+        \includegraphics[width=.8\textwidth]{batch17_sample0.pdf}
+        \medskip
+        % \caption{Magnitude of spatial-frequency ($\bar{\mathbf H}$) and angular-delay ($\mathbf H$) CSI matrices.}
+        % \label{fig:freq-vs-delay}
+      \end{figure}
+  \end{frame}
+  }
+
+  \nofoot{
+  \begin{frame}{CSI Sparsity}
+      \footnotesize{ 
+        Given the sparsity of $\mathbf H$ (angular-delay domain), we choose to encode a truncated $\mathbf H$.
+      }
+      \begin{figure}[htb]
+        \centering
+        \includegraphics[width=.8\textwidth]{batch17_sample0_truncatevsfull.pdf}
+        \medskip
+        % \caption{Magnitude of spatial-frequency ($\bar{\mathbf H}$) and angular-delay ($\mathbf H$) CSI matrices.}
+        % \label{fig:freq-vs-delay}
+      \end{figure}
+  \end{frame}
+  }
 
 \section{CSI Estimation}
-  % \subsection{Conventional Methods}
-  %   \begin{frame}{Compressed Sensing}
-  %     Find a low-dimensional representation of data by a linear transform, i.e.
-  %     \begin{align*}
-  %       \vec{y}&=\Psi\vec{h} \\ %https://www.sciencedirect.com/topics/computer-science/compressed-sensing 
-  %       \vec{h}&=\Phi\vec{y}
-  %     \end{align*}
-  %     where $\vec{h}$ is a vectorized version of CSI measurements at UE.
-  %     % Reference for equation? Claims
-  %     Takes advantage of \emph{sparsity} of CSI matrices. \pause
 
-  %     \textbf{Problems:} Strong sparsity assumptions, not necessarily true in real-world data. Iterative algorithms = computationally expensive.
-  %     % [1] ???
-  %     % [2] https://www.sciencedirect.com/science/article/pii/B9780123849885000450 
-    % \end{frame}
+    \begin{frame}{CSI Estimation Methods}
+       \begin{enumerate}
+       \item Compressed Sensing
+       \item Convolutional Neural Networks
+      \end{enumerate} 
+    \end{frame}
+
+    \nofoot{
+    \begin{frame}{Compressed Sensing}
+    \footnotesize{
+      Find a low-dimensional representation of sparse data, $\mathbf h$, by a linear transform, $\mathbf A$,
+      \begin{align*}
+        \mathbf{y}&=\mathbf A\mathbf{h} + \mathbf{n},
+      \end{align*}
+      where $\mathbf{h}$ is a vectorized CSI measurement, $\mathbf A$ is the measurement matrix, and $\mathbf n$ is an additive noise vector.
+      \begin{figure}[!hbtp] \centering 
+        % \includegraphics[width=0.46\textwidth]{images/nmse_indoor_mag.eps}
+        \includegraphics[width=0.65\textwidth]{cs-measurement.png}
+        \caption{Compressed sensing via random measurement matrix $\mathbf A$ (from \cite{ref:Marques2019ReviewOfSparseRecovery}).} 
+        \label{fig:cs-measurement} \vspace*{-2mm}
+      \end{figure}
+      % \pause
+      % \textbf{Problems:} Strong sparsity assumptions, not necessarily true in real-world data. Iterative algorithms = computationally expensive.
+      \blfootnote{\bibentry{ref:Marques2019ReviewOfSparseRecovery}}
+      }
+    \end{frame}
+    }    
+
+    % \nofoot{
+    \begin{frame}{Compressed Sensing}
+    % \footnotesize{
+      CS theory relies on the following assumptions:
+      \begin{enumerate}
+        \item The sparsity of the signal to be estimated must meet a certain level.
+        \item The \textbf{Restricted Isometry Criterion (RIC)} must be met. For $\delta \in [0,1],$
+        \begin{align*}
+          (1-\delta)\| \mathbf h \|_2^2 \leq \| \mathbf A \mathbf h \|_2^2 \leq (1+\delta)\| \mathbf h \|_2^2 
+        \end{align*}
+      \end{enumerate}
+    % }
+    \end{frame}
+    % }
+
+    \nofoot{
+    \begin{frame}{Compressed Sensing}
+    \footnotesize{
+      Generally, CS approaches address two major issues:
+      \begin{enumerate}
+        \item The design of the measurement matrix, $\mathbf A$ (stochastic or deterministic).
+        \item The recovery of $\hat{\mathbf h}$ given $\mathbf A$ and $\mathbf y$ (e.g., Matching Pursuit, Orthogonal Matching Pursuit \cite{ref:Marques2018CSForWidebandHFChannelEstimation}).
+      \end{enumerate} 
+      \blfootnote{\bibentry{ref:Marques2018CSForWidebandHFChannelEstimation}}
+      \pause
+      \textbf{Problem: Recovery algorithms are iterative; complexity scales with $M$.}
+    }
+    \end{frame}
+    }
+
+{}
   \subsection{Convolutional Neural Networks}
 
     \nofoot{
     \begin{frame}{Convolutional Neural Networks (CNNs)}
       \begin{itemize}
-        \item CNNs = state-of-the art performance in image processing applications
-        \item Capable of extracting features from 2D, grid-like data 
+        \item CNNs = state-of-the art performance in image processing
+        % \item Capable of extracting features from 2D, grid-like data 
+        \item Multiple layers of trainable linear functions followed nonlinear ‘activation’ functions.
+        \item No assumptions on sparsity, RIC. Instantaneous decoding.
       \end{itemize}
       \fignocap{0.35}{filt1.JPEG}
-      \pause
-      \begin{itemize}
-        \item \textbf{Recently, CNNs applied to CSI estimation}
-      \end{itemize}
       \blfootnote{A. Karpathy, ``Visualizing What ConvNets Learn,"  \url{http://cs231n.github.io/understanding-cnn/}. Accessed: Feb 24, 2020.}
+    \end{frame}
+    }
+
+    \nofoot{
+    \begin{frame}{CNN Autoencoder}
+    \footnotesize{
+      An autoencoder learns a latent code $\mathbf Z$ with \textbf{compression ratio},
+      \begin{align*} 
+        \text{CR} = \frac{\text{dim}(\mathbf Z)}{\text{dim}(\mathbf H)} \; \text{s.t.} \;\text{dim}(\mathbf Z) < \text{dim}(\mathbf H).
+      \end{align*}
+      \begin{figure}[!hbtp]
+      \centering
+      \fontsize{6pt}{8pt}
+      \def\svgwidth{0.6\columnwidth}
+      \input{../images/autoencoder_schematic.pdf_tex}
+      % \caption{Abstract schematic for an autoencoder operating on CSI matrices $\mathbf H$. The encoder learns a latent representation, $\mathbf Z$, while the decoder learns to reconstruct estimates $\hat{\mathbf H}$.}
+      % \label{fig:autoencoder_schematic}
+      \end{figure}
+      \pause
+      The encoder/decoder parameters $\theta_e, \theta_d$ are updated via a stochastic optimizer to minimize the \textbf{mean-squared error},
+      \begin{align*}
+      \underset{\theta_e, \theta_d}{\text{argmin}}\; \frac 1N \sum_{i=1}^N\Arrowvert \mathbf H_i - g(f(\mathbf H_i, \theta_e), \theta_d) \Arrowvert^2.
+      \end{align*}
+      }
     \end{frame}
     }
 
@@ -173,23 +293,115 @@
         \item CNN-based autoencoder for learned CSI compression and feedback \cite{ref:csinet}
         % \item Expanded their work to use Recurrent Neural Networks \cite{ref:Wang2019CsiNetLSTM}
       \end{itemize}
-      \fignocap{0.9}{csinet-fig.PNG}
+      \fignocap{0.9}{csinet-fig-paper.PNG}
       % [3] CsiNet paper
       % [4] CsiNet-LSTM paper
       \blfootnote{\bibentry{ref:csinet}}
     \end{frame}
     }
 
-    % \nofoot{
-    % \begin{frame}{Domain Knowledge}
-    %     \fignocap{0.55}{conway-venn.PNG}
-    %   % [5] Conway blog post
-    %   \blfootnote{D. Conway, ``Data Science Venn Diagram," \url{http://drewconway.com/zia/2013/3/26/the-data-science-venn-diagram}. Accessed: Feb 20, 2020}
-    % \end{frame}
-    % }
+    \nofoot{
+    \begin{frame}{CsiNet vs. Compressed Sensing}
+      \begin{columns}
+        \begin{column}{0.6\textwidth}
+          \footnotesize{
+          Metrics used are:
+          \begin{itemize}
+            \item \textbf{Normalized Mean-squared Error}
+            \begin{align*}
+              \text{NMSE} = \frac 1N \sum_{i}^N \frac{\|\mathbf H_i - \hat{\mathbf H}_i \|_2^2}{\|\mathbf H_i \|_2^2}
+            \end{align*}
+            \item \textbf{Cosine Similarity}
+            \begin{align*}
+              \rho = \frac 1N \sum_{i}^N \frac{|\bar{\mathbf H}_i \cdot \hat{\bar{\mathbf H}}_i |}{\|\bar{\mathbf H}_i \|_2\|\hat{\bar{\mathbf H}}_i \|_2}
+            \end{align*}
+          \end{itemize}
+          \pause
+          CNN-based approaches outperform CS-based approaches at comparable compression ratios.
+          }
+        \end{column}
+        \begin{column}{0.4\textwidth}  %%<--- here
+          \fignocap{1.0}{csinet-results.PNG}
+        \end{column}
+      \end{columns}
+      \blfootnote{\bibentry{ref:csinet}}
+    \end{frame}
+    }
 
+  % \nofoot{
+  % \begin{frame}{CNNs for CSI Estimation}
+  %   \begin{figure}[htb] \centering 
+  %     % \includegraphics[width=0.9\linewidth]{batch0_csi_gt.png}
+  %   {
+  %     \fontsize{4pt}{4pt}
+  %     \def\svgwidth{0.9\columnwidth}
+  %     \input{../images/cnns-venn-none.pdf_tex}
+  %   }
+  %     % \caption{Works/contributions in CNNs for CSI estimation .} 
+  %     % \label{fig:cnns_venn} 
+  %   \end{figure}
+  % \end{frame}
+  % }
 
-\section{Spherical Normalization}
+  % \nofoot{
+  % \begin{frame}{CNNs for CSI Estimation}
+  %   \begin{figure}[htb] \centering 
+  %     % \includegraphics[width=0.9\linewidth]{batch0_csi_gt.png}
+  %   {
+  %     \fontsize{4pt}{4pt}
+  %     \def\svgwidth{0.9\columnwidth}
+  %     \input{../images/cnns-venn-sph.pdf_tex}
+  %   }
+  %     % \caption{Works/contributions in CNNs for CSI estimation .} 
+  %     % \label{fig:cnns_venn} 
+  %   \end{figure}
+  % \end{frame}
+  % }
+
+  % \nofoot{
+  % \begin{frame}{CNNs for CSI Estimation}
+  %   \begin{figure}[htb] \centering 
+  %     % \includegraphics[width=0.9\linewidth]{batch0_csi_gt.png}
+  %   {
+  %     \fontsize{4pt}{4pt}
+  %     \def\svgwidth{0.9\columnwidth}
+  %     \input{../images/cnns-venn-markov.pdf_tex}
+  %   }
+  %     % \caption{Works/contributions in CNNs for CSI estimation .} 
+  %     % \label{fig:cnns_venn} 
+  %   \end{figure}
+  % \end{frame}
+  % }
+
+  % \nofoot{
+  % \begin{frame}{CNNs for CSI Estimation}
+  %   \begin{figure}[htb] \centering 
+  %     % \includegraphics[width=0.9\linewidth]{batch0_csi_gt.png}
+  %   {
+  %     \fontsize{4pt}{4pt}
+  %     \def\svgwidth{0.9\columnwidth}
+  %     \input{../images/cnns-venn-quant.pdf_tex}
+  %   }
+  %     % \caption{Works/contributions in CNNs for CSI estimation .} 
+  %     % \label{fig:cnns_venn} 
+  %   \end{figure}
+  % \end{frame}
+  % }
+
+  \nofoot{
+  \begin{frame}{CNNs for CSI Estimation}
+    \begin{figure}[htb] \centering 
+      % \includegraphics[width=0.9\linewidth]{batch0_csi_gt.png}
+    {
+      \fontsize{4pt}{4pt}
+      \def\svgwidth{0.9\columnwidth}
+      \input{../images/cnns-venn-diagram-contrib.pdf_tex}
+    }
+    \end{figure}
+  \end{frame}
+  }
+
+\section{Prior Work \#1: SphNet}
 
   % Spherical Normalization section frame 
   \begin{frame}[plain]
@@ -247,6 +459,23 @@
       \end{figure}
     \end{frame}
 
+    \begin{frame}{Comparison: Minmax Normalization}
+      Difference of \textbf{four orders of magnitude}. \\
+      \begin{table}[htb]
+        % \renewcommand{\arraystretch}{1.5}
+        \begin{center}
+          \begin{tabular}{|c|c|c|c|}
+          \hline
+          \textbf{Dataset} & \textbf{Channels} & \textbf{Normalization} & \textbf{Avg. Variance} \\ \hline
+          ImageNet       & RGB                 & Minmax                 & \underline{$7.24E^{-2}$}       \\ \hline
+          COST2100       & Real, Imag          & Minmax                 & \underline{$9.98E^{-6}$}       \\ \hline
+          \end{tabular}
+          \caption{Minmax normalization applied to COST2100 and ImageNet dataset.}
+          \label{tab:minmax-compare} 
+        \end{center}
+      \end{table}
+    \end{frame}
+
   % \nofoot{
   % \subsection{Bi-directional Reciprocity}
   % \begin{frame}{Bi-directional Reciprocity}
@@ -276,13 +505,13 @@
     \textbf{Spherical normalization} -- scale each channel sample by its power,
     % TODO: Does this make sense? "For CSI matrices, we could choose to scale each element by it's mean and by the inverse covariance matrix."
     \begin{align}
-      \mathbf{\check H}_d^n &= \frac{\mathbf H_d^n}{\|\mathbf H_d^n\|_2}. \label{eq:sph-intro}
+      \mathbf{\check H}^n &= \frac{\mathbf H^n}{\|\mathbf H^n\|}. \label{eq:sph-intro}
     \end{align}
     After applying (\ref{eq:sph-intro}) to each sample, minmax scaling is applied to the entire dataset.
   \end{frame}
 
-  \begin{frame}{SphNet: Spherical Normalization}
-    The resulting dataset under spherical normalization can exhibits a larger variance than the same dataset under minmax scaling. 
+  \begin{frame}{Spherical Normalization}
+    The resulting dataset under spherical normalization exhibit a larger variance than the same dataset under minmax scaling. 
     \begin{figure}[htb]
       \centering
       \includegraphics[width=.9\textwidth]{cost2100_indoor_sph_dist.pdf}
@@ -292,17 +521,36 @@
     \end{figure}
   \end{frame}
 
+  \begin{frame}{Comparison: Spherical vs. Minmax Normalization}
+    Under Spherical Normalization, difference is now \textbf{two orders of magnitude}.
+    \begin{table}[htb]
+      % \renewcommand{\arraystretch}{1.5}
+      \begin{center}
+        \begin{tabular}{|c|c|c|c|}
+        \hline
+        \textbf{Dataset} & \textbf{Channels} & \textbf{Normalization} & \textbf{Avg. Variance} \\ \hline
+        ImageNet       & RGB                 & Minmax                 & \underline{$7.24E^{-2}$}       \\ \hline
+        COST2100       & Real, Imag          & Spherical              & \underline{$1.41E^{-4}$}       \\ \hline
+        COST2100       & Real, Imag          & Minmax                 & $9.98E^{-6}$       \\ \hline
+        \end{tabular}
+        \caption{Minmax vs. spherical normalization applied to COST2100 datasets compared with ImageNet.}
+        \label{tab:minmax-sph-compare} 
+      \end{center}
+    \end{table}
+  \end{frame}
+{}
   \begin{frame}{MSE/NMSE equivalence}
     \footnotesize{
     Under spherical normalization, MSE loss becomes equivalent to NMSE. Recall the definitions,
-    \begin{align*} 
-      \text{MSE}=\frac 1N \sum_{k=1}^N\Arrowvert\mathbf H_k - \hat{\mathbf H}_k\Arrowvert^2,\quad \text{NMSE} =\frac 1N \sum_{k=1}^N\frac{\Arrowvert\mathbf H_k - \hat{\mathbf H}_k\Arrowvert^2}{\Arrowvert\mathbf H_k\Arrowvert^2} \\        
+    \begin{align*}
+      \text{MSE}=\frac 1N \sum_{k=1}^N\Arrowvert\mathbf H_k - \hat{\mathbf H}_k\Arrowvert^2,\quad \text{NMSE} =\frac 1N \sum_{k=1}^N\frac{\Arrowvert\mathbf H_k - \hat{\mathbf H}_k\Arrowvert^2}{\Arrowvert\mathbf H_k\Arrowvert} \\        
     \end{align*}
+    \pause
     The MSE of the spherically normalized estimator is equivalent to the NMSE of the regular estimator, i.e.
     \begin{align*}
       \text{MSE}_{\text{Sph}} &= \frac 1N \sum_{k=1}^N\Arrowvert\check{\mathbf H}_k - \hat{\check{\mathbf H}}_k\Arrowvert^2 \\
-      &= \frac 1N \sum_{k=1}^N\left\Arrowvert \frac{\mathbf H_k}{\Arrowvert\mathbf H_k\Arrowvert^2} - \frac{\hat{\mathbf H}_k}{\Arrowvert\mathbf H_k\Arrowvert^2}\right\Arrowvert^2 \\
-      &= \frac 1N \sum_{k=1}^N\frac{\Arrowvert\mathbf H_k - \hat{\mathbf H}_k\Arrowvert^2}{\Arrowvert\mathbf H_k\Arrowvert^2} \; \Box.
+      &= \frac 1N \sum_{k=1}^N\left\Arrowvert \frac{\mathbf H_k}{\Arrowvert\mathbf H_k\Arrowvert} - \frac{\hat{\mathbf H}_k}{\Arrowvert\mathbf H_k\Arrowvert}\right\Arrowvert^2 \\
+      &= \frac 1N \sum_{k=1}^N\frac{\Arrowvert\mathbf H_k - \hat{\mathbf H}_k\Arrowvert^2}{\Arrowvert\mathbf H_k\Arrowvert} \; \Box.
       % &= \text{NMSE} \; \Box
     \end{align*}
     }
@@ -362,10 +610,43 @@
   %   % \end{align*}
   % \end{frame}
 
-  \begin{frame}{SphNet: Spherical Normalization}
-    \fignocap{0.9}{sphnet-fig.PNG}
-  \end{frame}
+  \nofoot{
+  \begin{frame}{SphNet Architecture}
+    % \fignocap{0.9}{sphnet-fig.PNG}
+    \begin{figure}[htb]
+      \centering
+      {
+        \fontsize{1pt}{1pt}
+        \def\svgwidth{1.0\columnwidth}
+        \input{../images/csinet-pro.pdf_tex}
+      }
+      % \includegraphics[width=.9\textwidth]{csinet-pro.pdf}
+      % \medskip
+      \caption{SphNet -- CsiNetPro architecture with Spherical Normalization.}
+      \label{fig:sphnet-arch}
+    \end{figure}
+  \blfootnote{\bibentry{ref:liu2020sphnet}}
+  \end{frame}  
+  }
 
+  \nofoot{
+  \begin{frame}{DualNet-Sph Architecture}
+    % \fignocap{0.9}{sphnet-fig.PNG}
+    \begin{figure}[htb]
+      \centering
+      {
+        \fontsize{1pt}{1pt}
+        \def\svgwidth{1.0\columnwidth}
+        \input{../images/dualnet-pro.pdf_tex}
+      }
+      % \includegraphics[width=.9\textwidth]{csinet-pro.pdf}
+      % \medskip
+      \caption{DualNet-Sph -- CsiNetPro architecture with Spherical Normalization and Bidirectional Reciprocity.}
+      \label{fig:dualnet-sph-arch}
+    \end{figure}
+    \blfootnote{\bibentry{ref:dualnet}}
+  \end{frame}
+  }
 
 
   % \nofoot{
@@ -426,8 +707,7 @@
   \end{frame}
   }
 
-\section{MarkovNet}
-
+\section{Prior Work \#2: MarkovNet}
   % MarkovNet section frame 
   \begin{frame}[plain]
     \vfill
@@ -441,21 +721,37 @@
     \vfill
   \end{frame}
 
+  % DONE: add figure demonstrating temporal CSI? snapshots of t_1, t_2, ..., t_3
   \begin{frame}{Temporal Correlation}
-    CSI estimation techniques benefit from temporal information.
-    \begin{figure}[!hbtp] \centering 
-      \subfigure[Indoor] {\label{fig:entropy_in} 
-      % \includegraphics[width=0.46\textwidth]{images/nmse_indoor_mag.eps}
-      \includegraphics[width=0.47\textwidth]{indoor_entropy.png}
-      } 
-      \subfigure[Outdoor] { \label{fig:entropy_out} 
-      % \includegraphics[width=0.46\textwidth]{images/nmse_outdoor_mag.eps} 
-      \includegraphics[width=0.47\textwidth]{outdoor_entropy.png}
-      } 
-      \caption{Conditional entropy between CSI matrices for different feedback intervals. COST2100 model used for (a) Indoor and (b) Outdoor network} 
-      \label{fig:entropy} \vspace*{-2mm}
+    \begin{figure}[htb] \centering 
+      % \includegraphics[width=0.9\linewidth]{batch0_csi_gt.png}
+    {
+      \fontsize{10pt}{12pt}
+      \def\svgwidth{1.0\columnwidth}
+      \input{../images/batch0_csi_gt.pdf_tex}
+    }
+      \caption{Ground truth CSI ($\mathbf H$) for five timeslots ($T_1$ through $T_5$) on one outdoor sample from the validation set.} 
+      \label{fig:csi_img_gt} 
     \end{figure}
   \end{frame}
+  % TODO: change to LaTeX-annotated 
+
+  % entropy/cond entropy
+  % \begin{frame}{Temporal Correlation}
+  %   CSI estimation benefit from temporal information.
+  %   \begin{figure}[!hbtp] \centering 
+  %     \subfigure[Indoor] {\label{fig:entropy_in} 
+  %     % \includegraphics[width=0.46\textwidth]{images/nmse_indoor_mag.eps}
+  %     \includegraphics[width=0.47\textwidth]{indoor_entropy.png}
+  %     } 
+  %     \subfigure[Outdoor] { \label{fig:entropy_out} 
+  %     % \includegraphics[width=0.46\textwidth]{images/nmse_outdoor_mag.eps} 
+  %     \includegraphics[width=0.47\textwidth]{outdoor_entropy.png}
+  %     } 
+  %     \caption{Conditional entropy between CSI matrices for different feedback intervals. Data generated with COST2100 model.} 
+  %     \label{fig:entropy} \vspace*{-2mm}
+  %   \end{figure}
+  % \end{frame}
 
   \nofoot{
   \begin{frame}{Recurrent Neural Networks for Temporal Correlation}
@@ -471,11 +767,26 @@
   \end{frame}
   }
 
+  \nofoot{
+  \begin{frame}{CsiNet-LSTM Performance}
+    \begin{columns}
+      \begin{column}{0.4\textwidth}
+        \footnotesize{
+        LSTMs improve NMSE at smaller compression ratios.
+        }
+      \end{column}
+      \begin{column}{0.6\textwidth}  %%<--- here
+        \fignocap{1.0}{csinet-lstm-results.PNG}
+      \end{column}
+    \end{columns}
+    \blfootnote{\bibentry{ref:Wang2019CsiNetLSTM}}
+  \end{frame}
+  }
 
   \nofoot{
   \begin{frame}{Recurrent Neural Networks for Temporal Correlation}
     % \footnotesize{
-    The number of parameters/FLOPs for RNNs is large.
+    \textbf{Problem:} Number of parameters/FLOPs for RNNs is large.
     \begin{table}[htb]
       % \renewcommand{\arraystretch}{1.5}
       \begin{center}
@@ -493,7 +804,7 @@
         \end{tabular}
       \end{center}
     \end{table}
-    \blfootnote{\bibentry{ref:Wang2019CsiNetLSTM}}
+    % \blfootnote{\bibentry{ref:Wang2019CsiNetLSTM}}
   \end{frame}
   % }
   }
@@ -501,11 +812,11 @@
   \subsection{Differential Encoding}
 % {}
   \nofoot{
-  \begin{frame}{MarkovNet: Markov Assumption}
+  \begin{frame}{Markov Assumption}
     Instead of learning a temporal dependency
-    across multiple timeslots, we proposed a one-step differential encoder.
+    across multiple timeslots, we proposed a \textbf{one-step differential encoder}.
 
-    For short enough time intervals between $t$ and $t-1$, 
+    For short enough feedback intervals between $t$ and $t-1$, 
     % CSI data are stationary, i.e. 
     we view CSI data as a Markov chain, i.e.
     \begin{align*} 
@@ -514,15 +825,18 @@
     with $\gamma \in \mathbb R^+$ and i.i.d $\mathbf
     V_t$ such that $\mathbf V_t \sim \mathcal{CN}(\mathbf 0,\Sigma_V)$.
     % $\mathbb E\left[\mathbf V_t\right] = \mathbf 0$.
-    \blfootnote{\bibentry{ref:Liu2020MarkovNet}}
+    \footnotesize{
+    \blfootnote{\bibentry{ref:Liu2020MarkovNet} (\textdagger \; equal contribution)} 
+    }
   \end{frame}
   }
 
-  \begin{frame}{MarkovNet}
+  \begin{frame}{Scalar One-step Estimation}
     The ordinary least-squares solution, $\gamma$, is given as
     \begin{align*}
       \gamma &= \frac{\text{Trace}(\mathbb E\left[\mathbf H_{t-1}^H\mathbf H_{t}\right])}{\mathbb E\Arrowvert\mathbf H_t^H \mathbf H_t\Arrowvert^2}.
     \end{align*}
+    \pause
     We utilize the estimator, $\hat \gamma$, based on the second-order statistics of the CSI matrices,
     \begin{align*}
       \hat \gamma &= \frac{\sum_{i=1}^N\text{Trace}(\left[\mathbf H_{t-1}^H(i)\mathbf H_{t}(i)\right])}{\sum_{i=1}^N\Arrowvert\mathbf H_t^H(i) \mathbf H_t(i)\Arrowvert^2},
@@ -530,7 +844,7 @@
     for training set of size $N$.
   \end{frame}
 
-  \begin{frame}{MarkovNet}
+  \begin{frame}{MarkovNet: Deep Differential Encoding}
     With the one-step estimator $\hat\gamma$, we propose train an encoder for the estimation error as
     \begin{align*}
       \mathbf s_t &= f_{e,t} (\mathbf H_t - \hat \gamma \hat {\mathbf H}_{t-1}),
@@ -554,7 +868,7 @@
     \end{figure}
   \end{frame}
 
-  \begin{frame}{MarkovNet: Results ($\text{NMSE}_{\text{truncated}}$)}
+  \begin{frame}{MarkovNet Results -- NMSE Performance}
     \begin{figure}[!hbtp] \centering 
       \subfigure[Indoor] {\label{fig:diffnet_indoor} 
       \includegraphics[width=0.46\textwidth]{MarkovNet_truncated_Indoor_10slots.pdf}
@@ -564,27 +878,11 @@
       } 
       \vspace*{-3mm}
 
-      \caption{$\text{NMSE}_{\text{truncated}}$ comparison of MarkovNet and CsiNet-LSTM 
+      \caption{$\text{NMSE}$ comparison of MarkovNet and CsiNet-LSTM 
       at various compression ratios (CR).} 
       \label{fig:diffnet_result} \vspace*{-2mm}
     \end{figure}  
   \end{frame}
-
-  \begin{frame}{MarkovNet: Results ($\text{NMSE}_{\text{all}}$)}
-    \begin{figure}[!hbtp] \centering 
-      \subfigure[Indoor] {\label{fig:diffnet_indoor} 
-      \includegraphics[width=0.46\textwidth]{MarkovNet_Indoor_10slots.pdf}
-      } 
-      \subfigure[Outdoor] { \label{fig:diffnet_outdoor } 
-      \includegraphics[width=0.46\textwidth]{MarkovNet_Outdoor_10slots.pdf} 
-      } 
-      \vspace*{-3mm}
-      \caption{$\text{NMSE}_{\text{all}}$ comparison of MarkovNet and CsiNet-LSTM 
-      at various compression ratios (CR).} 
-      \label{fig:diffnet_result} \vspace*{-2mm}
-    \end{figure}  
-  \end{frame}
-
 
   \begin{frame}{MarkovNet: Results}
     \begin{figure}[htb] \centering 
@@ -594,7 +892,48 @@
     \end{figure}
   \end{frame}
 
-\section{SphNet-Quant}
+  \nofoot{
+  \begin{frame}{MarkovNet: Computational Complexity}
+    \footnotesize{
+    \begin{table}[htb]
+      \renewcommand{\arraystretch}{1}
+      \begin{center}
+      % \caption{Table II: Model size \& computational complexity comparison. M: million, K: thousand.}
+      \caption{Model size/computational complexity of tested temporal networks (CsiNet-LSTM, MarkovNet) and comparable non-temporal network (CsiNet). M: million.}
+      \label{tab:comp-complex} 
+      % \resizebox{\linewidth}{15mm}
+      {
+      \begin{tabular}{|l|c|c|c|c|}
+      \hline
+                                  & \multicolumn{3}{c|}{\textbf{Parameters}}                                                                                 \\ \hline
+                                  & \textbf{CsiNet-LSTM} & \textbf{MarkovNet} & \textbf{CsiNet} \\ \hline
+      \textbf{CR=$1/4$}  & 132.7 M              & 2.1 M              & 2.1 M          \\ \hline
+      \textbf{CR=$1/8$}  & 123.2 M              & 1.1 M              & 1.1 M          \\ \hline
+      \textbf{CR=$1/16$} & 118.5 M              & 0.5 M              & 0.5 M          \\ \hline
+      \textbf{CR=$1/32$} & 116.1 M              & 0.3 M              & 0.3 M          \\ \hline
+      \textbf{CR=$1/64$} & 115.0 M              & 0.1 M              & 0.1 M          \\ \hline
+                                  & \multicolumn{3}{c|}{\textbf{FLOPs}}                                                                                      \\ \hline
+                                  & \textbf{CsiNet-LSTM} & \textbf{MarkovNet} & \textbf{CsiNet} \\ \hline
+      \textbf{CR=$1/4$}  & 412.9 M              & 44.5 M             & 7.8 M          \\ \hline
+      \textbf{CR=$1/8$}  & 410.8 M              & 42.4 M             & 5.7 M          \\ \hline
+      \textbf{CR=$1/16$} & 409.8 M              & 41.3 M             & 4.7 M          \\ \hline
+      \textbf{CR=$1/32$} & 409.2 M              & 40.8 M             & 4.1 M          \\ \hline
+      \textbf{CR=$1/64$} & 409.0 M              & 40.5 M             & 3.9 M          \\ \hline
+      \end{tabular}
+      }
+      \end{center}
+    \end{table} 
+    }
+  \end{frame}
+  }
+
+\section{Proposed Work: CsiNet-SoftQuant}
+
+  % TODO: add background here. answer questions:
+  % - how do most works approach the problem of quantizing feedback? A: continuous elements; no quantization
+  %   - problem: transmission under digital modulation schemes requires *quantization* - cast elements to discrete values
+  % - how do most works quantify the compression of their networks? A: # of latent elements divided by # of input elements  
+  %   - problem: how do we know if a model sufficiently compresses the CSI?
 
   % Background section frame 
   \begin{frame}[plain]
@@ -609,21 +948,42 @@
     \vfill
   \end{frame}
 
-  \begin{frame}{SHVQ for CSI Estimation}
+  \nofoot{
+  \begin{frame}{Continuous-valued Feedback}
     \begin{figure}[!hbtp]
     \centering
     {
       \fontsize{6pt}{8pt}
       \def\svgwidth{0.8\columnwidth}
-      \input{../images/csinet_quant.pdf_tex}
+      \input{../images/autoencoder_real_latent.pdf_tex}
     }
-    \caption{Abstract architecture for CsiNet-Quant. SoftQuantize layer ($Q(\tilde{\mathbf Z})$) is a continuous, softmax-based relaxation of a $d$-dimensional quantization of the latent layer $\mathbf Z$.}
-    \label{fig:csinet_quant}
+    \caption{Autoencoder architecture with $r$-dimensional real-valued latent feedback elements.}
+    \label{fig:real_latent}
     \end{figure}
+    \pause
+    \textbf{Problem:} Feedback elements must be discrete-valued. How to quantize?
   \end{frame}
+  }
 
+  \nofoot{
+  \begin{frame}{Uniform Quantization}
+    Network with uniform quantization and arithmetic encoding of latent vectors.
+    \begin{figure}[htb] \centering 
+      \includegraphics[width=0.9\linewidth]{deepcmc-fig.png}
+      \caption{Architecture for DeepCMC \cite{ref:Yang2019DeepCMC}. Network uses entropy encoding of uniform quantized feedback elements to minimize bit rate.} 
+     \label{fig:deepcmc} 
+    \end{figure}
+    \pause
+    \emph{Is fixed quantization scheme optimal?}
+    \blfootnote{\bibentry{ref:Yang2019DeepCMC}} 
+  \end{frame}
+  }
+  \subsection{Soft-to-Hard Vector Quantization}
+
+  \nofoot{
   \begin{frame}{Soft Quantization}
-    Define the $m$-dimensional codebook of size $L$ as $\mathbf C \in \mathbb R^{m\times L}$. The soft assignments of the $j$-th latent vector $\tilde{\mathbf z}_j$ can be written as,
+    \footnotesize{
+    We propose to use soft-to-hard vector quantization (SHVQ) \cite{ref:Agustsson2017SoftToHard}. Define the $m$-dimensional codebook of size $L$ as $\mathbf C \in \mathbb R^{m\times L}$. The soft vector assignments of the $j$-th latent vector $\tilde{\mathbf z}_j$ can be written as,
     \begin{align}
     \phi(\tilde{\mathbf z}_j) &= \left[\frac{\text{exp}(-\sigma \Arrowvert \tilde{\mathbf z}_j - \mathbf c_\ell\Arrowvert^2)}{\sum_{i=1}^L\text{exp}(-\sigma \Arrowvert \tilde{\mathbf z}_j - \mathbf c_i\Arrowvert^2)}\right]_{\ell\in [L]} \in \mathbb R^L, \label{eq:soft_assign}
     \end{align}
@@ -632,14 +992,17 @@
     \begin{align}
       \lim_{\sigma \to \infty} \phi(\tilde{\mathbf z}_j) &= \text{onehot}(\tilde{\mathbf z}_j) = \begin{cases} 1 & \ell = \underset{\ell}{\text{argmax}} \; \phi(\tilde{\mathbf z}_j)[\ell] \\ 0 & \text{otherwise} \end{cases}
     \end{align}
-    % TODO: visualize this using the inkscape diagram?
+    % TODO: visualize this using the inkscape diagram?    
+    \blfootnote{\bibentry{ref:Agustsson2017SoftToHard}}
+  }
   \end{frame}
+  }
 
   \begin{frame}{Latent Entropy Estimation}
     \footnotesize{
     The soft assignments $\phi$ admit probability masses over the codewords,
     \begin{align*} 
-      q_j = \phi(\tilde{\mathbf z}).
+      q_j = \phi(\tilde{\mathbf z}_j).
     \end{align*}
     Based on finite samples, we define the histogram probability estimates $p_j$
     \begin{align*}
@@ -669,46 +1032,123 @@
       \textbf{Term} & \textbf{Definition} & \textbf{Description} \\ \midrule
        $ L_{d}(\mathbf H, \hat {\mathbf H}) $ & $ \frac 1N \sum_{i=1}^N\Arrowvert \mathbf H_i - g(Q(f(\mathbf H_i, \theta_e), \mathbf C), \theta_d) \Arrowvert^2 $ & distortion loss \\ \hline
        $ L_{\ell^2}(\theta_e, \theta_d, \mathbf C) $ & $ \Arrowvert\theta_e\Arrowvert^2+\Arrowvert\theta_d\Arrowvert^2+\Arrowvert \mathbf C \Arrowvert^2 $ & $\ell^2$ penalty \\ \hline
-       $ L_{r}(\theta_e, \mathbf C) $ & $m\beta H(\phi)$  & rate loss \\ \bottomrule
+       $ L_{r}(\theta_e, \mathbf C) $ & $m H(\phi)$  & rate loss \\ \bottomrule
       \end{tabular}
       \end{table}
     }
   \end{frame}
 % {}
 
-\subsection{Results}
-
-  \nofoot{
-  \begin{frame}{Results: Rate-Distortion (Outdoor)}
-    \begin{figure}[htb] \centering 
-      \includegraphics[width=0.7\linewidth]{rate-distortion-all-cr-H4.pdf}
-      \caption{Rate distortion of CsiNet-Quant under minmax normalization using: $L=1024$ centers, $d=4$.} 
-     \label{fig:rate-distortion-minmax} 
+  \begin{frame}{SHVQ for CSI Estimation}
+    \begin{figure}[!hbtp]
+    \centering
+    {
+      \fontsize{6pt}{8pt}
+      \def\svgwidth{0.8\columnwidth}
+      \input{../images/csinet_quant.pdf_tex}
+    }
+    \caption{Abstract architecture for CsiNet-SoftQuant \cite{ref:Yang2019DeepCMC}. SoftQuantize layer ($Q(\tilde{\mathbf Z})$) is a continuous, softmax-based relaxation of a $d$-dimensional quantization of the latent layer $\mathbf Z$.}
+    \label{fig:csinet_quant}
     \end{figure}
   \end{frame}
-  }
+
+% \oubsection{Results}
 
   \nofoot{
   \begin{frame}{Results: Rate-Distortion (Outdoor)}
     \begin{figure}[htb] \centering 
-      \includegraphics[width=0.7\linewidth]{bitrate-distortion-all-cr-sphH4-K100-outdoor.pdf}
-      % \includegraphics[width=0.7\linewidth]{rate-distortion-all-cr.pdf}
-      \caption{Rate distortion of SphNet-Quant using: $L=1024$ centers, CR$=\frac 14$, $d=4$. Bit rates are realized under arithmetic coding of quantized features.} 
-      \label{fig:rate-distortion} 
-    \end{figure}
-  \end{frame}
-  }
-
-  \nofoot{
-  \begin{frame}{Results: Rate-Distortion (Outdoor)}
-    \begin{figure}[htb] \centering 
-      \includegraphics[width=0.7\linewidth]{rate-distortion-all-norm.pdf}
-      \caption{Rate distortion of CsiNet-Quant under both minmax (dotted line) and spherical (solid line) normalization using: $L=1024$ centers, $d=4$. Hard quantization performance shown for each CR.} 
+      % \includegraphics[width=0.7\linewidth]{rate-distortion-all-norm.pdf}
+      \includegraphics[width=0.7\linewidth]{rate-distortion-shvq-vs-uniform-K100-outdoor.pdf}
+      \caption{Rate distortion of CsiNet-SoftQuant under both minmax (dotted line) and spherical (solid line) normalization using: $L=1024$ centers, $d=4$. Hard quantization performance shown for each CR.} 
       \label{fig:rate-distortion-norms} 
     \end{figure}
   \end{frame}
   }
 
+  \begin{frame}{Entropy Estimation}
+    \footnotesize{
+      Given angular-delay domain CSI data, $\mathbf H$, assume i.i.d. $\mathbf H_{(i,j)}$ for $i$-th ($j$-th) row (col).\\ \vspace{8pt}
+      \pause
+      Denote the quantized CSI matrix, $\mathbf H^\Delta$, quantized with $b$ bits. The entropy of the $(i,j)$-th element is
+      \begin{align*}
+        H(\mathbf H^\Delta_{(i,j)}) &= - \sum_{k}^{2^b} p(\mathbf H^\Delta_{(i,j)} = k) \log p(\mathbf H^\Delta_{(i,j)} = k),
+      \end{align*}
+      where $p(\mathbf H^\Delta_{(i,j)} = k)$ can be obtained as a histogram estimate over the entire dataset.\\ \vspace{8pt}
+      \pause
+      A conservative upper bound on the entropy of the full CSI matrix is
+      \begin{align*}
+        H(\mathbf H^\Delta) &= \frac{1}{R_d n_T} \sum_{i}^{R_d}\sum_{j}^{n_T} H(\mathbf H^\Delta_{(i,j)}).
+      \end{align*}
+    }
+  \end{frame}
+
+  \begin{frame}{Entropy Estimation: Results}
+    \begin{figure}[!hbtp] \centering 
+      \subfigure[Indoor] {\label{indoor_cond} 
+        \includegraphics[width=0.47\linewidth]{indoor_cond_entropy_25000samples_ci.png}
+      } 
+      \subfigure[Outdoor] { \label{outdoor_cond} 
+        \includegraphics[width=0.47\linewidth]{outdoor_cond_entropy_25000samples_ci.png}
+      } 
+      \caption{Mean entropy/conditional entropy estimates $H(\mathbf H^{\Delta})$ with 95\% c.i. for quantized i.i.d COST2100 elements vs. quantization level (bits).} 
+      \label{fig:cost-ent-est} 
+    \end{figure}
+  \end{frame}
+
+  \nofoot{
+  \begin{frame}{Differential Entropy Estimation}
+    \footnotesize{
+      Again, assume i.i.d. $\mathbf H_{(i,j)}$ for $i$-th ($j$-th) row (col).\\ \vspace{8pt}
+      \pause
+      The differential entropy of the $(i,j)$-th element is
+      \begin{align*}
+        \hat h(\mathbf H_{(i,j)}) &= - \int p(\mathbf H{(i,j)} = k) \log p(\mathbf H_{(i,j)} = k) dk,
+      \end{align*}
+      \pause
+      In practice, the distribution $p(\mathbf H{(i,j)})$ in difficult to obtain. We can instead resort to the Kozachenko–Leonenko (KL) estimator \cite{ref:Kozachenko1987SampleEstimate} for each element in $\mathbf H$ and average over the elements,
+      \begin{align*}
+        \hat h(\mathbf H) &= \frac{1}{R_d n_T} \sum_{i}^{R_d}\sum_{j}^{n_T} \hat h(\mathbf H_{(i,j)}),
+      \end{align*}
+      for KL estimator $\hat h$.
+      \blfootnote{\bibentry{ref:Kozachenko1987SampleEstimate}}
+    }
+  \end{frame}
+  }
+
+  \begin{frame}{Quantized vs. Differential Entropy}
+  \footnotesize{
+    Based on Theorem 8.3.1 from Cover \cite{ref:Cover1999Elements}, -- for sufficiently small quantization interval $\Delta = \frac {1}{2^n}$, the entropy of a quantized random variable is related to its differential entropy as,
+    \begin{align*}
+      H(\mathbf H^{\Delta}) &= h(\mathbf H) + n,
+    \end{align*}
+    for $n$-bit quantization. Thus, the differential entropy estimator admits an estimate for the entropy of the quantized CSI, $\hat{\mathbf H}^\Delta$.
+  }
+  \end{frame}
+
+  \nofoot{
+  \begin{frame}{Differential Entropy Estimation: Results}
+    \begin{figure}[!hbtp] \centering 
+      \includegraphics[width=0.75\linewidth]{outdoor_conditional_quant.pdf}
+      \caption{Mean entropy/conditional entropy estimates $\hat H(\mathbf H^{\Delta}) = \hat h(\mathbf H) + n$ with 95\% c.i. for quantized i.i.d COST2100 elements vs. quantization level (bits).} 
+      \label{fig:cost-diffent-est} 
+    \end{figure}
+  \end{frame}
+  }
+
+  \nofoot{
+  \begin{frame}{Future Work: Rate-Distortion Bound}
+    \begin{figure}[htb] \centering 
+      % \includegraphics[width=0.7\linewidth]{rate-distortion-all-norm.pdf}
+      \includegraphics[width=0.7\linewidth]{rate-distortion-shvq-vs-uniform-K100-bound-outdoor.pdf}
+      \caption{Rate distortion of CsiNet-SoftQuant with current entropy bound based on $\hat H(\mathbf H^\Delta)$.} 
+      \label{fig:rate-distortion-bound} 
+    \end{figure}
+  \end{frame}
+  }
+
+% TODO: future directions
+% - entropy estimation -- does the entropy of the quantized feedback exceed that of the CSI elements themselves?
+% - model quantization -- (less compelling as a research direction) -does the model achieve similar performance with quantized weights?
 
 \section*{Questions?}
     \begin{frame}[plain]
@@ -724,13 +1164,22 @@
     \end{frame}
 
 \section*{References}
+  \nofoot{
   \begin{frame}{References}
     % https://latex.org/forum/viewtopic.php?t=12027
     \setbeamertemplate{bibliography item}[text]
     \bibliographystyle{ieeetr}
-    \tiny{\bibliography{../cited_works}}
-    \tiny{\textdagger $\rightarrow$ equal contribution}
+    \begingroup 
+    \fontsize{4pt}{4pt}
+       % \setlength{\bibsep}{4pt}
+       % \setstretch{1}
+      \bibliography{../cited_works}
+      \textdagger equal contribution
+    \endgroup
+    % {\tiny \bibliography{../cited_works}}
+    % {\tiny \textdagger $\rightarrow$ equal contribution}
   \end{frame}
+  }
 
 \section*{Appendix}
 
@@ -822,6 +1271,58 @@
     \end{align}
     where $[\cdot]^+$ denotes the Moore-Penrose pseudoinverse.
   \end{frame}
+
+  \begin{frame}{MarkovNet: Results ($\text{NMSE}_{\text{truncated}}$)}
+    \begin{figure}[!hbtp] \centering 
+      \subfigure[Indoor] {\label{fig:diffnet_indoor} 
+      \includegraphics[width=0.46\textwidth]{MarkovNet_truncated_Indoor_10slots.pdf}
+      } 
+      \subfigure[Outdoor] { \label{fig:diffnet_outdoor} 
+      \includegraphics[width=0.46\textwidth]{MarkovNet_truncated_Outdoor_10slots.pdf} 
+      } 
+      \vspace*{-3mm}
+
+      \caption{$\text{NMSE}_{\text{truncated}}$ comparison of MarkovNet and CsiNet-LSTM 
+      at various compression ratios (CR).} 
+      \label{fig:diffnet_result} \vspace*{-2mm}
+    \end{figure}  
+  \end{frame}
+
+  \begin{frame}{MarkovNet: Results ($\text{NMSE}_{\text{all}}$)}
+    \begin{figure}[!hbtp] \centering 
+      \subfigure[Indoor] {\label{fig:diffnet_indoor} 
+      \includegraphics[width=0.46\textwidth]{MarkovNet_Indoor_10slots.pdf}
+      } 
+      \subfigure[Outdoor] { \label{fig:diffnet_outdoor } 
+      \includegraphics[width=0.46\textwidth]{MarkovNet_Outdoor_10slots.pdf} 
+      } 
+      \vspace*{-3mm}
+      \caption{$\text{NMSE}_{\text{all}}$ comparison of MarkovNet and CsiNet-LSTM 
+      at various compression ratios (CR).} 
+      \label{fig:diffnet_result} \vspace*{-2mm}
+    \end{figure}  
+  \end{frame}
+
+  \nofoot{
+  \begin{frame}{Results: Rate-Distortion (Minmax, Soft vs. Hard)}
+    \begin{figure}[htb] \centering 
+      \includegraphics[width=0.7\linewidth]{rate-distortion-all-cr-H4.pdf}
+      \caption{Rate distortion of CsiNet-SoftQuant under minmax normalization using: $L=1024$ centers, $d=4$.} 
+     \label{fig:rate-distortion-minmax} 
+    \end{figure}
+  \end{frame}
+  }
+
+  \nofoot{
+  \begin{frame}{Results: Rate-Distortion (Spherical, Soft vs. Hard)}
+    \begin{figure}[htb] \centering 
+      \includegraphics[width=0.7\linewidth]{bitrate-distortion-all-cr-sphH4-K100-outdoor.pdf}
+      % \includegraphics[width=0.7\linewidth]{rate-distortion-all-cr.pdf}
+      \caption{Rate distortion of CsiNet-SoftQuant using: $L=1024$ centers, CR$=\frac 14$, $d=4$. Bit rates are realized under arithmetic coding of quantized features.} 
+      \label{fig:rate-distortion} 
+    \end{figure}
+  \end{frame}
+  }
 
   \begin{frame}{Differential Entropy Estimation: Multivariate Normal}
     \begin{figure}[htb] \centering 

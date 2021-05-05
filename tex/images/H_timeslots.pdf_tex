@@ -1,6 +1,6 @@
 %% Creator: Inkscape inkscape 0.92.4, www.inkscape.org
 %% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
-%% Accompanies image file 'autoencoder_schematic.pdf' (pdf, eps, ps)
+%% Accompanies image file 'H_timeslots.pdf' (pdf, eps, ps)
 %%
 %% To include the image in your LaTeX document, write
 %%   \input{<filename>.pdf_tex}
@@ -38,7 +38,7 @@
   \newcommand*\fsize{\dimexpr\f@size pt\relax}%
   \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
   \ifx\svgwidth\undefined%
-    \setlength{\unitlength}{433.36198461bp}%
+    \setlength{\unitlength}{595.27559055bp}%
     \ifx\svgscale\undefined%
       \relax%
     \else%
@@ -50,20 +50,15 @@
   \global\let\svgwidth\undefined%
   \global\let\svgscale\undefined%
   \makeatother%
-  \begin{picture}(1,0.61208588)%
+  \begin{picture}(1,1.41428571)%
     \lineheight{1}%
     \setlength\tabcolsep{0pt}%
-    \put(0,0){\includegraphics[width=\unitlength,page=1]{autoencoder_schematic.pdf}}%
-    \put(0.09077411,0.2891942){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\mathbf H$\end{tabular}}}}%
-    \put(0,0){\includegraphics[width=\unitlength,page=2]{autoencoder_schematic.pdf}}%
-    \put(0.90109148,0.28947926){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\hat{\mathbf H}$\end{tabular}}}}%
-    \put(0.69464903,0.28961899){\color[rgb]{0.03529412,0.17254902,0.28235294}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$g(\mathbf Z, \theta_d)$\end{tabular}}}}%
-    \put(0.28176424,0.2907098){\color[rgb]{0.77254902,0.58039216,0.20392157}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$f(\mathbf H, \theta_e)$\end{tabular}}}}%
-    \put(0,0){\includegraphics[width=\unitlength,page=3]{autoencoder_schematic.pdf}}%
-    \put(0.22480491,0.57182211){\color[rgb]{0.77254902,0.58039216,0.20392157}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Encoder\end{tabular}}}}%
-    \put(0.63975774,0.58427069){\color[rgb]{0.03529412,0.17254902,0.28235294}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Decoder\end{tabular}}}}%
-    \put(0,0){\includegraphics[width=\unitlength,page=4]{autoencoder_schematic.pdf}}%
-    \put(0.49687471,0.28645629){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\mathbf Z$\end{tabular}}}}%
-    \put(0,0){\includegraphics[width=\unitlength,page=5]{autoencoder_schematic.pdf}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{H_timeslots.pdf}}%
+    \put(0.22913597,1.17808907){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\mathbf H_1$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{H_timeslots.pdf}}%
+    \put(0.33093403,1.17808908){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\mathbf H_2$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=3]{H_timeslots.pdf}}%
+    \put(0.53453024,1.17808907){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\mathbf H_T$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=4]{H_timeslots.pdf}}%
   \end{picture}%
 \endgroup%

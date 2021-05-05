@@ -1,0 +1,106 @@
+%% Creator: Inkscape inkscape 0.92.4, www.inkscape.org
+%% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
+%% Accompanies image file 'dualnet-pro.pdf' (pdf, eps, ps)
+%%
+%% To include the image in your LaTeX document, write
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics{<filename>.pdf}
+%% To scale the image, write
+%%   \def\svgwidth{<desired width>}
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics[width=<desired width>]{<filename>.pdf}
+%%
+%% Images with a different path to the parent latex file can
+%% be accessed with the `import' package (which may need to be
+%% installed) using
+%%   \usepackage{import}
+%% in the preamble, and then including the image with
+%%   \import{<path to file>}{<filename>.pdf_tex}
+%% Alternatively, one can specify
+%%   \graphicspath{{<path to file>/}}
+%% 
+%% For more information, please see info/svg-inkscape on CTAN:
+%%   http://tug.ctan.org/tex-archive/info/svg-inkscape
+%%
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \newcommand*\fsize{\dimexpr\f@size pt\relax}%
+  \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{1089.14659395bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,0.36289482)%
+    \lineheight{1}%
+    \setlength\tabcolsep{0pt}%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{dualnet-pro.pdf}}%
+    \put(0.1201689,0.18360321){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$|\check{\mathbf H}|$\\(32,32)\end{tabular}}}}%
+    \put(0.03699161,0.18018344){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\mathbf{H}$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{dualnet-pro.pdf}}%
+    \put(0.29610421,0.29562284){\color[rgb]{0.77254902,0.58039216,0.20392157}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Encoder\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=3]{dualnet-pro.pdf}}%
+    \put(0.46740395,0.18364985){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Linear\\$r$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=4]{dualnet-pro.pdf}}%
+    \put(0.17804142,0.18761834){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Conv\\(7,7)\\16\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=5]{dualnet-pro.pdf}}%
+    \put(0.23591392,0.18761834){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Conv\\(7,7)\\8\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=6]{dualnet-pro.pdf}}%
+    \put(0.29378642,0.18761834){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Conv\\(7,7)\\4\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=7]{dualnet-pro.pdf}}%
+    \put(0.35165894,0.18756273){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Conv\\(7,7)\\1\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=8]{dualnet-pro.pdf}}%
+    \put(0.40953144,0.18296124){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}View\\1024\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=9]{dualnet-pro.pdf}}%
+    \put(0.87572333,0.18312466){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$|\hat{\check{\mathbf H}}|$\\(32,32)\end{tabular}}}}%
+    \put(0.6454174,0.29562284){\color[rgb]{0.03529412,0.17254902,0.28235294}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Decoder\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=10]{dualnet-pro.pdf}}%
+    \put(0.52848827,0.18364985){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Linear\\1024\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=11]{dualnet-pro.pdf}}%
+    \put(0.64423329,0.18761834){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Conv\\(7, 7)\\16\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=12]{dualnet-pro.pdf}}%
+    \put(0.70210579,0.18761834){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Conv\\(7,7)\\8\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=13]{dualnet-pro.pdf}}%
+    \put(0.75997831,0.18761834){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Conv\\(7,  7)\\4\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=14]{dualnet-pro.pdf}}%
+    \put(0.81785081,0.18756273){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Conv\\(7, 7)\\2\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=15]{dualnet-pro.pdf}}%
+    \put(0.58636074,0.18296123){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}View\\(2,32,32)\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=16]{dualnet-pro.pdf}}%
+    \put(0.49663395,0.32271783){\color[rgb]{1,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}BatchNorm + ReLU\end{tabular}}}}%
+    \put(0.49663395,0.31009911){\color[rgb]{0,0,1}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}ReLU\end{tabular}}}}%
+    \put(0.49735125,0.29748035){\color[rgb]{0,1,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Tanh\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=17]{dualnet-pro.pdf}}%
+    \put(0.03564228,0.3383457){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\|\mathbf H\|_2$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=18]{dualnet-pro.pdf}}%
+    \put(0.95748154,0.3383457){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\|\mathbf H\|_2$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=19]{dualnet-pro.pdf}}%
+    \put(0.95883088,0.17849803){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\check{\mathbf H}$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=20]{dualnet-pro.pdf}}%
+    \put(0.03564228,0.02030266){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\theta(\mathbf H)$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=21]{dualnet-pro.pdf}}%
+    \put(0.95748154,0.02030265){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\theta(\mathbf H)$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=22]{dualnet-pro.pdf}}%
+    \put(0.58563025,0.04532444){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$|\mathbf H_u|$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=23]{dualnet-pro.pdf}}%
+  \end{picture}%
+\endgroup%

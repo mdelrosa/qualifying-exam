@@ -1,6 +1,6 @@
 %% Creator: Inkscape inkscape 0.92.4, www.inkscape.org
 %% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
-%% Accompanies image file 'mimo-schematic.pdf' (pdf, eps, ps)
+%% Accompanies image file 'mimo-schematic-feedback.pdf' (pdf, eps, ps)
 %%
 %% To include the image in your LaTeX document, write
 %%   \input{<filename>.pdf_tex}
@@ -53,23 +53,35 @@
   \begin{picture}(1,0.34830197)%
     \lineheight{1}%
     \setlength\tabcolsep{0pt}%
+    \put(0.81923955,0.03360594){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\bar{\mathbf H}$\end{tabular}}}}%
+    \put(0.37708846,0.16800035){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\mathbf W\mathbf x$\end{tabular}}}}%
     \put(0.1975506,0.16800035){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\mathbf x$\end{tabular}}}}%
     \put(0.12137046,0.18446277){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Encoding\end{tabular}}}}%
-    \put(0,0){\includegraphics[width=\unitlength,page=1]{mimo-schematic.pdf}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{mimo-schematic-feedback.pdf}}%
     \put(0.7546633,0.18326026){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}MRC\end{tabular}}}}%
-    \put(0,0){\includegraphics[width=\unitlength,page=2]{mimo-schematic.pdf}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{mimo-schematic-feedback.pdf}}%
     \put(0.53552767,0.29676656){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\bar{\mathbf{h}}_{1}$\end{tabular}}}}%
     \put(0.53552767,0.24688366){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\bar{\mathbf{h}}_{2}$\end{tabular}}}}%
     \put(0.53552767,0.13087076){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\bar{\mathbf{h}}_{N_b}$\end{tabular}}}}%
     \put(-0.00055691,0.18303326){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\mathbf{s}$\end{tabular}}}}%
-    \put(0,0){\includegraphics[width=\unitlength,page=3]{mimo-schematic.pdf}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=3]{mimo-schematic-feedback.pdf}}%
     \put(0.68004968,0.16834487){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\mathbf y$\end{tabular}}}}%
     \put(0.82103693,0.16820977){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\hat{\mathbf x}$\end{tabular}}}}%
     \put(0.89574817,0.18446277){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Decoding\end{tabular}}}}%
-    \put(0,0){\includegraphics[width=\unitlength,page=4]{mimo-schematic.pdf}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=4]{mimo-schematic-feedback.pdf}}%
     \put(1.00350717,0.18497239){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\hat{\mathbf s}$\end{tabular}}}}%
-    \put(0,0){\includegraphics[width=\unitlength,page=5]{mimo-schematic.pdf}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=5]{mimo-schematic-feedback.pdf}}%
     \put(0.28614316,0.184429){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Beamforming\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=6]{mimo-schematic-feedback.pdf}}%
+    \put(0.89519924,0.03157899){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}CSI\\Acquisition\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=7]{mimo-schematic-feedback.pdf}}%
+    \put(0.74505861,0.03021212){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Feedback\\Encoding\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=8]{mimo-schematic-feedback.pdf}}%
+    \put(0.43641626,0.02958487){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Feedback\\Decoding\end{tabular}}}}%
+    \put(0.5591515,0.03533561){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\mathbf z$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=9]{mimo-schematic-feedback.pdf}}%
+    \put(0.27042211,0.09179305){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\hat{\bar{\mathbf H}}$\end{tabular}}}}%
+    \put(0.28615666,0.24050821){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\mathbf W=f(\hat{\bar{\mathbf H}})$\end{tabular}}}}%
     \put(0.87162857,0.27494953){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\mathbf y = \bar{\mathbf H}^H\mathbf x + \mathbf n$\end{tabular}}}}%
   \end{picture}%
 \endgroup%

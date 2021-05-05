@@ -57,35 +57,35 @@
     \put(0.15361245,0.56638558){\color[rgb]{0.77254902,0.58039216,0.20392157}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Encoder (UE)\end{tabular}}}}%
     \put(0.00806948,0.09070488){\color[rgb]{0.03529412,0.17254902,0.28235294}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Decoder (UE+gNB)\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=2]{markovnet_schematic.pdf}}%
-    \put(0.11768536,0.51130984){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\mathbf H_1$\end{tabular}}}}%
-    \put(0.12231344,0.15006084){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\hat{\mathbf H}_1$\end{tabular}}}}%
-    \put(0.12694154,0.3316681){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\mathbf s_1$\end{tabular}}}}%
+    \put(0.13278418,0.51130984){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\mathbf H_1$\end{tabular}}}}%
+    \put(0.1327842,0.15006084){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\hat{\mathbf H}_1$\end{tabular}}}}%
+    \put(0.13277313,0.3316681){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\mathbf z_1$\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=3]{markovnet_schematic.pdf}}%
     \put(0.47819992,0.65793386){\color[rgb]{0.77254902,0.58039216,0.20392157}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Encoder (UE)\end{tabular}}}}%
     \put(0.33265705,0.00588923){\color[rgb]{0.03529412,0.17254902,0.28235294}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Decoder (UE+gNB)\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=4]{markovnet_schematic.pdf}}%
-    \put(0.44638277,0.51130984){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\mathbf E_2$\end{tabular}}}}%
-    \put(0.44638277,0.15006084){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\hat{\mathbf E}_2$\end{tabular}}}}%
-    \put(0.44946814,0.3316681){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\mathbf s_2$\end{tabular}}}}%
+    \put(0.45737177,0.51130984){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\mathbf E_2$\end{tabular}}}}%
+    \put(0.45737177,0.15006084){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\hat{\mathbf E}_2$\end{tabular}}}}%
+    \put(0.45737177,0.3316681){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\mathbf z_2$\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=5]{markovnet_schematic.pdf}}%
-    \put(0.44638277,0.0546742){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\hat{\mathbf H}_2$\end{tabular}}}}%
+    \put(0.45737177,0.0546742){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\hat{\mathbf H}_2$\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=6]{markovnet_schematic.pdf}}%
-    \put(0.2678326,0.07265135){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\hat\gamma$\end{tabular}}}}%
+    \put(0.27368305,0.07265135){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\hat\gamma$\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=7]{markovnet_schematic.pdf}}%
-    \put(0.44638277,0.61218723){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\mathbf H_2$\end{tabular}}}}%
+    \put(0.45737177,0.61218723){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\mathbf H_2$\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=8]{markovnet_schematic.pdf}}%
     \put(0.88824519,0.65793386){\color[rgb]{0.77254902,0.58039216,0.20392157}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Encoder (UE)\end{tabular}}}}%
     \put(0.74270231,0.00588923){\color[rgb]{0.03529412,0.17254902,0.28235294}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Decoder (UE+gNB)\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=9]{markovnet_schematic.pdf}}%
-    \put(0.85642803,0.51130984){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\mathbf E_T$\end{tabular}}}}%
-    \put(0.85642803,0.15006084){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\hat{\mathbf E}_T$\end{tabular}}}}%
-    \put(0.85951337,0.3316681){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\mathbf s_T$\end{tabular}}}}%
+    \put(0.86741771,0.51130984){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\mathbf E_T$\end{tabular}}}}%
+    \put(0.86741771,0.15006084){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\hat{\mathbf E}_T$\end{tabular}}}}%
+    \put(0.86741771,0.3316681){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\mathbf z_T$\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=10]{markovnet_schematic.pdf}}%
-    \put(0.85642803,0.0546742){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\hat{\mathbf H}_T$\end{tabular}}}}%
+    \put(0.86741771,0.0546742){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\hat{\mathbf H}_T$\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=11]{markovnet_schematic.pdf}}%
-    \put(0.85642803,0.61218723){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\mathbf H_T$\end{tabular}}}}%
+    \put(0.86741771,0.61218723){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\mathbf H_T$\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=12]{markovnet_schematic.pdf}}%
-    \put(0.59611525,0.07265135){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\hat\gamma$\end{tabular}}}}%
+    \put(0.61584995,0.07265135){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\hat\gamma$\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=13]{markovnet_schematic.pdf}}%
   \end{picture}%
 \endgroup%
