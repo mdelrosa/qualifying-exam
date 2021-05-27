@@ -12,7 +12,7 @@ The estimation error under $\grave{\mathbf H}_t$ is
 \mathbf E_{t} &= \mathbf H_{t} - \grave{\mathbf H}_{t}. \label{eq:diff_err}
 \end{align}
 
-\subsection{Related Work}
+\section{Related Work}
 
 Prior work in temporal correlation for CSI estimation utilized state-space methods such as the Kalman filter \cite{ref:Huber2006improved,ref:Ali2020BayesKalmanFilter,ref:Kim2021KalmanVsML}. Since it relies on explicit state space and noise models, the Kalman filter's predictive power in CSI estimation is limited. Furthermore, such work generally does not propose a method for feedback compression, making comparison with the following ML methods difficult.
 
@@ -29,7 +29,7 @@ Recent works have leveraged recurrent neural networks (RNNs) to exploit temporal
 
 RNNs have been used extensively in natural language processing (NLP) for machine translation \cite{ref:Sutskever2014seq2seq} and sentiment extraction \cite{ref:Irsoy2014opinion}. For such works in NLP, authors have empirically found ``stacked'' or ``deep'' RNNs to be effective (e.g., Fig.~\ref{fig:lstm_example}), hypothesizing that having multiple recurrent layers allows the network to extract different semantic timescales \cite{ref:Irsoy2014opinion, ref:Bengio2009Learning}. Works in CSI estimation have taken cues from this work in NLP, proposing CSI estimation networks with stacked LSTMs after a sequence of autoencoders \cite{ref:Wang2019CsiNetLSTM}. While such work has demonstrated the utility of RNNs, the computational cost of LSTMs can be prohibitively high. For example, the RNN portion of the network proposed in \cite{ref:Wang2019CsiNetLSTM} accounts for $10^8$ additional parameters. Since channel estimation should not place an undue computational burden on the communications system, LSTMs can be problematic.
 
-\subsection{Methods}
+\section{Methods}
 
 Rather than use RNNs to extract temporal dependencies in CSI data, we proposed a lightweight network based on the principle of differential encoding. We trained a network to estimate the error (\ref{eq:diff_err}) under a linear estimator, 
 \begin{align*}
@@ -74,7 +74,7 @@ where $\mathbf E_t = \mathbf H_t - \gamma\hat{\mathbf H}_{t-1}$. The base statio
 	\hat{\mathbf H}_t &= \hat\gamma \hat{\mathbf H}_{t-1} + \hat{\mathbf{E}}_t \label{eq:diff-estim}
 \end{align}
 
-\subsubsection{MarkovNet}
+\subsection{MarkovNet}
 
 In \cite{ref:Liu2020MarkovNet}, we proposed MarkovNet, a deep differential autoencoder. Each timeslot of MarkovNet uses an instance of CsiNet-Pro with unique parameters. The network at the first timeslot ($t_1$) is trained directly on the CSI ($\mathbf H_1$). For all subsequent timeslots, $t_i$ for $i \geq 2$, we use the MMSE estimator (\ref{eq:gamma-estim}) to produce an error term $\mathbf E_t$, and the autoencoder in each timeslot is trained to produce an error estimate, $\hat{\mathbf E}_t$. The estimated error is added back per (\ref{eq:diff-estim}) to produce a refined estimate.
 
@@ -113,7 +113,7 @@ The resulting network requires no recurrent layers, resulting in a substantial r
   \end{center}
 \end{table} 
 
-\subsection{Numerical Results}
+\section{Numerical Results}
 
 We compare MarkovNet with CsiNet-LSTM \cite{ref:Wang2019CsiNetLSTM} on the indoor and outdoor COST2100 datasets (for details, see Section~\ref{sect:channel_model}). For MarkovNet, we train the network at the first timeslot for 1000 epochs. In each subsequent timeslot, we initialize the network using the weights from the previous timeslot and train for 200 epochs. We use a batch size of 200. We perform a training/testing split of 75k/25k samples, and we estimate $\gamma$ using the training set. To compare the estimation accuracy of each network, we report the NMSE.
 %estimate of the previous timeslot with the scalar MMSE estimator, $\gamma$, to produce the error term $\mathbf E_t = \mathbf H_t - \gamma\hat{\mathbf H}_{t-1}$.

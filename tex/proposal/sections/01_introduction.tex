@@ -4,7 +4,7 @@
 This qualifying examination proposal details work in improving the accuracy and efficiency of deep learning methods for MIMO channel state information estimation. Section \ref{sect:mimo_model} provides an overview of the MIMO channel. Section \ref{sect:channel_model} introduces the channel simulation used in this work, the COST2100 model. Section \ref{sect:classic_estimation} discusses prior work in compressed sensing for CSI estimation. Section \ref{sect:dl_overview} provides a generic overview of deep learning and recent work in deep learning for CSI estimation in MIMO networks. 
 Boldface lowercase (uppercase) letters indicate vectors (matrices). Unless otherwise specified, the norm $\|\cdot\|$ indicates the Frobenius norm. Superscripts $^T$ ($^H$) indicate the transpose (Hermitian transpose).
 
-\subsection{MIMO Channel Overview}
+\section{MIMO Channel Overview}
 \label{sect:mimo_model}
 
 \begin{figure}[!hbtp]
@@ -57,7 +57,7 @@ Given their dimensionality, feeding back entire CSI matrices is impractical. Ins
 \end{align*}
 The delay spread of the resulting $\mathbf H$ can typically be captured with a small number of delay elements, so we restrict our attention to the first $R_d$ elements of $\mathbf H$, resulting in a truncated angular-delay matrix which we denote as $\mathbf H_d \in \mathbb C^{(R_d\times N_b)}$ for the downlink channel state. % (uplink) ($\mathbf H_u \in \mathbb C^{(R_d\times N_b)}$) 
 
-\subsection{Channel Model}
+\section{Channel Model}
 \label{sect:channel_model}
 
 For all CSI tests, we mainly rely on the COST2100 MIMO channel model \cite{ref:liu2012cost2100}. We use two datasets with a single base station (gNB) and a single user equipment (UE) in the following scenarios:
@@ -85,14 +85,14 @@ $\delta$		& 40 ms			 & Feedback delay interval between consecutive CSI timeslots
 \end{tabular}
 \end{table}
 
-\subsection{Classical CSI Estimation}
+\section{Classical CSI Estimation}
 \label{sect:classic_estimation}
 
 Works in compressive feedback for CSI estimation in MIMO networks can be placed in three broad categories. The first category includes works which use direct quantization of continuous CSI elements to discrete levels. The quantized CSI are encoded and fed back to the transmitter \cite{ref:makki2012hybrid,ref:shirani2009channel}. The second category includes works which use compressed sensing, a technique which applies a random measurement matrix at the transmitter and the receiver \cite{ref:rao2014distributed, ref:eltayeb2014compressive}. Compressed sensing assumes matrices to be encoded and fed back meet certain sparsity requirements, and compressed sensing algorithms require iterative solvers \cite{ref:do2008sparsity} for decoding, resulting in undesired latency.
 
 The last category of work in compressive CSI feedback uses deep learning (DL), neural networks with numerous layers which are trained on large datasets using backpropagation. Before describing these works, we first describe a few pertinent concepts from deep learning.
 
-\subsection{Deep Learning/CNNs for CSI Estimation}
+\section{Deep Learning/CNNs for CSI Estimation}
 \label{sect:dl_overview}
 
 This section provides a brief overview of relevant deep learning concepts employed in this work, including convolutional neural networks (CNNs), autoencoders, and unsupervised learning.

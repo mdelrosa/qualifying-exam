@@ -26,23 +26,23 @@ However, for CSI matrices, minmax normalization is applied to the real and imagi
 	\label{fig:cost_indoor_dist}
 \end{figure}
 
-\subsection{Related Work}
+\section{Related Work}
 
 Several works have investigated normalization techniques for deep learning such as batch normalization \cite{ref:ioffe2015batch}, instance normalization \cite{ref:huang2017instance}, layer normalization \cite{ref:ba2016layer}, and group normalization \cite{ref:wu2018group}. These normalization techniques scale the outputs of latent layers in neural networks, which helps to solve the problem of covariate shift \cite{ref:ioffe2015batch} where the mean and variance of changes between subsequent layers of the network.
 
 Other works have studied normalization of the network's inputs. A number of works have investigated adaptive normalization techniques for time series estimation tasks \cite{ref:ogasawara2010adaptive, ref:nayak2014impact, ref:shao2015self}. In \cite{ref:passalis2019dain}, the authors proposed a trainable input network which learns to shift, scale, and filter the unnormalized data while training the target network for a time series prediction task.
 
-\subsection{Methods}
+\section{Methods}
 
 Here, we discuss our work in spherical normalization (Section~\ref{sect:sph_norm_method}) and our optimized network architecture (Section~\ref{sect:csinet_pro}) \cite{ref:liu2020sphnet}.
 
-\subsubsection{Spherical Normalization}
+\subsection{Spherical Normalization}
 \label{sect:sph_norm_method}
 Rather than apply minmax normalization, which is adversely impacted by outliers, we propose spherical normalization. Before describing spherical normalization in detail, consider z-score normalization. Given a random variable, $x$, with mean $\mu$ and standard deviation $\sigma$. The z-score normalized version of this random variable is given as
 \begin{align}
 	z &= \frac{x - \mu}{\sigma^2}. \label{eq:zscore}
 \end{align}
-Assuming $x$ is normally distributed, the resulting random variable, $z$, is a standard normal distribution such that $z \sim \mathcal N(0,1)$. Inspired by $z$-score normalization, we seek a normalization scheme which adjusts the range of each channel sample. Under spherical normalization, each sample in the dataset is scaled by its power. Denote the $k$-th downlink CSI matrix of the dataset as $\mathbf H_d^k$. The spherically normalized version of the downlink CSI is given as
+Assuming $x$ is normally distributed, the resulting random variable, $z$, is a standard normal distribution such that $z \sim \mathcal N(0,1)$. Inspired by $z$-score normalization, we seek a normalization scheme which adjusts the range of each channel sample. Under spherical normalization, each sample in the dataset is scaled by its power. Denote the $n$-th downlink CSI matrix of the dataset as $\mathbf H_d^n$. The spherically normalized version of the downlink CSI is given as
 % TODO: Does this make sense? "For CSI matrices, we could choose to scale each element by it's mean and by the inverse covariance matrix."
 \begin{align}
 	\mathbf{\check H}_d^n &= \frac{\mathbf H_d^n}{\|\mathbf H_d^n\|}. \label{eq:sph-intro}
@@ -71,7 +71,7 @@ Observe that when the $\mathbf H_k \; (\hat{\mathbf H}_k)$ in (\ref{eq:mse}) is 
 \end{align*}
 which is equivalent to (\ref{eq:nmse}). Thus, a neural network optimized with MSE as the loss function and trained using spherically normalized data is in fact being optimized with respect to NMSE of the original data.
 
-\subsubsection{CsiNet-Pro}
+\subsection{CsiNet-Pro}
 \label{sect:csinet_pro}
 
 In \cite{ref:liu2020sphnet}, we proposed a network with larger convolutional kernels and no residual connections called CsiNet-Pro. Large kernels (e.g., $(7\times 7)$ in CsiNet-Pro) allow the network to capture features corresponding to larger delay spreads than comparatively small kernels (e.g., $(3\times 3)$ in CsiNet \cite{ref:csinet}).
@@ -84,11 +84,11 @@ In \cite{ref:liu2020sphnet}, we proposed a network with larger convolutional ker
   }
   % \includegraphics[width=.9\textwidth]{csinet-pro.pdf}
   % \medskip
-  \caption{SphNet -- CsiNetPro architecture with Spherical Normalization.}
+  \caption{SphNet -- CsiNet-Pro architecture with Spherical Normalization.}
   \label{fig:sphnet-arch}
 \end{figure}
 
-\subsection{Results}
+\section{Results}
 Training on spherically normalized data and optimizing with respect to NMSE can yield better accuracy. Fig.~\ref{fig:nmse_slot1} demonstrates this improvement for CsiNet and CsiNet-Pro on the COST2100 dataset. CsiNet and CsiNet-Pro are trained with minmax normalization while CsiNet-Sph and SphNet are trained with spherical normalization. % For both networks, the number of 
 
 \begin{figure}[!hbtp] \centering 

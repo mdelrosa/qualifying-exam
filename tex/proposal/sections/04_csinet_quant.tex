@@ -35,7 +35,7 @@ While previous works investigated neural architectures for learned encoding-deco
 	% theory give metrics such entropy and mutual information which quantify the information in a given distribution.
 \end{enumerate}
 
-\subsection{Related Work}
+\section{Related Work}
 
 Prior work has investigated feedback quantization in deep learning-based CSI compression. In \cite{ref:Yang2019DeepCMC}, the authors propose DeepCMC, an autoencoder structure where the continuous compressed elements are discretized via uniform quantization then encoded using context adaptive binary arithmetic coding (CABAC) \cite{ref:Marpe2003CABAC}. Since uniform quantization is non-differentiable, the authors do not perform true quantization during training and instead apply uniformly distributed noise to approximate quantization noise \cite{ref:Yang2019DeepCMC}. In \cite{ref:Mashhadi2020AnalogDeepCMC}, the authors propose AnalogDeepCMC, which encodes latent elements as power-normalized complex elements and decodes using maximal ratio combining. The authors also report the achieved rate of AnalogDeepCMC for different CSI overhead ratios.
 
@@ -49,7 +49,7 @@ To achieve discrete codewords with valid probability distributions, we consider 
 \label{fig:csinet_quant}
 \end{figure}
 
-\subsection{A Vector-quantized Autoencoder for Trainable Codewords}
+\section{A Vector-quantized Autoencoder for Trainable Codewords}
 % \subsubsection{CsiNet-Quant: A Vector Quantized Autoencoder for Trainable Codewords}
 
 To incorporate discrete latent codewords in the learning process, we propose to use soft-to-hard vector quantization framework proposed in \cite{ref:Agustsson2017SoftToHard}. We choose a vector dimension, $m$, by which to partition the latent space $\mathbf Z = f(\mathbf H, \theta_e)$, and we denote the vectorized version of $\mathbf Z \in \mathbb R^{r}$ as $\tilde{\mathbf Z} \in \mathbb R^{r/m \times m}$. We define the $m$-dimensional codebook of size $L$ as $\mathbf C \in \mathbb R^{m\times L}$. The soft assignments of the $j$-th latent vector $\tilde{\mathbf z}_j$ can be written as
@@ -62,7 +62,7 @@ Q(\tilde{\mathbf z}_j,\mathbf C) &= \phi(\tilde{\mathbf z}_j) \mathbf C^T. \labe
 \end{align}
 The quantized version of the latent variable is taken by reshaping $\mathbf Q(\tilde{\mathbf Z},\mathbf C) \in \mathbb R^{r/m \times m}$ into $\hat{\mathbf Z} \in \mathbb R^d$, and the decoder produces the CSI estimates as $\hat{\mathbf H} = h(\hat{\mathbf Z}, \mathbf C)$. An abstract illustration of an autoencoder using soft quantization can be seen in Figure~\ref{fig:csinet_quant}.
 
-\subsubsection{Entropy-regularization}
+\subsection{Entropy-regularization}
 To optimize the network with soft quantization, we adapt the loss function to resemble the canonical rate-distortion function by adding an entropy penalization term,
 \begin{align}
 \underset{\theta_e, \theta_d, \mathbf C}{\text{argmin}}\; \frac 1N \underbrace{\sum_{i=1}^N\Arrowvert \mathbf H_i - g(Q(f(\mathbf H_i, \theta_e), \mathbf C), \theta_d) \Arrowvert^2}_{\text{distortion loss}} + \underbrace{\lambda \left(\Arrowvert\theta_e\Arrowvert^2+\Arrowvert\theta_d\Arrowvert^2+\Arrowvert \mathbf C \Arrowvert^2\right)}_{\ell^2\text{ penalty}} + \underbrace{m\beta H(\phi)}_{\text{rate loss}}. \label{eq:loss_entropy}
@@ -82,7 +82,7 @@ H(\phi) := H(p,q) &= -\sum_{j=1}^L p_j\log q_j = H(p) + D_{\text{KL}}(p\Arrowver
 \end{align*}
 where $D_{\text{KL}}(p\Arrowvert q)=-\sum_{j=1}^L p_j \log\left(\frac{p_j}{q_j}\right)$ is the Kullback Liebler (KL) divergence. Due to the nonnegativity of $D_{\text{KL}}$, $H(\phi)$ is an upper bound on $H(p)$, and so (\ref{eq:loss_entropy}) is a valid optimization target.
 
-\subsubsection{Softmax annealing}
+\subsection{Softmax annealing}
 
 During training, we gradually increase the value of the temperature parameter, $\sigma$, for the softmax function, resulting in a gradual transition from soft-to-hard quantization. Denote the training iteration $t$ and the corresponding temperature $\sigma_t$. The annealing schedule 
 \begin{align*}
@@ -90,12 +90,12 @@ During training, we gradually increase the value of the temperature parameter, $
 \end{align*}
 Where $K_\sigma$ is a constant and gap$(t)$ is the difference in network mean squared error between soft and hard quantization. The mean squared error of the soft (hard) network is given as $e_S=\Arrowvert \tilde F(\mathbf H) - \mathbf H\Arrowvert^2$ ($e_H=\Arrowvert \hat F(\mathbf H) - \mathbf H\Arrowvert^2$), and the performance gap is given as $\text{gap}(t)=e_H - e_S$.
 
-\subsection{Entropy Estimation for CSI Matrices}
+\section{Entropy Estimation for CSI Matrices}
 
 Entropy as defined by Shannon is a measure of the amount of information in a random variable \cite{ref:Shannon1948Mathematical}. While most works in CSI compression either list a range of compression ratios or compare the achieved bit rate of different networks, there is a gap in the literature with respect to the limits of compression. To assess the limits of compressibility of CSI, we seek to quantify the entropy of CSI matrices.
 Section~\ref{sec:ent_est_quant} discusses an estimated upper bound based on quantized CSI matrices, and Section~\ref{sec:diffent_est_quant} proposes an upper bound based on the differential entropy of CSI matrices. Section~\ref{sec:rd_quant} proposes a method for establishing a rate-distortion curve based on CSI matrices with additive noise.
 
-\subsubsection{Entropy Estimation of Quantized CSI} \label{sec:ent_est_quant}
+\subsection{Entropy Estimation of Quantized CSI} \label{sec:ent_est_quant}
 
 Given angular-delay domain CSI data, $\mathbf H$, we assume i.i.d. $\mathbf H_{(i,j)}$ for $i$-th ($j$-th) row (col) of $\mathbf H$.
 Denote the quantized CSI matrix, $\mathbf H^\Delta$, under $b$-bit quantization. The entropy of the $(i,j)$-th element is
@@ -111,7 +111,7 @@ A conservative upper bound on the entropy of the full CSI matrix is
 H(\mathbf H^\Delta) &\leq \sum_{i}^{R_d}\sum_{j}^{n_T} H(\mathbf H^\Delta_{(i,j)}) = H_{\text{UB}}(\mathbf H^\Delta). \label{eq:csi-ent}
 \end{align}
 
-\subsubsection{Differential Entropy Estimation of Quantized CSI} \label{sec:diffent_est_quant}
+\subsection{Differential Entropy Estimation of Quantized CSI} \label{sec:diffent_est_quant}
 
 Assume i.i.d. $\mathbf H_{(i,j)}$ for $i$-th ($j$-th) row (col). The differential entropy of the $(i,j)$-th element is
 \begin{align*}
@@ -127,7 +127,7 @@ for KL estimator $\hat h$. Based on Theorem 8.3.1 from Cover \cite{ref:Cover1999
 \end{align}
 for $n$-bit quantization. Thus, the differential entropy estimator admits an estimate for the entropy of the quantized CSI, $\hat H({\mathbf H}^\Delta) = \hat h(\mathbf H) + n$.
 
-\subsubsection{Rate-Distortion Estimation} \label{sec:rd_quant}
+\subsection{Rate-Distortion Estimation} \label{sec:rd_quant}
 
 The ultimate goal of estimating the entropy of CSI matrices is to establish a rate-distortion curve. Such a curve will establish the limits of compression and accuracy for works in learnable feedback quantization. Based on either estimator outlined above, we can utilize additive Gaussian noise, i.e.
 \begin{align*}
@@ -135,7 +135,7 @@ The ultimate goal of estimating the entropy of CSI matrices is to establish a ra
 \end{align*}
 Using the corrupted CSI matrices $\mathbf H_{\sigma}=\left[\mathbf H_{\sigma,(i,j)}\right]_{i\in [R_d],j\in [N_b]}$, we can calculate the bounds $\hat H(\mathbf H_{\sigma}^\Delta)$ or $\hat h(\mathbf H_{\sigma}^\Delta)$ from (\ref{eq:csi-ent}) or (\ref{eq:csi-diff-ent}) for different noise levels $\sigma$ to establish a rate-distortion curve.
 
-\subsection{Results}
+\section{Results}
 
 We use SHVQ \cite{ref:Agustsson2017SoftToHard} to perform quantization on the tested CSI estimation networks. We used the COST2100 data introduced in Section~\ref{sect:channel_model}. We train the network in three stages:
 \begin{enumerate}
@@ -169,7 +169,7 @@ $r$               & $512,256,128$	 & Dimensionality of encoder's output/latent l
 \end{tabular}
 \end{table}
 
-\subsubsection{Results: Rate-Distortion} \label{sec:results-rate-distortion}
+\subsection{Results: Rate-Distortion} \label{sec:results-rate-distortion}
 
 Figures~\ref{fig:rate-distortion-minmax} and~\ref{fig:rate-distortion-sph} show the performance of CsiNet-Quant under minmax and spherical normalization, respectively. We demonstrate the gap between the soft (dashed line) and hard quantization (solid line) of each tested compression ratio. In addition to achieving better NMSE performance overall, the network under spherical normalization has smaller performance gaps between soft and hard quantization.
 
@@ -196,7 +196,7 @@ Figure~\ref{fig:rate-distortion-norms} shows the rate-distortion for both minmax
   \label{fig:rate-distortion-norms} 
 \end{figure}
 
-\subsubsection{Results: CSI Entropy Estimation} \label{sec:results-ent-estimation}
+\subsection{Results: CSI Entropy Estimation} \label{sec:results-ent-estimation}
 
 Figure~\ref{fig:cost-ent-est} shows the estimated conditional entropy of the quantized CSI matrices ($\mathbf H^{\Delta}$) for the indoor and outdoor COST2100 channel samples. The conditional entropy is based on the following identity,
 \begin{align*}
@@ -264,14 +264,14 @@ Using $\mathbf H_\sigma^\Delta$, we can draw the rate-distortion curve for the c
 	\label{fig:csinet-soft-bound} 
 \end{figure}
 
-\subsection{Future Work: Rate-optimal Quantization}
+\section{Future Work: Rate-optimal Quantization}
 
 Moving forward, our work in trainable CSI quantization will seek to specify networks which achieve \textbf{rate-optimal quantization}. A rate-optimal network will achieve feedback entropy approaching the entropy of the underlying CSI matrices. In addition to hyperparameter optimization (as discussed in Section~\ref{sec:results-ent-estimation}) and different quantization frameworks (e.g., $\text{MCR}^2$ \cite{ref:Yu2020MCR2}), we plan to investigate the following two avenues to achieve rate-optimal CSI compression.
 
-\subsubsection{ROI CSI Compression}
+\subsection{ROI CSI Compression}
 
 Region of interest (ROI) based compression emphasizes the encoding and decoding of designated sections of a given signal. Deep learning-based ROI compression has demonstrated success in image compression tasks, demonstrating lower distortion at lower rates compared to non-ROI image codecs \cite{ref:Cai2020EndToEndOptimizedROIImageCompression}. To apply ROI compression to MIMO CSI, we would need to consider how to define ground truth ROI masks based on either delay spread or the power distribution of $\mathbf H$.
 
-\subsubsection{Differential Encoding with Trainable Feedback Quantization}
+\subsection{Differential Encoding with Trainable Feedback Quantization}
 
 As highlighted by our entropy estimation experiments (Figures~\ref{fig:cost-ent-est} and~\ref{fig:cost-diffent-est}), the conditional entropy $\hat H(\mathbf H_{t_2}|\mathbf H_{t_1})$ is appreciably lower than the entropy $\hat H(\mathbf H_{t_2})$. The resulting entropy reduction implies a corresponding reduction in feedback rate for compressed CSI. Our future work will investigate the compatibility of differential encoding (see Section~\ref{chap:markovnet}) with trainable feedback quantization. We anticipate that the achieved bit rates for quantized differential encoders should be substantially lower than non-temporal encoders.
