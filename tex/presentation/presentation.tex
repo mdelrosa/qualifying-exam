@@ -225,7 +225,7 @@
         \item The sparsity of the signal to be estimated must meet a certain level.
         \item The \textbf{Restricted Isometry Criterion (RIC)} must be met. For $\delta \in [0,1],$
         \begin{align*}
-          (1-\delta)\| \mathbf h \|_2^2 \leq \| \mathbf A \mathbf h \|_2^2 \leq (1+\delta)\| \mathbf h \|_2^2 
+          (1-\delta)\| \mathbf h \|_F^2 \leq \| \mathbf A \mathbf h \|_F^2 \leq (1+\delta)\| \mathbf h \|_F^2 
         \end{align*}
       \end{enumerate}
     % }
@@ -309,11 +309,11 @@
           \begin{itemize}
             \item \textbf{Normalized Mean-squared Error}
             \begin{align*}
-              \text{NMSE} = \frac 1N \sum_{i}^N \frac{\|\mathbf H_i - \hat{\mathbf H}_i \|_2^2}{\|\mathbf H_i \|_2^2}
+              \text{NMSE} = \frac 1N \sum_{i}^N \frac{\|\mathbf H_i - \hat{\mathbf H}_i \|_F^2}{\|\mathbf H_i \|_F^2}
             \end{align*}
             \item \textbf{Cosine Similarity}
             \begin{align*}
-              \rho = \frac 1N \sum_{i}^N \frac{|\bar{\mathbf H}_i \cdot \hat{\bar{\mathbf H}}_i |}{\|\bar{\mathbf H}_i \|_2\|\hat{\bar{\mathbf H}}_i \|_2}
+                \rho=\frac{1}{N N_{f}} \sum_{t=1}^{N} \sum_{n=1}^{N_{f}} \frac{|\hat{\bar{\mathbf{h}}}_{m}^{H} \bar{\mathbf{h}}_{m}|}{\|\hat{\bar{\mathbf{h}}}_{m}\|_F\|\bar{\mathbf{h}}_{m}\|_F},
             \end{align*}
           \end{itemize}
           \pause
@@ -418,11 +418,25 @@
   \end{frame}
 
   \begin{frame}{CsiNet: Minmax Normalization}
-    Most works perform \textbf{minmax scaling} -- Take the extrema ($\mathbf H_{\text{min}}, \mathbf H_{\text{max}}$) of the real and imaginary channels, 
-    \begin{align*}
-      \mathbf H_{n,\text{minmax}}(i,j) &= \frac{\mathbf H_n(i,j)-\mathbf H_{\text{min}}}{\mathbf H_{\text{max}}-\mathbf H_{\text{min}}} \in [0,1],
-    \end{align*}
-    for $n \in [1,\dots,N]$ given $N$ samples and $i,j$ indexing rows/columns of CSI matrices.
+    \footnotesize{
+    \begin{itemize}
+      \item \textbf{Minmax scaling} for typical works
+      \item Take extrema ($H_{\text{min}}, H_{\text{max}}$) of real and imaginary channels.
+      \item $H_{n,(i,j)}=$ $(i,j)$-th element of $n$-th sample
+      \begin{align*}
+        H_{\text{minmax},n,(i,j)} &= \frac{H_{n,(i,j)}- H_{\text{min}}}{H_{\text{max}}- H_{\text{min}}} \in [0,1] 
+        % &\forall \; n \in [1,\dots,N], i \in [1,\dots,R_d], j \in [1,\dots,N_f]
+      \end{align*}
+      % \item Makes data compatible with neural activation function (i.e., sigmoid)
+    \end{itemize}
+    }
+    \begin{figure}[htb]
+      \centering
+      \includegraphics[width=.7\textwidth]{activations.pdf}
+      % \medskip
+      % \caption{Distribution and variance of minmax-normalized COST2100 real/imaginary channels ($N=99000$) images.}
+      % \label{fig:cost_indoor_dist}
+    \end{figure}
   \end{frame}
 
     \begin{frame}{CsiNet: Minmax Normalization}
@@ -460,7 +474,7 @@
     \end{frame}
 
     \begin{frame}{Comparison: Minmax Normalization}
-      Difference of \textbf{four orders of magnitude}. \\
+      Difference of \textbf{four orders of magnitude}.
       \begin{table}[htb]
         % \renewcommand{\arraystretch}{1.5}
         \begin{center}
@@ -502,27 +516,27 @@
 
 \subsection{Spherical Normalization}
   \begin{frame}{Spherical Normalization}
-    \textbf{Spherical normalization} -- scale each channel sample by its power,
+    \textbf{Spherical normalization} -- scale each channel sample by its power. For Frobenius norm $\|\cdot\|$,
     % TODO: Does this make sense? "For CSI matrices, we could choose to scale each element by it's mean and by the inverse covariance matrix."
     \begin{align}
       \mathbf{\check H}^n &= \frac{\mathbf H^n}{\|\mathbf H^n\|}. \label{eq:sph-intro}
     \end{align}
-    After applying (\ref{eq:sph-intro}) to each sample, minmax scaling is applied to the entire dataset.
+    Then apply minmax scaling to the entire dataset.
   \end{frame}
 
   \begin{frame}{Spherical Normalization}
-    The resulting dataset under spherical normalization exhibit a larger variance than the same dataset under minmax scaling. 
+    Resulting dataset under spherical normalization exhibits a larger variance than minmax scaling. 
     \begin{figure}[htb]
       \centering
       \includegraphics[width=.9\textwidth]{cost2100_indoor_sph_dist.pdf}
       % \medskip
-      \caption{Distribution and variance of COST2100 real/imaginary channels under spherical normalization ($N=99000$) images.}
+      \caption{Distribution/variance of COST2100 real/imaginary channels under spherical normalization ($N=99000$) images.}
       \label{fig:cost_indoor_sph_dist}
     \end{figure}
   \end{frame}
 
   \begin{frame}{Comparison: Spherical vs. Minmax Normalization}
-    Under Spherical Normalization, difference is now \textbf{two orders of magnitude}.
+    Difference is now \textbf{two orders of magnitude}.
     \begin{table}[htb]
       % \renewcommand{\arraystretch}{1.5}
       \begin{center}
@@ -677,16 +691,36 @@
   \end{frame}
   }
 
-  \begin{frame}{Experimental Setup: Parameters}
-    Two MIMO scenarios using COST 2100 model with 32 antennas at gNB and single UE (single antenna), 1024 subcarriers.
-    \begin{enumerate}
-        \item \textbf{Indoor} environment using 5.3GHz, 0.1 m/s UE mobility, square area of length $20$m
-        \item \textbf{Outdoor} environment using 300MHz, 1 m/s UE mobility, square area of length $400$m
-    \end{enumerate}
-    \textbf{Dataset}: $10^5$ channel samples -- $70\% / 30\% $ training/test split. % vary compression ratio from $\frac{1}{4}$ to $\frac{1}{16}$
+  % \begin{frame}{Experimental Setup: Parameters}
+  %   Two MIMO scenarios using COST 2100 model with 32 antennas at gNB and single UE (single antenna), 1024 subcarriers.
+  %   \begin{enumerate}
+  %       \item \textbf{Indoor} environment using 5.3GHz, 0.1 m/s UE mobility, square area of length $20$m
+  %       \item \textbf{Outdoor} environment using 300MHz, 1 m/s UE mobility, square area of length $400$m
+  %   \end{enumerate}
+  %   \textbf{Dataset}: $10^5$ channel samples -- $70\% / 30\% $ training/test split. % vary compression ratio from $\frac{1}{4}$ to $\frac{1}{16}$
 
-    \textbf{Hyperparameters}: Adam optimizer with learning rate $10^{-3},$ batch size $200,$ $1000$ epochs, MSE loss
-    % For all experiments, we utilize $N_b=32$ antennas at the gNB and a single antenna at the UE. The gNB uses antennas arranged in a uniform linear array (ULA) with half-wavelength spacing. We use $N_f=1024$ subcarriers and truncate the delay-domain CSI matrix to include the first $Q_f=32$ rows. For each environment, we generate a large dataset of $10^5$ samples and split the dataset into $7\cdot 10^4$ and $3\cdot 10^4$ samples for training and validation sets, respectively. For training, we utilize Adam with a learning rate of $10^{-3}$ and a batch size of 200. Each network was trained for 1000 epochs using MSE (as Eq. (\ref{eq:mse})) as the loss function, and the figure of merit used to compare all networks was NMSE (as Eq. (\ref{NMSE})). All networks were trained for three different compression ratios, $\frac{1}{4}, \frac{1}{8},$ and $\frac{1}{16}$.
+  %   \textbf{Hyperparameters}: Adam optimizer with learning rate $10^{-3},$ batch size $200,$ $1000$ epochs, MSE loss
+  % \end{frame}
+
+  \begin{frame}{Experimental Setup: Parameters}
+    \begin{table}[htb]
+      \begin{center}
+        \caption{Parameters for COST2100 model in this work.}
+        \label{tab:cost2100-params} 
+        \begin{tabular}{|l|c|c|}
+          \hline 
+          \textbf{Environment}      & \textbf{Indoor}  & \textbf{Outdoor} \\ \hline
+          Num. gNB Antennas ($N_T$) & \multicolumn{2}{c|}{32} \\ \hline
+          Num. Subcarriers ($N_f$)  & \multicolumn{2}{c|}{1024} \\ \hline
+          Carrier Frequency         & 5.3 GHz            & 300 MHz \\ \hline
+          UE Mobility               & 0.001 m/s        & 1 m/s \\ \hline
+          UE Starting Position      & $20 \times 20$ m & $400 \times 400$ m \\ \hline
+          Num. Channel Samples ($N$)& \multicolumn{2}{c|}{$10^5$} \\ \hline
+          Training/Validation Split & \multicolumn{2}{c|}{70\%/30\%} \\ \hline
+          Feedback interval         & \multicolumn{2}{c|}{$40$ ms} \\ \hline
+        \end{tabular}
+      \end{center}
+    \end{table}
   \end{frame}
 
   \nofoot{
@@ -784,13 +818,13 @@
   }
 
   \nofoot{
-  \begin{frame}{Recurrent Neural Networks for Temporal Correlation}
+  \begin{frame}{CsiNet-LSTM Complexity}
     % \footnotesize{
     \textbf{Problem:} Number of parameters/FLOPs for RNNs is large.
     \begin{table}[htb]
       % \renewcommand{\arraystretch}{1.5}
       \begin{center}
-        \caption{Model size and computational complexity of CsiNet-LSTM and CsiNet. M: million.}
+        \caption{Model size/computational complexity per timeslot for CsiNet-LSTM and CsiNet. M: million.}
         \label{tab:comp-complex-lstm-only} 
         \begin{tabular}{|c|c|c|c|c|}
         \hline
@@ -847,11 +881,11 @@
   \begin{frame}{MarkovNet: Deep Differential Encoding}
     With the one-step estimator $\hat\gamma$, we propose train an encoder for the estimation error as
     \begin{align*}
-      \mathbf s_t &= f_{e,t} (\mathbf H_t - \hat \gamma \hat {\mathbf H}_{t-1}),
+      \mathbf z_t &= f_{e,t} (\mathbf H_t - \hat \gamma \hat {\mathbf H}_{t-1}),
     \end{align*}
     and we jointly train a decoder,
     \begin{align*}
-      \hat{\mathbf H}_t &= f_{d,t}(\mathbf s_t) + \hat\gamma\hat{\mathbf H}_{t-1}
+      \hat{\mathbf H}_t &= f_{d,t}(\mathbf z_t) + \hat\gamma\hat{\mathbf H}_{t-1}
     \end{align*}
   \end{frame}
 
@@ -886,7 +920,7 @@
 
   \begin{frame}{MarkovNet: Results}
     \begin{figure}[htb] \centering 
-      \includegraphics[width=0.9\linewidth]{batch0_csi_compare_cr512.pdf}
+      \includegraphics[width=0.9\linewidth]{batch0_csi_compare_cr512_annot.pdf}
       \caption{Ground truth CSI ($\mathbf H$), MarkovNet estimates ($\hat{\mathbf H}_{\text{Markov}}$), and CsiNet-LSTM estimates ($\hat{\mathbf H}_{\text{LSTM}}$) for five timeslots ($T_1$ through $T_5$) on one outdoor sample from the test set (both networks at $\text{CR}=\frac 14$).} 
       \label{fig:csi_img_compare} 
     \end{figure}
@@ -998,6 +1032,7 @@
   \end{frame}
   }
 
+  \nofoot{
   \begin{frame}{Latent Entropy Estimation}
     \footnotesize{
     The soft assignments $\phi$ admit probability masses over the codewords,
@@ -1012,14 +1047,16 @@
     \begin{align*}
     H(\phi) := H(p,q) &= -\sum_{j=1}^L p_j\log q_j = H(p) + D_{\text{KL}}(p\Arrowvert q).
     \end{align*}
+    \blfootnote{\bibentry{ref:Agustsson2017SoftToHard}}
     }
   \end{frame}
+  }
 
   \begin{frame}{Rate-Distortion Loss}
     \footnotesize{
-    Loss function for soft quantization $=$ regularized rate-distortion function.
+    Loss function for soft quantization $=$ regularized rate-distortion
     \begin{align}
-      \underset{\theta_e, \theta_d, \mathbf C}{\text{argmin}}\; L_{d}(\mathbf H, \hat {\mathbf H}) + \lambda L_{\ell^2}(\theta_e, \theta_d, \mathbf C) + \beta L_{r}(\theta_e,\mathbf C)
+      \underset{\theta_e, \theta_d, \mathbf C}{\text{argmin}}\; \overbrace{L_{d}(\mathbf H, \hat {\mathbf H})}^{\text{distortion}} + \lambda \overbrace{L_{\ell^2}(\theta_e, \theta_d, \mathbf C)}^{\ell_2\text{ penalty}} + \beta \overbrace{L_{r}(\theta_e,\mathbf C)}^{\text{rate}}
     \end{align} 
     Where the different loss terms are
 
@@ -1027,12 +1064,12 @@
       \centering
       % \caption{Parameters used for COST2100 simulations for both Indoor and Outdoor datasets.}
       % \label{tab:cost-params}
-      \begin{tabular}{c|c|l}
+      \begin{tabular}{c|c}
       \toprule
-      \textbf{Term} & \textbf{Definition} & \textbf{Description} \\ \midrule
-       $ L_{d}(\mathbf H, \hat {\mathbf H}) $ & $ \frac 1N \sum_{i=1}^N\Arrowvert \mathbf H_i - g(Q(f(\mathbf H_i, \theta_e), \mathbf C), \theta_d) \Arrowvert^2 $ & distortion loss \\ \hline
-       $ L_{\ell^2}(\theta_e, \theta_d, \mathbf C) $ & $ \Arrowvert\theta_e\Arrowvert^2+\Arrowvert\theta_d\Arrowvert^2+\Arrowvert \mathbf C \Arrowvert^2 $ & $\ell^2$ penalty \\ \hline
-       $ L_{r}(\theta_e, \mathbf C) $ & $m H(\phi)$  & rate loss \\ \bottomrule
+      \textbf{Term} & \textbf{Definition} \\ \midrule
+       $ L_{d}(\mathbf H, \hat {\mathbf H}) $ & $ \frac 1N \sum_{i=1}^N\Arrowvert \mathbf H_i - g(Q(f(\mathbf H_i, \theta_e), \mathbf C), \theta_d) \Arrowvert^2 $ \\ \hline
+       $ L_{\ell^2}(\theta_e, \theta_d, \mathbf C) $ & $ \Arrowvert\theta_e\Arrowvert^2+\Arrowvert\theta_d\Arrowvert^2+\Arrowvert \mathbf C \Arrowvert^2 $ \\ \hline
+       $ L_{r}(\theta_e, \mathbf C) $ & $m H(\phi)$  \\ \bottomrule
       \end{tabular}
       \end{table}
     }
@@ -1105,7 +1142,7 @@
         \hat h(\mathbf H_{(i,j)}) &= - \int p(\mathbf H{(i,j)} = k) \log p(\mathbf H_{(i,j)} = k) dk,
       \end{align*}
       \pause
-      In practice, the distribution $p(\mathbf H{(i,j)})$ in difficult to obtain. We can instead resort to the Kozachenko–Leonenko (KL) estimator \cite{ref:Kozachenko1987SampleEstimate} for each element in $\mathbf H$ and average over the elements,
+      $p(\mathbf H_{(i,j)})$ is difficult to obtain. Instead resort to Kozachenko–Leonenko (KL) estimator \cite{ref:Kozachenko1987SampleEstimate} for each element in $\mathbf H$ and average over the elements,
       \begin{align*}
         \hat h(\mathbf H) &= \frac{1}{R_d n_T} \sum_{i}^{R_d}\sum_{j}^{n_T} \hat h(\mathbf H_{(i,j)}),
       \end{align*}
@@ -1140,7 +1177,8 @@
     \begin{figure}[htb] \centering 
       % \includegraphics[width=0.7\linewidth]{rate-distortion-all-norm.pdf}
       \includegraphics[width=0.7\linewidth]{rate-distortion-shvq-vs-uniform-K100-bound-outdoor.pdf}
-      \caption{Rate distortion of CsiNet-SoftQuant with current entropy bound based on $\hat H(\mathbf H^\Delta)$.} 
+      % \caption{Rate distortion of CsiNet-SoftQuant on outdoor dataset with entropy bound based on $\hat H(\mathbf H^\Delta)$.} 
+      \caption{Rate distortion of CsiNet-SoftQuant on outdoor dataset with entropy bound based on differential entropy estimate.} 
       \label{fig:rate-distortion-bound} 
     \end{figure}
   \end{frame}

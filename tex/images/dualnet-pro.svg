@@ -448,6 +448,21 @@
          d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
          transform="matrix(-1.1,0,0,-1.1,-1.1,0)" />
     </marker>
+    <marker
+       inkscape:stockid="Arrow2Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow2Lend-22-9"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path6535-74-95"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         transform="matrix(-1.1,0,0,-1.1,-1.1,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
   </defs>
   <sodipodi:namedview
      id="base"
@@ -456,9 +471,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.98994949"
-     inkscape:cx="706.13993"
-     inkscape:cy="212.41071"
+     inkscape:zoom="1.4"
+     inkscape:cx="1117.9764"
+     inkscape:cy="248.09753"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -961,7 +976,7 @@
                style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.82222223px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;stroke-width:0.26458332"
                y="94.073807"
                x="-13.040399"
-               sodipodi:role="line">2</tspan></text>
+               sodipodi:role="line">1</tspan></text>
         </g>
         <rect
            style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.50099999;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
@@ -1228,7 +1243,7 @@
            id="tspan14133"
            x="-108.76244"
            y="88.033936"
-           style="stroke-width:0.26458332"></tspan></text>
+           style="stroke-width:0.26458332" /></text>
     </g>
     <path
        style="fill:none;stroke:#000000;stroke-width:0.25299999;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow2Lend-22-0)"
@@ -1244,7 +1259,7 @@
          width="15.733259"
          height="15.733259"
          x="-110.57635"
-         y="16.52833"
+         y="16.528328"
          ry="0.020287896"
          rx="0" />
       <text
@@ -1257,7 +1272,7 @@
            style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.82222223px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;stroke-width:0.26458332"
            y="25.210758"
            x="-102.7173"
-           sodipodi:role="line">$\theta(\mathbf H)$</tspan></text>
+           sodipodi:role="line">$\theta_{\mathbf H}$</tspan></text>
     </g>
     <path
        style="fill:none;stroke:#000000;stroke-width:0.25299999;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.50600001, 0.253;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#Arrow2Lend-2-1-4)"
@@ -1283,7 +1298,7 @@
          x="250.95952"
          y="147.41139"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.82222223px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;stroke-width:0.26458332"
-         id="tspan9700-3-5-4">$\theta(\mathbf H)$</tspan></text>
+         id="tspan9700-3-5-4">$\theta_{\mathbf H}^\Delta$</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:0.26499999;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-start:url(#Arrow2Lstart-2)"
        d="M -102.71439,137.53833 V 124.70939"
@@ -1325,6 +1340,42 @@
          id="path11228-2-8"
          d="M 108.0954,128.79697 V 125.521"
          style="fill:none;stroke:#000000;stroke-width:0.19862291px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow2Lend-7-3)" />
+    </g>
+    <g
+       id="g2414"
+       transform="translate(0,9.8249783)">
+      <g
+         id="g11716-8"
+         transform="translate(110.01662,112.37565)">
+        <rect
+           rx="0"
+           ry="2.949604"
+           y="16.52833"
+           x="-110.57635"
+           height="15.733259"
+           width="15.733259"
+           id="rect11629-6"
+           style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.5;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal" />
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.82222223px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+           x="-102.7173"
+           y="25.210758"
+           id="text4552-8-1-7"><tspan
+             sodipodi:role="line"
+             x="-102.7173"
+             y="25.210758"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.82222223px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;stroke-width:0.26458332"
+             id="tspan9700-3-4">MDPQ</tspan></text>
+      </g>
+      <g
+         id="g2406">
+        <path
+           style="fill:none;stroke:#000000;stroke-width:0.25299999;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow2Lend-22-9)"
+           d="m -2.1294979,136.77507 h 0.99009"
+           id="path11228-83-8"
+           inkscape:connector-curvature="0" />
+      </g>
     </g>
   </g>
 </svg>

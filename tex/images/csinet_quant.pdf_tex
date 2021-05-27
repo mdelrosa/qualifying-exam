@@ -53,23 +53,28 @@
   \begin{picture}(1,0.54816078)%
     \lineheight{1}%
     \setlength\tabcolsep{0pt}%
+    \put(0.59408422,0.25223178){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\mathbf Q(\tilde{\mathbf Z},\mathbf C)$\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=1]{csinet_quant.pdf}}%
-    \put(0.11494386,0.51220616){\color[rgb]{0.77254902,0.58039216,0.20392157}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Encoder\end{tabular}}}}%
-    \put(0.76681495,0.51220616){\color[rgb]{0.03529412,0.17254902,0.28235294}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Decoder\end{tabular}}}}%
-    \put(0.07871419,0.25204872){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\mathbf H$\end{tabular}}}}%
-    \put(0.29433681,0.25204872){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\mathbf Z$\end{tabular}}}}%
-    \put(0.9226334,0.25223178){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\hat{\mathbf H}$\end{tabular}}}}%
-    \put(0.70495523,0.25204872){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\hat{\mathbf Z}$\end{tabular}}}}%
+    \put(0.10284927,0.51220616){\color[rgb]{0.77254902,0.58039216,0.20392157}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Encoder\end{tabular}}}}%
+    \put(0.0666196,0.25204872){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\mathbf H$\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=2]{csinet_quant.pdf}}%
-    \put(0.39894228,0.25223178){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\tilde{\mathbf Z}$\end{tabular}}}}%
-    \put(0.59859473,0.25223178){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$Q(\tilde{\mathbf Z}$)\end{tabular}}}}%
+    \put(0.28224222,0.25204872){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\mathbf Z$\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=3]{csinet_quant.pdf}}%
-    \put(0.40395108,0.35281164){\color[rgb]{0.03529412,0.17254902,0.28235294}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Soft Quantize\end{tabular}}}}%
-    \put(0.51860947,0.05170565){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$Q(\tilde Z) = \mathbf C\phi(\tilde{\mathbf Z})$\end{tabular}}}}%
+    \put(0.78495683,0.51220616){\color[rgb]{0.03529412,0.17254902,0.28235294}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Decoder\end{tabular}}}}%
+    \put(0.94077528,0.25223178){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\hat{\mathbf H}$\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=4]{csinet_quant.pdf}}%
-    \put(0.50651496,0.50941356){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\mathbb R^r$\end{tabular}}}}%
+    \put(0.72309711,0.25204872){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\hat{\mathbf Z}$\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=5]{csinet_quant.pdf}}%
-    \put(0.50046761,0.42056915){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\mathbb R^{d\times r/d}$\end{tabular}}}}%
+    \put(0.4133608,0.25223178){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\tilde{\mathbf Z}$\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=6]{csinet_quant.pdf}}%
+    \put(0.50039874,0.35583529){\color[rgb]{0.43529412,0.45490196,0.59607843}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Soft Quantize\end{tabular}}}}%
+    \put(0.51860947,0.05170565){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\mathbf Q(\tilde{\mathbf Z}, \mathbf C) = \mathbf C\phi(\tilde{\mathbf Z})$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=7]{csinet_quant.pdf}}%
+    \put(0.50651496,0.50941356){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\mathbb R^r$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=8]{csinet_quant.pdf}}%
+    \put(0.50046761,0.42056915){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\mathbb R^{d\times r/d}$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=9]{csinet_quant.pdf}}%
+    \put(0.50039874,0.35583529){\color[rgb]{0.43529412,0.45490196,0.59607843}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Soft Quantize\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=10]{csinet_quant.pdf}}%
   \end{picture}%
 \endgroup%

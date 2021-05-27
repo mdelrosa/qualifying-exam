@@ -1,15 +1,15 @@
 % 03_markovnet.tex
 In this section, we consider methods for exploiting temporal correlation between CSI of subsequent timeslots.
-Assuming the channel does not change substantially within a certain window of time,
-a reasonably accurate CSI estimate at some time $t-1$ can be used to estimate the CSI at time $t$.
+Assuming the channel coherence within a certain window of time,
+a reasonably accurate CSI estimate at time $t-1$ can be used to estimate the CSI at time $t$.
 Generically, we can write this estimator as
 \begin{align}
-\hat{\mathbf H}_t &= h(\hat{\mathbf H}_{t-1}) \label{eq:gen_estim}
+\grave{\mathbf H}_t &= h(\hat{\mathbf H}_{t-1}) \label{eq:gen_estim}
 \end{align}
 where $\mathbf{H}_t$ is the CSI matrix at time $t$ and $\hat{\mathbf H}_t$ is its estimator. 
-The estimation error under $\hat H_t$ is
+The estimation error under $\grave{\mathbf H}_t$ is
 \begin{align}
-\mathbf E_{t} &= \mathbf H_{t} - \hat{\mathbf H}_{t}. \label{eq:diff_err}
+\mathbf E_{t} &= \mathbf H_{t} - \grave{\mathbf H}_{t}. \label{eq:diff_err}
 \end{align}
 
 \subsection{Related Work}
@@ -33,7 +33,7 @@ RNNs have been used extensively in natural language processing (NLP) for machine
 
 Rather than use RNNs to extract temporal dependencies in CSI data, we proposed a lightweight network based on the principle of differential encoding. We trained a network to estimate the error (\ref{eq:diff_err}) under a linear estimator, 
 \begin{align*}
-	\hat{\mathbf H}_t &=  \hat{\mathbf H}_{t-1} \mathbf W
+	\grave{\mathbf H}_t &=  \hat{\mathbf H}_{t-1} \mathbf W
 \end{align*}
 where $\mathbf W \in \mathbb C^{R_b \times R_b}$ is the minimum mean squared error (MMSE) estimator.
 \begin{align*}
@@ -55,19 +55,28 @@ The MMSE estimator based on the sample correlation matrices is written as
 	\hat{\mathbf W} &= \hat{\mathbf R}_0^{-1} \hat{\mathbf R}_1.
 \end{align*}
 We can further simplify this estimator to a scalar, $\gamma \in \mathbb R$, as
+% \begin{align*}
+%   \hat \gamma &= \frac{\sum_{i=1}^N\text{Trace}(\left[\mathbf H_{t-1}^H(i)\mathbf H_{t}(i)\right])}{\sum_{i=1}^N\Arrowvert\mathbf H_t^H(i) \mathbf H_t(i)\Arrowvert^2},
+% \end{align*}
 \begin{align*}
-	\hat \gamma &= \frac{\sum_k^{R_d}\sum_l^{N_b}\hat{\mathbf R}_1(k,l)}{\sum_k^{R_d}\sum_l^{N_b}\hat{\mathbf R}_0(k,l)},
+	\hat \gamma &= \frac{\text{Trace}(\hat{\mathbf R}_1(k,l))}{\sum_k^{R_d}\sum_l^{N_b}\hat{\mathbf R}_0(k,l)},
 \end{align*}
-where $k$ ($l$) are the row (column) indices of the correlation matrices. Under the estimator $\gamma$, we proposed to encode the error, $\mathbf E_t$, using a convolutional autoencoder, $f(\mathbf E_t)$,
+where $k$ ($l$) are the row (column) indices of the correlation matrices. The estimator in this case is 
+\begin{align}
+	\grave{\mathbf H}_t &= \hat\gamma \hat{\mathbf H}_{t-1} \label{eq:gamma-estim}.
+\end{align}
+Under the estimator $\gamma$, we proposed to encode the error, $\mathbf E_t$, using a convolutional autoencoder, $f(\mathbf E_t)$,
 \begin{align*}
 	\hat{\mathbf E}_t &= g(f(\mathbf E_t, \vec\theta_e), \vec\theta_d),
 \end{align*}
 where $\mathbf E_t = \mathbf H_t - \gamma\hat{\mathbf H}_{t-1}$. The base station has access to the estimators $\gamma$ and $\hat{\mathbf H}_{t-1}$, and the resulting CSI estimate at $t$ is
-\begin{align*}
-	\hat{\mathbf H}_t &= \hat\gamma \hat{\mathbf H}_{t-1} + \hat{\mathbf{E}}_t
-\end{align*}
+\begin{align}
+	\hat{\mathbf H}_t &= \hat\gamma \hat{\mathbf H}_{t-1} + \hat{\mathbf{E}}_t \label{eq:diff-estim}
+\end{align}
 
-\subsubsection*{MarkovNet}
+\subsubsection{MarkovNet}
+
+In \cite{ref:Liu2020MarkovNet}, we proposed MarkovNet, a deep differential autoencoder. Each timeslot of MarkovNet uses an instance of CsiNet-Pro with unique parameters. The network at the first timeslot ($t_1$) is trained directly on the CSI ($\mathbf H_1$). For all subsequent timeslots, $t_i$ for $i \geq 2$, we use the MMSE estimator (\ref{eq:gamma-estim}) to produce an error term $\mathbf E_t$, and the autoencoder in each timeslot is trained to produce an error estimate, $\hat{\mathbf E}_t$. The estimated error is added back per (\ref{eq:diff-estim}) to produce a refined estimate.
 
 \begin{figure}[!hbtp]
     \centering
@@ -76,19 +85,61 @@ where $\mathbf E_t = \mathbf H_t - \gamma\hat{\mathbf H}_{t-1}$. The base statio
       \def\svgwidth{0.8\columnwidth}
       \input{../images/markovnet_schematic.pdf_tex}
     }
-    \caption{Abstract architecture for MarkovNet. Networks at $t \geq 2$ are trained to predict the estimation error, $\mathbf E_t$.}
+    \caption{Abstract architecture for MarkovNet. Networks at $t_i$ for $i \geq 2$ are trained to predict the estimation error, $\mathbf E_i$.}
     \label{fig:markovnet_schema}
 \end{figure}
+
+The resulting network requires no recurrent layers, resulting in a substantial reduction in computational complexity. Table~\ref{tab:comp-complex} shows the number of parameters and FLOPs per timeslot for CsiNet-LSTM, MarkovNet, and CsiNet. The parameter count of MarkovNet is on par with CsiNet, and CsiNet-LSTM requires orders of magnitude more parameters. While the number of FLOPs for MarkovNet is nearly 10 times smaller than CsiNet-LSTM, MarkovNet requires 5 to 10 times more FLOPs than CsiNet due to the increased kernel size of CsiNet-Pro.
+
+\begin{table}[htb]
+  \renewcommand{\arraystretch}{1}
+  \begin{center}
+  % \caption{Table II: Model size \& computational complexity comparison. M: million, K: thousand.}
+  \caption{Model size/computational complexity of tested temporal networks (CsiNet-LSTM, MarkovNet) and comparable non-temporal network (CsiNet). M: million.}
+  \label{tab:comp-complex} 
+  % \resizebox{\linewidth}{15mm}
+  \footnotesize{
+	  \begin{tabular}{|l|c|c|c|c|c|c|}
+	  \hline
+	                              & \multicolumn{3}{c|}{\textbf{Parameters}} & \multicolumn{3}{c|}{\textbf{FLOPs}} \\ \hline
+	                              & \textbf{CsiNet-LSTM} & \textbf{MarkovNet} & \textbf{CsiNet} & \textbf{CsiNet-LSTM} & \textbf{MarkovNet} & \textbf{CsiNet} \\ \hline
+	  \textbf{CR=$1/4$}  		  & 132.7 M              & 2.1 M              & 2.1 M  			& 412.9 M              & 44.5 M             & 7.8 M           \\ \hline
+	  \textbf{CR=$1/8$}  		  & 123.2 M              & 1.1 M              & 1.1 M  			& 410.8 M              & 42.	4 M             & 5.7 M           \\ \hline
+	  \textbf{CR=$1/16$} 		  & 118.5 M              & 0.5 M              & 0.5 M 			& 409.8 M              & 41.3 M             & 4.7 M           \\ \hline
+	  \textbf{CR=$1/32$} 		  & 116.1 M              & 0.3 M              & 0.3 M           & 409.2 M              & 40.8 M             & 4.1 M           \\ \hline
+	  \textbf{CR=$1/64$} 		  & 115.0 M              & 0.1 M              & 0.1 M 			& 409.0 M              & 40.5 M             & 3.9 M           \\ \hline
+	  \end{tabular}
+  }
+  \end{center}
+\end{table} 
 
 \subsection{Numerical Results}
 
 We compare MarkovNet with CsiNet-LSTM \cite{ref:Wang2019CsiNetLSTM} on the indoor and outdoor COST2100 datasets (for details, see Section~\ref{sect:channel_model}). For MarkovNet, we train the network at the first timeslot for 1000 epochs. In each subsequent timeslot, we initialize the network using the weights from the previous timeslot and train for 200 epochs. We use a batch size of 200. We perform a training/testing split of 75k/25k samples, and we estimate $\gamma$ using the training set. To compare the estimation accuracy of each network, we report the NMSE.
 %estimate of the previous timeslot with the scalar MMSE estimator, $\gamma$, to produce the error term $\mathbf E_t = \mathbf H_t - \gamma\hat{\mathbf H}_{t-1}$.
 
-Figure~\ref{fig:csi_image} shows a random sample from the test set, $\mathbf H$, and the estimates produced by CsiNet-LSTM and MarkovNet for a CR of $\frac 14$. This sample contains three ``peak'' magnitude regions. While both networks manage to capture the two larger samples, MarkovNet is able to recover the small peak magnitude region which CsiNet-LSTM fails to produce.
+Figure~\ref{fig:diffnet_result} shows the NMSE of MarkovNet and CsiNet-LSTM for four different compression ratios. For the indoor network, all instances of MarkovNet achieve lower NMSE than all instances of CsiNet-LSTM. In the outdoor scenario, each CR for MarkovNet demonstrates lower NMSE than the corresponding CR for CsiNet-LSTM. Between both channel scenarios, MarkovNet shows gradual improvement for subsequent timeslots if the CR is high enough while CsiNet-LSTM only improves gradually in the outdoor environment for CR$=\frac 14$.
+\begin{figure}[!hbtp] \centering 
+	\begin{subfigure}[t]{.45\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{MarkovNet_truncated_Indoor_10slots.pdf}
+		\caption{Indoor}
+		\label{fig:diffnet_indoor} 
+	\end{subfigure}
+	\begin{subfigure}[t]{.45\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{MarkovNet_truncated_Outdoor_10slots.pdf}
+		\caption{Outdoor}
+		\label{fig:diffnet_outdoor} 
+	\end{subfigure}
+	\caption{$\text{NMSE}$ comparison of MarkovNet and CsiNet-LSTM 
+	at various compression ratios (CR).} 
+	\label{fig:diffnet_result} \vspace*{-2mm}
+\end{figure}  
+Figure~\ref{fig:csi_image} shows a random sample from the test set, $\mathbf H$, and the estimates produced by CsiNet-LSTM and MarkovNet for a CR of $\frac 14$. This sample contains three ``peak'' magnitude regions. While both networks manage to capture the two larger samples, MarkovNet is able to recover the small peak magnitude region ({\color{darkgreen}green arrow}) which CsiNet-LSTM fails to produce ({\color{red}red arrow}).
 
 \begin{figure}[htb] \centering 
-	\includegraphics[width=0.9\linewidth]{batch0_csi_compare_cr512.pdf}
+	\includegraphics[width=0.9\linewidth]{batch0_csi_compare_cr512_annot.pdf}
 	\caption{CSI ($\mathbf H$), MarkovNet estimates ($\hat{\mathbf H}_{\text{Markov}}$), and CsiNet-LSTM estimates ($\hat{\mathbf H}_{\text{LSTM}}$) across five timeslots ($T_1$ through $T_5$) on one outdoor channel sample from the test set,
 using $\text{CR}=\frac 14$.} 
 	\label{fig:csi_image} 

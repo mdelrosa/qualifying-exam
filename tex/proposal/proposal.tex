@@ -31,6 +31,9 @@
 
 \graphicspath{ {../images/} }
 
+% define matplotlib colors
+\definecolor{darkgreen}{rgb}{0.0, 0.5, 0.0}
+
 \usepackage{titling}
 \newcommand{\proposalTitle}{Efficient Deep Learning for Massive MIMO Channel State Estimation}
 \newcommand{\authorName}{Mason del Rosario}
@@ -69,11 +72,11 @@
 \label{chap:sph_norm}
 \input{sections/02_sph_norm.tex}
 
-\section{MarkovNet: A Deep Learning-based Differential Autoencoder}
+\section{Deep Differential Encoding}
 \label{chap:markovnet}
 \input{sections/03_markovnet.tex}
 
-\section{CsiNet-Quant}
+\section{CsiNet-SoftQuant}
 \label{chap:csinet_quant}
 \input{sections/04_csinet_quant.tex}
 

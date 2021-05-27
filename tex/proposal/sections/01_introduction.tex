@@ -1,6 +1,8 @@
 % 01_introduction.tex
 
-Section \ref{sect:mimo_model} provides an overview of the MIMO channel and relevant notation. Section \ref{sect:channel_model} introduces the channel simulation used in this work, the COST2100 model. Section \ref{sect:dl_csi} provides an overview of recent works in deep learning for CSI estimation in MIMO networks. 
+% Section \ref{sect:notation} introduces the notation used through this work.
+This qualifying examination proposal details work in improving the accuracy and efficiency of deep learning methods for MIMO channel state information estimation. Section \ref{sect:mimo_model} provides an overview of the MIMO channel. Section \ref{sect:channel_model} introduces the channel simulation used in this work, the COST2100 model. Section \ref{sect:classic_estimation} discusses prior work in compressed sensing for CSI estimation. Section \ref{sect:dl_overview} provides a generic overview of deep learning and recent work in deep learning for CSI estimation in MIMO networks. 
+Boldface lowercase (uppercase) letters indicate vectors (matrices). Unless otherwise specified, the norm $\|\cdot\|$ indicates the Frobenius norm. Superscripts $^T$ ($^H$) indicate the transpose (Hermitian transpose).
 
 \subsection{MIMO Channel Overview}
 \label{sect:mimo_model}
@@ -18,13 +20,13 @@ Section \ref{sect:mimo_model} provides an overview of the MIMO channel and relev
 
 In this work, we consider a MIMO channel with a multiple antennas ($n_B \gg 1$) at the transmitter (gNodeB or gNB) servicing a single user equipment (UE) with a single antenna. Under orthogonal frequency division multiplexing (OFDM) with $N_f$ subcarriers, the received symbols on the $m$-th subcarrier for the downlink and the uplink at the receiver are given as
 \begin{align*}
-	y_{d,m} &= \mathbf h_{d,m}^H\mathbf w_{t,m}x_{d,m} + n_{d,m}, \\
-	y_{u,m} &= \mathbf w_{r,m}^H\mathbf h_{u,m}x_{u,m} + \mathbf w_{r,m}^H\mathbf n_{u,m},
+	y_{d,m} &= \mathbf h_{d,m}^H\mathbf w_{t,m}x_{d,m} + n_{d,m}.
+	% y_{u,m} &= \mathbf w_{r,m}^H\mathbf h_{u,m}x_{u,m} + \mathbf w_{r,m}^H\mathbf n_{u,m},
 \end{align*}
 where the individual system values are defined in Table~\ref{tab:mimo-params}, and a representative system model is viewable in Figure~\ref{fig:mimo_schematic}. The resulting downlink and uplink channel state information (CSI) matrices are given as
 \begin{align*} 
-	\bar{\mathbf H}_d &= \begin{bmatrix} \mathbf h_{d,1} & \dots & \mathbf h_{d,N_f}\end{bmatrix}^H \in \mathbb C^{N_f \times N_b}, \\
-	\bar{\mathbf H}_u &= \begin{bmatrix} \mathbf h_{u,1} & \dots & \mathbf h_{u,N_f}\end{bmatrix}^H \in \mathbb C^{N_f \times N_b}.
+	\bar{\mathbf H}_d &= \begin{bmatrix} \mathbf h_{d,1} & \dots & \mathbf h_{d,N_f}\end{bmatrix}^H \in \mathbb C^{N_f \times N_b}.
+	% \bar{\mathbf H}_u &= \begin{bmatrix} \mathbf h_{u,1} & \dots & \mathbf h_{u,N_f}\end{bmatrix}^H \in \mathbb C^{N_f \times N_b}.
 \end{align*}
 \begin{table}[]
 \centering
@@ -39,12 +41,12 @@ $\mathbf H_{d}$   & $\mathbb{C}^{N_f \times N_b}$ & Downlink impulse response on
 $\mathbf w_{t,m}$ & $\mathbb{C}^{N_b \times 1}$   & Transmitter precoding vector for $m$-th subcarrier  \\ \hline
 $x_{d,m}$ 		  & $\mathbb{C}^{1}$ 			  & Trasmitted symbol on $m$-th subcarrier  \\ \hline
 $n_{d,m}$ 		  & $\mathbb{C}^{1}$ 			  & Downlink noise on $m$-th subcarrier  \\ \hline
-$y_{u,m}$ 		  & $\mathbb{C}^{1}$ 			  & Received uplink symbol on $m$-th subcarrier  \\ \hline
-$\mathbf h_{u,m}$ & $\mathbb{C}^{N_b \times 1}$   & Uplink channel on $m$-th subcarrier  \\ \hline
-$\mathbf H_{u}$   & $\mathbb{C}^{N_f \times N_b}$ & Downlink impulse response on $m$-th subcarrier  \\ \hline
-$\mathbf w_{r,m}$ & $\mathbb{C}^{N_b \times 1}$   & Received precoding vector for $m$-th subcarrier  \\ \hline
-$x_{u,m}$ 		  & $\mathbb{C}^{1}$ 			  & Received symbol on $m$-th subcarrier  \\ \hline
-$\mathbf n_{u,m}$ & $\mathbb{C}^{1}$ 			  & Uplink noise on $m$-th subcarrier  \\ \hline
+% $y_{u,m}$ 		  & $\mathbb{C}^{1}$ 			  & Received uplink symbol on $m$-th subcarrier  \\ \hline
+% $\mathbf h_{u,m}$ & $\mathbb{C}^{N_b \times 1}$   & Uplink channel on $m$-th subcarrier  \\ \hline
+% $\mathbf H_{u}$   & $\mathbb{C}^{N_f \times N_b}$ & Downlink impulse response on $m$-th subcarrier  \\ \hline
+% $\mathbf w_{r,m}$ & $\mathbb{C}^{N_b \times 1}$   & Received precoding vector for $m$-th subcarrier  \\ \hline
+% $x_{u,m}$ 		  & $\mathbb{C}^{1}$ 			  & Received symbol on $m$-th subcarrier  \\ \hline
+% $\mathbf n_{u,m}$ & $\mathbb{C}^{1}$ 			  & Uplink noise on $m$-th subcarrier  \\ \hline
 \end{tabular}
 \end{table}
 To achieve near-capacity transmission rates, the transmitter needs access to an appropriate estimate of $\bar{\mathbf H}_d$ \cite{ref:goldsmith2003capacity}. Such estimates enable the use of linear precoding techniques (e.g., conjugate beamforming or zero-forcing beamforming) to realize appreciable spectral and power efficiency gains \cite{ref:yang2013performance}. Downlink CSI estimation can be performed in time division duplex (TDD) by using uplink pilots due to channel reciprocity \cite{ref:Kaltenberger2010relative,ref:mi2017massive,ref:Gao2010utilization}. In contrast, frequency domain duplex (FDD) does not admit channel reciprocity due to frequency-selective channels, and CSI estimates must be acquired using feedback.
@@ -53,7 +55,7 @@ Given their dimensionality, feeding back entire CSI matrices is impractical. Ins
 \begin{align*}
 	\mathbf H &= \mathbf F^H \bar{\mathbf H} \mathbf F.
 \end{align*}
-The delay spread of the resulting $\mathbf H$ can typically be captured with a small number of delay elements, so we restrict our attention to the first $R_d$ elements of $\mathbf H$, resulting in a truncated angular-delay matrix which we denote as $\mathbf H_d \in \mathbb C^{(R_d\times N_b)}$ ($\mathbf H_u \in \mathbb C^{(R_d\times N_b)}$) for the downlink (uplink) channel state.
+The delay spread of the resulting $\mathbf H$ can typically be captured with a small number of delay elements, so we restrict our attention to the first $R_d$ elements of $\mathbf H$, resulting in a truncated angular-delay matrix which we denote as $\mathbf H_d \in \mathbb C^{(R_d\times N_b)}$ for the downlink channel state. % (uplink) ($\mathbf H_u \in \mathbb C^{(R_d\times N_b)}$) 
 
 \subsection{Channel Model}
 \label{sect:channel_model}
@@ -79,7 +81,7 @@ $N_f$ 			& 1024			 & Number of subcarriers for OFDM link  \\ \hline
 $R_d$ 			& 32			 & Number of delay elements kept after truncation  \\ \hline
 $N$ 			& $10^6$		 & Total number of samples per dataset  \\ \hline
 $T$ 			& 10		 	 & Number of timeslots  \\ \hline
-$\delta$		& 40ms, 80ms	 & Feedback delay interval between consecutive CSI timeslots  \\ \bottomrule
+$\delta$		& 40 ms			 & Feedback delay interval between consecutive CSI timeslots  \\ \bottomrule
 \end{tabular}
 \end{table}
 
@@ -90,7 +92,7 @@ Works in compressive feedback for CSI estimation in MIMO networks can be placed 
 
 The last category of work in compressive CSI feedback uses deep learning (DL), neural networks with numerous layers which are trained on large datasets using backpropagation. Before describing these works, we first describe a few pertinent concepts from deep learning.
 
-\subsection{Deep Learning}
+\subsection{Deep Learning/CNNs for CSI Estimation}
 \label{sect:dl_overview}
 
 This section provides a brief overview of relevant deep learning concepts employed in this work, including convolutional neural networks (CNNs), autoencoders, and unsupervised learning.
@@ -113,7 +115,7 @@ A common architecture for deep unsupervised learning is the \emph{autoencoder} (
 \end{align*}
 We optimize network parameters $\vec \theta_e, \vec \theta_d$ by backpropagation and a stochastic optimization algorithm (e.g., stochastic gradient descent, ADAM).
 
-\subsubsection{CNNs for CSI Estimation}
-\label{sect:dl_csi}
+% \subsubsection{CNNs for CSI Estimation}
+% \label{sect:dl_csi}
 
 Successful efforts in DL for CSI estimation have typically utilized convolutional neural networks (CNNs) in an autoencoder structure \cite{ref:csinet}. Variations on the CNN-based autoencoder have investigated different network architectures \cite{ref:Lu2020CRNet}, variational training frameworks \cite{ref:Hussien2020PRVNet}, and denoising modules \cite{ref:Sun2020AnciNet}. Other works have exploited physical channel characteristics such as downlink/uplink reciprocity \cite{ref:dualnet} and temporal coherence \cite{ref:Wang2019CsiNetLSTM}. To make CNNs practical for actual feedback transmission, authors have experimented with networks using entropy encoding for bit stream feedback \cite{ref:Yang2019DeepCMC} and networks with complex latent elements for IQ symbol feedback \cite{ref:Mashhadi2020AnalogDeepCMC}.

@@ -82,7 +82,7 @@
     \put(0,0){\includegraphics[width=\unitlength,page=13]{dualnet-pro.pdf}}%
     \put(0.75997831,0.18761834){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Conv\\(7,  7)\\4\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=14]{dualnet-pro.pdf}}%
-    \put(0.81785081,0.18756273){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Conv\\(7, 7)\\2\end{tabular}}}}%
+    \put(0.81785081,0.18756273){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Conv\\(7, 7)\\1\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=15]{dualnet-pro.pdf}}%
     \put(0.58636074,0.18296123){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}View\\(2,32,32)\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=16]{dualnet-pro.pdf}}%
@@ -96,11 +96,13 @@
     \put(0,0){\includegraphics[width=\unitlength,page=19]{dualnet-pro.pdf}}%
     \put(0.95883088,0.17849803){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\check{\mathbf H}$\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=20]{dualnet-pro.pdf}}%
-    \put(0.03564228,0.02030266){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\theta(\mathbf H)$\end{tabular}}}}%
+    \put(0.03564228,0.02030266){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\theta_{\mathbf H}$\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=21]{dualnet-pro.pdf}}%
-    \put(0.95748154,0.02030265){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\theta(\mathbf H)$\end{tabular}}}}%
+    \put(0.95748154,0.02030265){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\theta_{\mathbf H}^\Delta$\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=22]{dualnet-pro.pdf}}%
     \put(0.58563025,0.04532444){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$|\mathbf H_u|$\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=23]{dualnet-pro.pdf}}%
+    \put(0.32332419,0.02030267){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}MDPQ\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=24]{dualnet-pro.pdf}}%
   \end{picture}%
 \endgroup%

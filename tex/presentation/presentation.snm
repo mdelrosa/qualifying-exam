@@ -9,6 +9,7 @@
 \beamer@slide {fig:sphnet-arch}{31}
 \beamer@slide {fig:dualnet-sph-arch}{32}
 \beamer@slide {fig:grid}{33}
+\beamer@slide {tab:cost2100-params}{34}
 \beamer@slide {fignmse_mag:a}{35}
 \beamer@slide {fignmse_mag:b}{35}
 \beamer@slide {fignmse_mag}{35}
