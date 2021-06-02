@@ -49,32 +49,58 @@ To achieve discrete codewords with valid probability distributions, we consider 
 \label{fig:csinet_quant}
 \end{figure}
 
-\section{A Vector-quantized Autoencoder for Trainable Codewords}
+\section{Vector Quantization for Trainable Codewords}
 % \subsubsection{CsiNet-Quant: A Vector Quantized Autoencoder for Trainable Codewords}
+Denote the downlink CSI estimate $\mathbf{\hat{H}}$ 
+with encoder (decoder) $f_{e}(\mathbf H, \theta_e)$ ($f_{d}(\mathbf Z, \theta_d)$).
+An autoencoder with continuous-valued feedback, $\mathbf Z \in \mathbb R^{m}$, is given as
+\begin{align*}
+	\mathbf Z = f_e(\mathbf H, \theta_e) \to
+	\hat{\mathbf H} = f_d(\mathbf Z, \theta_d).
+\end{align*}
+with encoder (decoder) parameters $\theta_e$ ($\theta_d$). Feedback quantization can be considered as a function of the continuous-valued feedback, $f_q(\mathbf Z, \theta_q) : \mathbb R^r \to \mathbb R^r$ with parameters $\theta_q$. The resulting autoencoder is given as
+\begin{align*}
+	\mathbf Z = f_e(\mathbf H, \theta_e)\; \to
+	\hat{\mathbf Z} = f_q(\mathbf Z, \theta_q)\; \to
+	\hat{\mathbf H} = f_d(\hat{\mathbf Z}, \theta_d).
+\end{align*}
+For a fixed quantization scheme (e.g., uniform quantization, $\mu$-law quantization), the parameters $\theta_q$ are fixed, and the quantization scheme is not able to adapt to training data.
 
-To incorporate discrete latent codewords in the learning process, we propose to use soft-to-hard vector quantization framework proposed in \cite{ref:Agustsson2017SoftToHard}. We choose a vector dimension, $m$, by which to partition the latent space $\mathbf Z = f(\mathbf H, \theta_e)$, and we denote the vectorized version of $\mathbf Z \in \mathbb R^{r}$ as $\tilde{\mathbf Z} \in \mathbb R^{r/m \times m}$. We define the $m$-dimensional codebook of size $L$ as $\mathbf C \in \mathbb R^{m\times L}$. The soft assignments of the $j$-th latent vector $\tilde{\mathbf z}_j$ can be written as
+To incorporate discrete latent codewords in the learning process, we employ the soft-to-hard vector quantization framework \cite{ref:Agustsson2017SoftToHard}. We choose a vector dimension, $d$, by which to partition the latent space $\mathbf Z = f_e(\mathbf H, \theta_e)$, and we denote the vectorized version of $\mathbf Z \in \mathbb R^{r}$ as $\tilde{\mathbf Z} \in \mathbb R^{d \times r/d}$. We define the $d$-dimensional codebook with $L$ codewords as $\mathbf C \in \mathbb R^{d \times L}$. The soft assignments of the $j$-th latent vector $\tilde{\mathbf z}_j$ can be written as
 \begin{align}
 \phi(\tilde{\mathbf z}_j) &= \left[\frac{\text{exp}(-\sigma \Arrowvert \tilde{\mathbf z}_j - \mathbf c_\ell\Arrowvert^2)}{\sum_{i=1}^L\text{exp}(-\sigma \Arrowvert \tilde{\mathbf z}_j - \mathbf c_i\Arrowvert^2)}\right]_{\ell\in [L]} \in \mathbb R^L \label{eq:soft_assign}
 \end{align}
-where (\ref{eq:soft_assign}) is typically referred to as the \emph{softmax} function, a commonly adopted alternative to the max function which is fully differentiable. The hyperparameter $\sigma$ controls the temperature of the softmax scores, with a lower $\sigma$ yielding a more uniform distribution and a higher $\sigma$ yielding a ``peakier'' distribution (i.e., $\sigma \to \infty \Rightarrow \phi(\tilde z_j) \to \text{max}(\tilde z_j)$). Using the soft assignments, the latent vectors are quantized based on the codebook $\mathbf C \in \mathbb R^{m \times L}$,
+where (\ref{eq:soft_assign}) is typically referred to as the \emph{softmax} function, a differentiable alternative to the max function. The hyperparameter $\sigma$ controls the temperature of the softmax scores, with a lower $\sigma$ yielding a more uniform distribution and a higher $\sigma$ yielding a ``peakier'' distribution (i.e., $\sigma \to \infty \Rightarrow \phi(\tilde z_j) \to \text{max}(\tilde z_j)$).
+
+Using the soft assignments $\phi(\tilde{\mathbf Z})$ and the codebook $\mathbf C$, we define the `SoftQuantize' layer as
 \begin{align}
-Q(\tilde{\mathbf z}_j,\mathbf C) &= \phi(\tilde{\mathbf z}_j) \mathbf C^T. \label{eq:soft_quant}
+    \mathbf Q(\tilde{\mathbf z}_j,\mathbf C) &= \mathbf C \phi(\tilde{\mathbf z}_j) \in \mathbb R^d \label{eq:soft_quant}
 \end{align}
-The quantized version of the latent variable is taken by reshaping $\mathbf Q(\tilde{\mathbf Z},\mathbf C) \in \mathbb R^{r/m \times m}$ into $\hat{\mathbf Z} \in \mathbb R^d$, and the decoder produces the CSI estimates as $\hat{\mathbf H} = h(\hat{\mathbf Z}, \mathbf C)$. An abstract illustration of an autoencoder using soft quantization can be seen in Figure~\ref{fig:csinet_quant}.
+where the quantized version of the full latent vector is 
+\begin{align}
+    \mathbf Q(\tilde{\mathbf Z},\mathbf C) &= \mathbf C \phi(\tilde{\mathbf Z}) \in \mathbb R^{d\times r/d}. \label{eq:soft_quant_mat}
+\end{align}
+The resulting quantized latent vector taken by reshaping $\mathbf Q(\tilde{\mathbf Z},\mathbf C) \in \mathbb R^{d \times r/d}$ into $\hat{\mathbf Z} \in \mathbb R^r$, and the decoder produces the CSI estimates as $\hat{\mathbf H} = f_d(\hat{\mathbf Z}, \mathbf C)$. % An abstract illustration of an autoencoder using soft quantization can be seen in Figure~\ref{fig:csinet_quant}.
+
+\subsection{CsiNet-SoftQuant Architecture}
+
+To assess the performance of SHVQ in CSI estimation, we utilize the encoder/decoder of CsiNet-Pro \cite{ref:liu2020sphnet} with the proposed `SoftQuantize' layer, $\mathbf Q(\tilde{\mathbf Z}, \mathbf C)$. We call the resulting autoencoder \textbf{CsiNet-SoftQuant}, an abstract representation of which can be seen in Figure~\ref{fig:csinet_quant}.
 
 \subsection{Entropy-regularization}
-To optimize the network with soft quantization, we adapt the loss function to resemble the canonical rate-distortion function by adding an entropy penalization term,
+To optimize the network with soft quantization \cite{ref:Agustsson2017SoftToHard}, we adapt the loss function to resemble the canonical rate-distortion function by adding an entropy penalization term,
 \begin{align}
-\underset{\theta_e, \theta_d, \mathbf C}{\text{argmin}}\; \frac 1N \underbrace{\sum_{i=1}^N\Arrowvert \mathbf H_i - g(Q(f(\mathbf H_i, \theta_e), \mathbf C), \theta_d) \Arrowvert^2}_{\text{distortion loss}} + \underbrace{\lambda \left(\Arrowvert\theta_e\Arrowvert^2+\Arrowvert\theta_d\Arrowvert^2+\Arrowvert \mathbf C \Arrowvert^2\right)}_{\ell^2\text{ penalty}} + \underbrace{m\beta H(\phi)}_{\text{rate loss}}. \label{eq:loss_entropy}
+\underset{\theta_e, \theta_d, \mathbf C}{\text{argmin}}\; \frac 1N &\sum_{i=1}^N\Arrowvert \mathbf H_i - g(Q(f(\mathbf H_i, \theta_e), \mathbf C), \theta_d) \Arrowvert^2 \nonumber \\
+&+ \lambda \left(\Arrowvert\theta_e\Arrowvert^2+\Arrowvert\theta_d\Arrowvert^2+\Arrowvert \mathbf C \Arrowvert^2\right) \label{eq:loss_entropy} \\
+&+ m\beta H(\phi), \nonumber
 \end{align}
-Where $H(\phi)=H(p,q)$ is the crossentropy based on the hard and soft probability estimates $p$ and $q$, respectively. Before defining the estimates $p$ and $q$, we briefly discuss the population probabilities of the latent codewords. Denote the symbol encoder/decoder pair as $E:\mathbb R^m \to [L]^m$/$D:[L]^m \to \mathbb R^m$. Denote the distribution of latent variables as $\mathsf Z$ such that $\mathbf z \sim \mathsf Z$ with the encoder $E(\mathsf Z)=\mathbf e$ . The entropy of $\mathsf Z$ is given as 
+where $H(\phi)=H(p,q)$ is the crossentropy based on the hard and soft probability estimates $p$ and $q$, respectively. Before defining the estimates $p$ and $q$, we briefly discuss the population probabilities of the latent codewords. Denote the symbol encoder/decoder pair as $E:\mathbb R^m \to [L]^m$/$D:[L]^m \to \mathbb R^m$. Denote the distribution of latent variables as $\mathsf Z$ such that $\tilde{\mathbf z} \sim \mathsf Z$, and denote realizations of the encoder's output as $E(\mathsf Z)=\mathbf e$. The entropy of $\mathsf Z$ is given as 
 \begin{align*}
 H(E(\mathsf Z)) &= -\sum_{\mathbf e\in[L]^m}P(E(\mathsf Z) = \mathbf e)\log_2(P(E(\mathsf Z)=\mathbf e)).
 \end{align*}
 % The true probabilities over the latent vectors as $p_j$ with entropy $H(p) = -\sum_{j}^m p_j\log_2 p_j$.
-In practice, the true population probabilities $P(E(\mathsf Z))$ are inaccessible, and we must estimate the probability masses via finite sampling over the encoder's outputs, $e(\mathbf z)$. The hard probability estimate $p_j$ of the $j$-th codeword is
+In practice, the true population probabilities $P(E(\mathsf Z))$ are inaccessible, and we must estimate the probability masses via finite sampling over the encoder's outputs, $e(\tilde{\mathbf z})$. The hard probability estimate $p_j$ of the $j$-th codeword is
 \begin{align*}
-p_j &= \frac{|\{e_l(\mathbf z_i)|l\in[m], i \in [N], e_l(\mathbf z_i)=j\}|}{mN}.
+p_j &= \frac{|\{e_l(\tilde{\mathbf z}_i)|l\in[m], i \in [N], e_l(\tilde{\mathbf z}_i)=j\}|}{mN}.
 \end{align*}
 The soft assignments of $\phi$ admit valid probability masses, $q_j = \phi(\tilde{\mathbf z})$, over the codewords. Using histogram estimates $p_j$ and the soft assignments $q_j$, the crossentropy term is written
 \begin{align*}
@@ -270,7 +296,27 @@ Moving forward, our work in trainable CSI quantization will seek to specify netw
 
 \subsection{ROI CSI Compression}
 
-Region of interest (ROI) based compression emphasizes the encoding and decoding of designated sections of a given signal. Deep learning-based ROI compression has demonstrated success in image compression tasks, demonstrating lower distortion at lower rates compared to non-ROI image codecs \cite{ref:Cai2020EndToEndOptimizedROIImageCompression}. To apply ROI compression to MIMO CSI, we would need to consider how to define ground truth ROI masks based on either delay spread or the power distribution of $\mathbf H$.
+\begin{figure}[htb] \centering 
+	\begin{subfigure}[t]{.48\textwidth}
+		\input{../images/batch0_csi_roi_lo.pdf_tex}
+		\caption{Low threshold} 
+		\label{fig:roi-lo} 
+	\end{subfigure}
+	\begin{subfigure}[t]{.48\textwidth}
+		\input{../images/batch0_csi_roi_hi.pdf_tex}
+		\caption{High threshold} 
+		\label{fig:roi-hi} 
+	\end{subfigure}
+	\caption{Hypothetical bounding boxes based on threshold, $\tau$, where $\tau_{\text{lo}} < \tau_{\text{hi}}$. The set of ROI pixels constitute $\mathbf S_{\text{ROI}}$.} 
+  	\label{fig:roi-thresh} 
+\end{figure}
+
+Region of interest (ROI) based compression emphasizes the encoding and decoding of designated sections of a given signal. By labeling ground truth ROIs, the network can be penalized based on the rate of these ROIs. For example, in the case of a CSI matrix $\mathbf H$ with a set of ROI elements, $\mathbf S_{\text{ROI}}$, the MSE of the ROI can be written as
+\begin{align*}
+	L_{\text{MSE,ROI}} &= \frac{1}{N_{\text{ROI}}} \sum_{i\in\mathbf S_{\text{ROI}}}\Arrowvert \mathbf H_i - g(f(\mathbf H_i, \theta_e), \theta_d) \Arrowvert^2.
+	% L_{\text{Rate,ROI}} &= \frac{1}{N_{\text{ROI}}} \sum_{i\in\mathbf S_{\text{ROI}}} \log_2(\mathbf H_i).
+\end{align*}
+Deep learning-based ROI compression has demonstrated success in image compression tasks, demonstrating lower distortion at lower rates compared to non-ROI image codecs \cite{ref:Cai2020EndToEndOptimizedROIImageCompression}. Given the sparsity of CSI in the angular-delay domain, ground truth ROI masks can be chosen to capture the dominant non-zero elements. In this line of investigation, a variety of metrics will be used to establish ground truth masks, such bounding boxes based on magnitude thresholding (e.g., Figure~\ref{fig:roi-thresh}). 
 
 \subsection{Differential Encoding with Trainable Feedback Quantization}
 
