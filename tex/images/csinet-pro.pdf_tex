@@ -54,8 +54,8 @@
     \lineheight{1}%
     \setlength\tabcolsep{0pt}%
     \put(0,0){\includegraphics[width=\unitlength,page=1]{csinet-pro.pdf}}%
-    \put(0.12379468,0.11051665){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\mathbf{\check H}$\\(2,32,32)\end{tabular}}}}%
-    \put(0.04096017,0.10711096){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\mathbf H$\end{tabular}}}}%
+    \put(0.12379468,0.10590911){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\mathbf{\check H}$\\\end{tabular}}}}%
+    \put(0.04096017,0.10590911){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\mathbf H$\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=2]{csinet-pro.pdf}}%
     \put(0.29900498,0.22207464){\color[rgb]{0.77254902,0.58039216,0.20392157}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Encoder\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=3]{csinet-pro.pdf}}%
@@ -71,7 +71,7 @@
     \put(0,0){\includegraphics[width=\unitlength,page=8]{csinet-pro.pdf}}%
     \put(0.41196478,0.10987732){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}View\\2048\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=9]{csinet-pro.pdf}}%
-    \put(0.87623551,0.11004007){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\hat{\check{\mathbf H}}$\\(2,32,32)\end{tabular}}}}%
+    \put(0.87623551,0.1059091){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\hat{\check{\mathbf H}}$\\\end{tabular}}}}%
     \put(0.64687866,0.22207464){\color[rgb]{0.03529412,0.17254902,0.28235294}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Decoder\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=10]{csinet-pro.pdf}}%
     \put(0.53043139,0.11056309){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Linear\\2048\end{tabular}}}}%
@@ -90,11 +90,11 @@
     \put(0.49870834,0.23649126){\color[rgb]{0,0,1}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}ReLU\end{tabular}}}}%
     \put(0.49942268,0.2239245){\color[rgb]{0,1,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Tanh\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=17]{csinet-pro.pdf}}%
-    \put(0.04096018,0.26462144){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\|\mathbf H\|_2$\end{tabular}}}}%
+    \put(0.04096018,0.26462144){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\|\mathbf H\|$\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=18]{csinet-pro.pdf}}%
-    \put(0.95900058,0.26462144){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\|\mathbf H\|_2$\end{tabular}}}}%
+    \put(0.95900058,0.26462144){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\|\mathbf H\|$\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=19]{csinet-pro.pdf}}%
-    \put(0.95900057,0.1054325){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\hat{\mathbf H}$\end{tabular}}}}%
+    \put(0.95900057,0.10590911){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\hat{\mathbf H}$\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=20]{csinet-pro.pdf}}%
   \end{picture}%
 \endgroup%

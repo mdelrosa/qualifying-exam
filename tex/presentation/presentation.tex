@@ -417,78 +417,72 @@
     \vfill
   \end{frame}
 
+  \nofoot{
   \begin{frame}{CsiNet: Minmax Normalization}
     \footnotesize{
     \begin{itemize}
-      \item \textbf{Minmax scaling} for typical works
-      \item Take extrema ($H_{\text{min}}, H_{\text{max}}$) of real and imaginary channels.
+      \item \textbf{Minmax normalization} -- Find $H_{\text{min}}, H_{\text{max}}$ of real/imaginary channels.
+      \pause
       \item $H_{n,(i,j)}=$ $(i,j)$-th element of $n$-th sample
       \begin{align*}
         H_{\text{minmax},n,(i,j)} &= \frac{H_{n,(i,j)}- H_{\text{min}}}{H_{\text{max}}- H_{\text{min}}} \in [0,1] 
         % &\forall \; n \in [1,\dots,N], i \in [1,\dots,R_d], j \in [1,\dots,N_f]
       \end{align*}
+      \pause
+      \item Compatible with common \textbf{activation functions} (e.g., tanh, sigmoid)
       % \item Makes data compatible with neural activation function (i.e., sigmoid)
     \end{itemize}
     }
     \begin{figure}[htb]
       \centering
       \includegraphics[width=.7\textwidth]{activations.pdf}
-      % \medskip
-      % \caption{Distribution and variance of minmax-normalized COST2100 real/imaginary channels ($N=99000$) images.}
-      % \label{fig:cost_indoor_dist}
+    \end{figure}
+  \end{frame}
+  }
+
+  \nofoot{
+  \begin{frame}{COST2100: Minmax Normalization}
+    % Tanh normalization $\to$ larger variance. 
+    \begin{figure}[htb]    
+      \subfigure[Indoor] {\label{fig:dist_indoor} 
+      \includegraphics[width=.6\textwidth]{cost2100_indoor_dist.pdf}
+      }
+      \subfigure[Outdoor] {\label{fig:dist_outdoor} 
+      \includegraphics[width=.6\textwidth]{cost2100_outdoor_dist.pdf}
+      }
+      \caption{Distribution/variance of COST2100 real/imaginary channels under minmax normalization ($N=10^5$).}
+      \label{fig:cost_dist}
+    \end{figure}
+  \end{frame} 
+  }  
+
+  \begin{frame}{ImageNet: Minmax Normalization}
+    \begin{figure}[htb]
+      \centering
+      \includegraphics[width=.9\textwidth]{imagenet_rgb_dist.pdf}
+      \medskip
+      \caption{Distribution and variance of minmax-normalized ImageNet RGB channels ($N=50000$).}
+      \label{fig:imagenet_dist}
     \end{figure}
   \end{frame}
 
-    \begin{frame}{CsiNet: Minmax Normalization}
-      % \footnotesize{
-      % \begin{figure}[!hbtp] \centering 
-      %   \subfigure[COST2100 Indoor - real/imaginary channels ($N=99000$)] {\label{fig:cost2100_minmax_range} 
-      %   % \includegraphics[width=0.46\textwidth]{images/nmse_indoor_mag.eps}
-      %   \includegraphics[width=0.47\textwidth]{cost2100_indoor_dist.pdf}
-      %   } 
-      %   \subfigure[ImageNet - RGB channels ($N=50000$)] { \label{fig:imagenet_minmax_range} 
-      %   % \includegraphics[width=0.46\textwidth]{images/nmse_outdoor_mag.eps} 
-      %   \includegraphics[width=0.47\textwidth]{imagenet_rgb_dist.pdf}
-      %   } 
-      %   \caption{Distribution and variance of minmax-normalized channels for two datasets.} 
-      %   \label{fig:minmax} \vspace*{-2mm}
-      % \end{figure}
-      %   }
-      \begin{figure}[htb]
-        \centering
-        \includegraphics[width=.9\textwidth]{cost2100_indoor_dist.pdf}
-        \medskip
-        \caption{Distribution and variance of minmax-normalized COST2100 real/imaginary channels ($N=99000$) images.}
-        \label{fig:cost_indoor_dist}
-      \end{figure}
-    \end{frame}
-
-    \begin{frame}{ImageNet: Minmax Normalization}
-      \begin{figure}[htb]
-        \centering
-        \includegraphics[width=.9\textwidth]{imagenet_rgb_dist.pdf}
-        \medskip
-        \caption{Distribution and variance of minmax-normalized ImageNet color channels ($N=50000$) images.}
-        \label{fig:imagenet_dist}
-      \end{figure}
-    \end{frame}
-
-    \begin{frame}{Comparison: Minmax Normalization}
-      Difference of \textbf{four orders of magnitude}.
-      \begin{table}[htb]
-        % \renewcommand{\arraystretch}{1.5}
-        \begin{center}
-          \begin{tabular}{|c|c|c|c|}
-          \hline
-          \textbf{Dataset} & \textbf{Channels} & \textbf{Normalization} & \textbf{Avg. Variance} \\ \hline
-          ImageNet       & RGB                 & Minmax                 & \underline{$7.24E^{-2}$}       \\ \hline
-          COST2100       & Real, Imag          & Minmax                 & \underline{$9.98E^{-6}$}       \\ \hline
-          \end{tabular}
-          \caption{Minmax normalization applied to COST2100 and ImageNet dataset.}
-          \label{tab:minmax-compare} 
-        \end{center}
-      \end{table}
-    \end{frame}
+  \begin{frame}{Comparison: Minmax Normalization}
+    Difference of \textbf{four orders of magnitude}.
+    \begin{table}[htb]
+      % \renewcommand{\arraystretch}{1.5}
+      \begin{center}
+        \begin{tabular}{|c|c|c|c|c|}
+        \hline
+        \textbf{Dataset} & \textbf{Env} & \textbf{Channels} & \textbf{Norm} & \textbf{Avg. Variance} \\ \hline
+        ImageNet         & -            & RGB                 & Minmax                 & \underline{$7.24E^{-2}$}       \\ \hline
+        COST2100         & Indoor       & Real, Imag          & Minmax                 & \underline{$9.98E^{-6}$}       \\ \hline          
+        COST2100         & Outdoor      & Real, Imag          & Minmax                 & \underline{$4.02E^{-6}$}       \\ \hline
+        \end{tabular}
+        \caption{Minmax normalization applied to COST2100 and ImageNet dataset.}
+        \label{tab:minmax-compare} 
+      \end{center}
+    \end{table}
+  \end{frame}
 
   % \nofoot{
   % \subsection{Bi-directional Reciprocity}
@@ -524,43 +518,81 @@
     Then apply minmax scaling to the entire dataset.
   \end{frame}
 
-  \begin{frame}{Spherical Normalization}
-    Resulting dataset under spherical normalization exhibits a larger variance than minmax scaling. 
-    \begin{figure}[htb]
-      \centering
-      \includegraphics[width=.9\textwidth]{cost2100_indoor_sph_dist.pdf}
-      % \medskip
-      \caption{Distribution/variance of COST2100 real/imaginary channels under spherical normalization ($N=99000$) images.}
-      \label{fig:cost_indoor_sph_dist}
+  \nofoot{
+  \begin{frame}{COST2100: Spherical Normalization}
+    % Tanh normalization $\to$ larger variance. 
+    \begin{figure}[htb]    
+      \subfigure[Indoor] {\label{fig:sph_dist_indoor} 
+      \includegraphics[width=.6\textwidth]{cost2100_indoor_sph_dist.pdf}
+      }
+      \subfigure[Outdoor] {\label{fig:sph_dist_outdoor} 
+      \includegraphics[width=.6\textwidth]{cost2100_outdoor_sph_dist.pdf}
+      }
+      \caption{Distribution/variance of COST2100 real/imaginary channels under spherical normalization ($N=10^5$).}
+      \label{fig:cost_sph_dist}
     \end{figure}
-  \end{frame}
+  \end{frame} 
+  }   
 
-  \begin{frame}{Comparison: Spherical vs. Minmax Normalization}
+  % \begin{frame}{COST2100 (Indoor): Spherical Normalization}
+  %   Spherical normalization $\to$ larger variance. 
+  %   \begin{figure}[htb]
+  %     \centering
+  %     \includegraphics[width=.9\textwidth]{cost2100_indoor_sph_dist.pdf}
+  %     % \medskip
+  %     \caption{Distribution/variance of indoor COST2100 real/imaginary channels under spherical normalization ($N=99000$).}
+  %     \label{fig:cost_indoor_sph_dist}
+  %   \end{figure}
+  % \end{frame}
+
+    \begin{frame}{Comparison: Spherical vs. Minmax Normalization}
     Difference is now \textbf{two orders of magnitude}.
     \begin{table}[htb]
       % \renewcommand{\arraystretch}{1.5}
+      {\footnotesize
       \begin{center}
-        \begin{tabular}{|c|c|c|c|}
+        \begin{tabular}{|c|c|c|c|c|}
         \hline
-        \textbf{Dataset} & \textbf{Channels} & \textbf{Normalization} & \textbf{Avg. Variance} \\ \hline
-        ImageNet       & RGB                 & Minmax                 & \underline{$7.24E^{-2}$}       \\ \hline
-        COST2100       & Real, Imag          & Spherical              & \underline{$1.41E^{-4}$}       \\ \hline
-        COST2100       & Real, Imag          & Minmax                 & $9.98E^{-6}$       \\ \hline
+        \textbf{Dataset} & \textbf{Env} & \textbf{Channels} & \textbf{Norm} & \textbf{Avg. Variance} \\ \hline
+        ImageNet         & -                    & RGB                 & Minmax                 & \underline{$7.24E^{-2}$}       \\ \hline
+        COST2100         & Indoor               & Real, Imag          & Spherical              & \underline{$1.41E^{-4}$}       \\ \hline
+        COST2100         & Outdoor              & Real, Imag          & Spherical              & \underline{$1.43E^{-4}$}       \\ \hline
+        COST2100         & Indoor               & Real, Imag          & Minmax                 & $9.98E^{-6}$       \\ \hline
+        COST2100         & Outdoor              & Real, Imag          & Minmax                 & $4.02E^{-6}$       \\ \hline
         \end{tabular}
         \caption{Minmax vs. spherical normalization applied to COST2100 datasets compared with ImageNet.}
         \label{tab:minmax-sph-compare} 
       \end{center}
+      }
     \end{table}
   \end{frame}
-{}
+
+  % \begin{frame}{Comparison: Spherical vs. Minmax Normalization}
+  %   Difference is now \textbf{two orders of magnitude}.
+  %   \begin{table}[htb]
+  %     % \renewcommand{\arraystretch}{1.5}
+  %     \begin{center}
+  %       \begin{tabular}{|c|c|c|c|}
+  %       \hline
+  %       \textbf{Dataset} & \textbf{Channels} & \textbf{Normalization} & \textbf{Avg. Variance} \\ \hline
+  %       ImageNet       & RGB                 & Minmax                 & \underline{$7.24E^{-2}$}       \\ \hline
+  %       COST2100       & Real, Imag          & Spherical              & \underline{$1.41E^{-4}$}       \\ \hline
+  %       COST2100       & Real, Imag          & Minmax                 & $9.98E^{-6}$       \\ \hline
+  %       \end{tabular}
+  %       \caption{Minmax vs. spherical normalization applied to COST2100 datasets compared with ImageNet.}
+  %       \label{tab:minmax-sph-compare} 
+  %     \end{center}
+  %   \end{table}
+  % \end{frame}
+
   \begin{frame}{MSE/NMSE equivalence}
     \footnotesize{
-    Under spherical normalization, MSE loss becomes equivalent to NMSE. Recall the definitions,
+    Spherical normalization $\to$ MSE equivalent to NMSE.
     \begin{align*}
       \text{MSE}=\frac 1N \sum_{k=1}^N\Arrowvert\mathbf H_k - \hat{\mathbf H}_k\Arrowvert^2,\quad \text{NMSE} =\frac 1N \sum_{k=1}^N\frac{\Arrowvert\mathbf H_k - \hat{\mathbf H}_k\Arrowvert^2}{\Arrowvert\mathbf H_k\Arrowvert} \\        
     \end{align*}
     \pause
-    The MSE of the spherically normalized estimator is equivalent to the NMSE of the regular estimator, i.e.
+    MSE of spherically normalized estimator yields,
     \begin{align*}
       \text{MSE}_{\text{Sph}} &= \frac 1N \sum_{k=1}^N\Arrowvert\check{\mathbf H}_k - \hat{\check{\mathbf H}}_k\Arrowvert^2 \\
       &= \frac 1N \sum_{k=1}^N\left\Arrowvert \frac{\mathbf H_k}{\Arrowvert\mathbf H_k\Arrowvert} - \frac{\hat{\mathbf H}_k}{\Arrowvert\mathbf H_k\Arrowvert}\right\Arrowvert^2 \\
@@ -643,26 +675,28 @@
   \end{frame}  
   }
 
-  \nofoot{
-  \begin{frame}{DualNet-Sph Architecture}
-    % \fignocap{0.9}{sphnet-fig.PNG}
-    \begin{figure}[htb]
-      \centering
-      {
-        \fontsize{1pt}{1pt}
-        \def\svgwidth{1.0\columnwidth}
-        \input{../images/dualnet-pro.pdf_tex}
-      }
-      % \includegraphics[width=.9\textwidth]{csinet-pro.pdf}
-      % \medskip
-      \caption{DualNet-Sph -- CsiNetPro architecture with Spherical Normalization and Bidirectional Reciprocity.}
-      \label{fig:dualnet-sph-arch}
-    \end{figure}
-    \blfootnote{\bibentry{ref:dualnet}}
-  \end{frame}
-  }
+  % dualnet arch
+  % \nofoot{
+  % \begin{frame}{DualNet-Sph Architecture}
+  %   % \fignocap{0.9}{sphnet-fig.PNG}
+  %   \begin{figure}[htb]
+  %     \centering
+  %     {
+  %       \fontsize{1pt}{1pt}
+  %       \def\svgwidth{1.0\columnwidth}
+  %       \input{../images/dualnet-pro.pdf_tex}
+  %     }
+  %     % \includegraphics[width=.9\textwidth]{csinet-pro.pdf}
+  %     % \medskip
+  %     \caption{DualNet-Sph -- CsiNetPro architecture with Spherical Normalization and Bidirectional Reciprocity.}
+  %     \label{fig:dualnet-sph-arch}
+  %   \end{figure}
+  %   \blfootnote{\bibentry{ref:dualnet}}
+  % \end{frame}
+  % }
 
 
+  % dualnet results
   % \nofoot{
   % \begin{frame}{Spherical Normalization: Results}
   %   \begin{figure}[!hbtp] \centering 
@@ -679,11 +713,27 @@
   % \end{frame}
   % }
 
+  % dualnet
+  % \nofoot{
+  % % 2x2 matrix denoting different test configurations
+  % \begin{frame}{Experimental Setup: Models}
+  %   \begin{figure}[!hbtp] \centering 
+  %     \includegraphics[width=0.47\textwidth]{00-experiment-grid.eps}
+  %     \caption{Illustration of techniques used in different models.} 
+  %     \label{fig:grid} \vspace*{-2mm}
+  %   \end{figure}
+  %   \blfootnote{\bibentry{ref:liu2020sphnet}}
+  % \end{frame}
+  % }
+
+  % csinet-pro/sphnet grid
   \nofoot{
   % 2x2 matrix denoting different test configurations
   \begin{frame}{Experimental Setup: Models}
     \begin{figure}[!hbtp] \centering 
-      \includegraphics[width=0.47\textwidth]{00-experiment-grid.eps}
+      \fontsize{8pt}{10pt}
+      \def\svgwidth{0.47\columnwidth}
+      \input{../images/00-experiment-grid-sph.pdf_tex}
       \caption{Illustration of techniques used in different models.} 
       \label{fig:grid} \vspace*{-2mm}
     \end{figure}
@@ -723,19 +773,39 @@
     \end{table}
   \end{frame}
 
+  % dualnet
+  % \nofoot{
+  % \begin{frame}{Experimental Results}
+  %   \begin{figure}[!hbtp] \centering 
+  %     \subfigure[Indoor] {\label{fignmse_mag:a} 
+  %     % \includegraphics[width=0.46\textwidth]{images/nmse_indoor_mag.eps}
+  %     \includegraphics[width=0.47\textwidth]{indoor_res.png}
+  %     } 
+  %     \subfigure[Outdoor] { \label{fignmse_mag:b} 
+  %     % \includegraphics[width=0.46\textwidth]{images/nmse_outdoor_mag.eps} 
+  %     \includegraphics[width=0.47\textwidth]{outdoor_res.png}
+  %     } 
+  %     \caption{NMSE (lower is better) comparison of bidirectional reciprocity and spherical normalization against CsiNet for increasing compression ratio \cite{ref:liu2020sphnet}} 
+  %     \label{fignmse_mag} \vspace*{-2mm}
+  %   \end{figure}
+  %   \blfootnote{\bibentry{ref:liu2020sphnet}}
+  % \end{frame}
+  % }
+
+  % csinet-pro, sphnet
   \nofoot{
   \begin{frame}{Experimental Results}
     \begin{figure}[!hbtp] \centering 
-      \subfigure[Indoor] {\label{fignmse_mag:a} 
-      % \includegraphics[width=0.46\textwidth]{images/nmse_indoor_mag.eps}
-      \includegraphics[width=0.47\textwidth]{indoor_res.png}
-      } 
-      \subfigure[Outdoor] { \label{fignmse_mag:b} 
-      % \includegraphics[width=0.46\textwidth]{images/nmse_outdoor_mag.eps} 
-      \includegraphics[width=0.47\textwidth]{outdoor_res.png}
-      } 
-      \caption{NMSE (lower is better) comparison of bidirectional reciprocity and spherical normalization against CsiNet for increasing compression ratio \cite{ref:liu2020sphnet}} 
-      \label{fignmse_mag} \vspace*{-2mm}
+      \subfigure[Indoor]{
+        \includegraphics[width=.45\textwidth]{nmse_slot1_indoor.eps}
+        \label{fig:slot1_indoor} 
+      }
+      \subfigure[Outdoor]{
+        \includegraphics[width=.45\textwidth]{nmse_slot1_outdoor.eps}
+        \label{fig:slot1_outdoor} 
+      }
+      \caption{Ablation study for CsiNet-Pro and spherical normalization \cite{ref:liu2020sphnet}.}
+      \label{fig:nmse_slot1} 
     \end{figure}
     \blfootnote{\bibentry{ref:liu2020sphnet}}
   \end{frame}
@@ -1184,6 +1254,51 @@
   \end{frame}
   }
 
+  \nofoot{
+  \begin{frame}{Future Work: Region of Interest Compression}
+    \footnotesize{
+      \begin{align*}
+        L_{\text{MSE,ROI}} &= \frac{1}{N_{\text{ROI}}} \sum_{i\in\mathbf S_{\text{ROI}}}\Arrowvert \mathbf H_i - g(f(\mathbf H_i, \theta_e), \theta_d) \Arrowvert^2.
+        % L_{\text{Rate,ROI}} &= \frac{1}{N_{\text{ROI}}} \sum_{i\in\mathbf S_{\text{ROI}}} \log_2(\mathbf H_i).
+      \end{align*}
+    }
+    \begin{figure}[htb] \centering 
+      \subfigure[Low threshold]{
+        {
+          \fontsize{6pt}{8pt}
+          \def\svgwidth{0.4\columnwidth}
+          \input{../images/batch0_csi_roi_lo.pdf_tex}
+        }
+        \label{fig:roi-lo} 
+      }
+      \subfigure[High threshold]{
+        {
+          \fontsize{6pt}{8pt}
+          \def\svgwidth{0.4\columnwidth}
+          \input{../images/batch0_csi_roi_hi.pdf_tex}
+        }
+        \label{fig:roi-hi} 
+      }
+      \caption{Hypothetical bounding boxes based on threshold, $\tau$, where $\tau_{\text{lo}} < \tau_{\text{hi}}$. The set of ROI pixels constitute $\mathbf S_{\text{ROI}}$.} 
+      \label{fig:roi-thresh} 
+    \end{figure}
+  \end{frame}
+  }
+
+  \nofoot{
+  \begin{frame}{Future Work: Region of Interest Compression}
+    \begin{figure}[htb] \centering 
+      {
+        \fontsize{6pt}{8pt}
+        \def\svgwidth{0.8\columnwidth}
+        \input{../images/csinet_roi.pdf_tex}
+      }
+      \label{fig:csinet-roi} 
+      \caption{Abstract architecture for potential ROI-based compression network for CSI estimation.} 
+    \end{figure}
+  \end{frame}
+  }
+
 % TODO: future directions
 % - entropy estimation -- does the entropy of the quantized feedback exceed that of the CSI elements themselves?
 % - model quantization -- (less compelling as a research direction) -does the model achieve similar performance with quantized weights?
@@ -1232,6 +1347,67 @@
     \end{beamercolorbox}
     \vfill
   \end{frame} 
+
+  % \begin{frame}{COST2100 (Outdoor): Minmax Normalization}
+  %   \begin{figure}[htb]
+  %     \centering
+  %     \includegraphics[width=.9\textwidth]{cost2100_outdoor_dist.pdf}
+  %     \medskip
+  %     \caption{Distribution and variance of minmax-normalized outdoor COST2100 real/imaginary channels ($N=10^5$).}
+  %     \label{fig:cost_outdoor_dist}
+  %   \end{figure}
+  % \end{frame}
+
+  % \begin{frame}{COST2100 (Outdoor): Spherical Normalization}
+  %   Spherical normalization $\to$ larger variance. 
+  %   \begin{figure}[htb]
+  %     \centering
+  %     \includegraphics[width=.9\textwidth]{cost2100_outdoor_sph_dist.pdf}
+  %     % \medskip
+  %     \caption{Distribution/variance of outdoor COST2100 real/imaginary channels under spherical normalization ($N=10^5$).}
+  %     \label{fig:cost_outdoor_sph_dist}
+  %   \end{figure}
+  % \end{frame} 
+
+  \begin{frame}{Tanh Normalization}
+    Given mean $\mu$, standard deviation $\sigma$ w.r.t $\mathbf H$,
+    \begin{align*} 
+      H_{\tanh}(i,j) &= \tanh\left(\frac{H(i,j) - \mu}{2\nu\sigma}\right) + 1.
+    \end{align*}
+    Scale parameter $\nu$ chosen by designer.
+  \end{frame}
+
+  \nofoot{
+  \begin{frame}{COST2100 (Indoor): Tanh Normalization}
+    % Tanh normalization $\to$ larger variance. 
+    \begin{figure}[htb]    
+      \subfigure[$\nu=1$] {\label{fig:indoor_nu1} 
+      \includegraphics[width=.6\textwidth]{cost2100_indoor_tanh_nu1_dist.pdf}
+      }
+      \subfigure[$\nu=3$] {\label{fig:indoor_nu3} 
+      \includegraphics[width=.6\textwidth]{cost2100_indoor_tanh_nu3_dist.pdf}
+      }
+      \caption{Distribution/variance of indoor COST2100 real/imaginary channels under tanh normalization ($N=9.9\dot 10^5$).}
+      \label{fig:cost_indoor_tanh_dist}
+    \end{figure}
+  \end{frame} 
+  }  
+
+  \nofoot{
+  \begin{frame}{COST2100 (Outdoor): Tanh Normalization}
+    % Tanh normalization $\to$ larger variance. 
+    \begin{figure}[htb]    
+      \subfigure[$\nu=1$] {\label{fig:outdoor_nu1} 
+      \includegraphics[width=.6\textwidth]{cost2100_outdoor_tanh_nu1_dist.pdf}
+      }
+      \subfigure[$\nu=3$] {\label{fig:outdoor_nu3} 
+      \includegraphics[width=.6\textwidth]{cost2100_outdoor_tanh_nu3_dist.pdf}
+      }
+      \caption{Distribution/variance of outdoor COST2100 real/imaginary channels under tanh normalization ($N=10^5$).}
+      \label{fig:cost_outdoor_tanh_dist}
+    \end{figure}
+  \end{frame} 
+  }  
 
   \begin{frame}{Multivariate Autoregression (MAR)}
     Rather than scalar $\hat\gamma \in \mathbb R^+$, we can derive a multivariate $p$-step predictor, $\mathbf W_1, \dots, \mathbf W_p$.

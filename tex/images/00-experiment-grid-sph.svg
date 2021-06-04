@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:ns1="http://wanglongqi.github.io/WriteTeX"
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   sodipodi:docname="00-experiment-grid-sph.svg"
+   inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
+   id="svg8"
+   version="1.1"
+   viewBox="0 0 90.854448 90.792506"
+   height="90.792503mm"
+   width="90.854446mm">
+  <defs
+     id="defs2">
+    <marker
+       inkscape:stockid="DotM"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="DotM"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path881"
+         d="m -2.5,-1 c 0,2.76 -2.24,5 -5,5 -2.76,0 -5,-2.24 -5,-5 0,-2.76 2.24,-5 5,-5 2.76,0 5,2.24 5,5 z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(0.4,0,0,0.4,2.96,0.4)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow2Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow2Lend"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path838"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         transform="matrix(-1.1,0,0,-1.1,-1.1,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow2Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow2Lend-0"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path838-5"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         transform="matrix(-1.1,0,0,-1.1,-1.1,0)" />
+    </marker>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="2.8"
+     inkscape:cx="310.66299"
+     inkscape:cy="145.37413"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="2560"
+     inkscape:window-height="1377"
+     inkscape:window-x="-8"
+     inkscape:window-y="281"
+     inkscape:window-maximized="1"
+     fit-margin-left="0.5"
+     fit-margin-right="0.5"
+     fit-margin-top="0.5"
+     fit-margin-bottom="0.5"
+     units="mm" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-62.256598,-106.02125)">
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:2.82222223px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="77.240891"
+       y="217.35367"
+       id="text851"><tspan
+         sodipodi:role="line"
+         id="tspan849"
+         x="77.240891"
+         y="219.92847"
+         style="stroke-width:0.26458332" /></text>
+    <g
+       id="g1015-1"
+       transform="matrix(0.50000001,0,0,0.50000001,-23.768649,116.15641)"
+       ns1:text="Spherical Normalization" />
+    <g
+       id="g1015"
+       transform="matrix(0.5,0,0,0.5,10.876876,140.7513)"
+       ns1:text="Spherical Normalization">
+      <g
+         id="surface1">
+        <g
+           id="g1012"
+           style="fill:#000000;fill-opacity:1">
+          <text
+             xml:space="preserve"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444447px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.5291667"
+             x="200.43871"
+             y="109.9894"
+             id="text1930"><tspan
+               sodipodi:role="line"
+               id="tspan1928"
+               x="200.43871"
+               y="109.9894"
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444447px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;stroke-width:0.5291667">Network Optimization</tspan></text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g1789"
+       transform="matrix(0.5,0,0,0.5,34.345577,114.65615)"
+       ns1:text="SphNet"
+       style="fill:#ffffff;fill-opacity:1">
+      <g
+         id="g1787"
+         style="fill:#ffffff;fill-opacity:1" />
+    </g>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.60116422;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow2Lend)"
+       d="M 69.383824,189.66149 V 107.70875"
+       id="path815"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.60176784;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-start:url(#DotM);marker-end:url(#Arrow2Lend-0)"
+       d="m 69.366729,189.66149 h 72.901121 9.2163"
+       id="path815-3"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccc" />
+    <g
+       id="g2212"
+       transform="translate(0,0.08696139)">
+      <rect
+         y="148.09732"
+         x="69.383827"
+         height="41.567528"
+         width="41.567528"
+         id="rect1666-9"
+         style="opacity:1;fill:#0071bf;fill-opacity:1;stroke:#000000;stroke-width:0.18441565;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal" />
+      <rect
+         y="148.09732"
+         x="110.9513"
+         height="41.567532"
+         width="41.567532"
+         id="rect1666-9-0"
+         style="opacity:1;fill:#edb01f;fill-opacity:1;stroke:#000000;stroke-width:0.18441565;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal" />
+      <rect
+         y="106.5265"
+         x="110.9513"
+         height="41.567532"
+         width="41.567532"
+         id="rect1666-9-7"
+         style="opacity:1;fill:#7d2e8d;fill-opacity:1;stroke:#000000;stroke-width:0.18441565;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal" />
+      <rect
+         y="106.5265"
+         x="69.38382"
+         height="41.567532"
+         width="41.567532"
+         id="rect1666-9-9"
+         style="opacity:1;fill:#d9521f;fill-opacity:1;stroke:#000000;stroke-width:0.18441565;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal" />
+    </g>
+    <g
+       id="g1015-0"
+       transform="matrix(0.50000001,0,0,0.50000001,31.510201,114.90958)"
+       ns1:text="Spherical Normalization">
+      <g
+         id="surface1-2">
+        <g
+           id="g1012-5"
+           style="fill:#ffffff;fill-opacity:1">
+          <text
+             xml:space="preserve"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444447px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.5291667"
+             x="200.43871"
+             y="109.9894"
+             id="text1930-3"><tspan
+               sodipodi:role="line"
+               id="tspan2011"
+               x="200.43871"
+               y="109.9894">CsiNet-Pro</tspan></text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g1015-4"
+       transform="matrix(0,-0.50000001,0.50000001,0,7.2602828,248.37236)"
+       ns1:text="Spherical Normalization">
+      <g
+         id="surface1-8">
+        <g
+           id="g1012-3"
+           style="fill:#000000;fill-opacity:1">
+          <text
+             xml:space="preserve"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444447px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.5291667"
+             x="200.43871"
+             y="115.28108"
+             id="text1930-30"><tspan
+               sodipodi:role="line"
+               id="tspan2110"
+               x="200.43871"
+               y="115.28108">Spherical Normalization</tspan></text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g1015-0-0"
+       transform="matrix(0.50000001,0,0,0.50000001,31.453012,73.103798)"
+       ns1:text="Spherical Normalization">
+      <g
+         id="surface1-2-7">
+        <g
+           id="g1012-5-8"
+           style="fill:#ffffff;fill-opacity:1">
+          <text
+             xml:space="preserve"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444447px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.5291667"
+             x="200.43871"
+             y="109.9894"
+             id="text1930-3-8"><tspan
+               sodipodi:role="line"
+               id="tspan2011-4"
+               x="200.43871"
+               y="109.9894">SphNet</tspan></text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g1015-0-0-3"
+       transform="matrix(0.50000001,0,0,0.50000001,-8.8890378,70.520313)"
+       ns1:text="Spherical Normalization">
+      <g
+         id="surface1-2-7-8">
+        <g
+           id="g1012-5-8-4"
+           style="fill:#ffffff;fill-opacity:1">
+          <text
+             xml:space="preserve"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444447px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.5291667"
+             x="198.19868"
+             y="115.15637"
+             id="text1930-3-8-1"><tspan
+               sodipodi:role="line"
+               id="tspan2011-4-9"
+               x="198.19868"
+               y="115.15637">CsiNet-Sph</tspan></text>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g1015-0-1"
+       transform="matrix(0.50000001,0,0,0.50000001,-14.665441,113.24348)"
+       ns1:text="Spherical Normalization">
+      <g
+         id="surface1-2-1">
+        <g
+           id="g1012-5-4"
+           style="fill:#ffffff;fill-opacity:1">
+          <text
+             xml:space="preserve"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444447px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.5291667"
+             x="209.56683"
+             y="113.32711"
+             id="text1930-3-4"><tspan
+               sodipodi:role="line"
+               id="tspan2040"
+               x="209.56683"
+               y="113.32711">CsiNet</tspan></text>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

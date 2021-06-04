@@ -411,15 +411,15 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.98994949"
-     inkscape:cx="705.84318"
-     inkscape:cy="467.20629"
+     inkscape:zoom="1.4"
+     inkscape:cx="771.31542"
+     inkscape:cy="337.35555"
      inkscape:document-units="mm"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="g10517"
      showgrid="false"
-     inkscape:window-width="1920"
-     inkscape:window-height="1017"
-     inkscape:window-x="1272"
+     inkscape:window-width="2560"
+     inkscape:window-height="1377"
+     inkscape:window-x="-8"
      inkscape:window-y="-8"
      inkscape:window-maximized="1"
      fit-margin-top="0.5"
@@ -456,20 +456,20 @@
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.82222223px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
        x="-70.758369"
-       y="84.666954"
+       y="86.444618"
        id="text4552-8"><tspan
          sodipodi:role="line"
          id="tspan4550-5"
          x="-70.758369"
-         y="84.666954"
+         y="86.444618"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.82222223px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;stroke-width:0.26458332">$\mathbf{\check H}$</tspan><tspan
          sodipodi:role="line"
          x="-70.758369"
-         y="88.194733"
+         y="89.972397"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.82222223px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;stroke-width:0.26458332"
-         id="tspan9700">(2,32,32)</tspan></text>
+         id="tspan9700" /></text>
     <g
-       transform="translate(15.345835,-2.7607422e-6)"
+       transform="translate(15.345835,0.46369171)"
        id="g11652">
       <text
          xml:space="preserve"
@@ -722,18 +722,18 @@
          xml:space="preserve"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.82222223px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
          x="43.428089"
-         y="168.47769"
+         y="170.07149"
          id="text4552-8-4"><tspan
            sodipodi:role="line"
            id="tspan4550-5-3"
            x="43.428089"
-           y="168.47769"
+           y="170.07149"
            style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.82222223px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;stroke-width:0.26458332">$\hat{\check{\mathbf H}}$</tspan><tspan
            sodipodi:role="line"
            x="43.428089"
-           y="172.00546"
+           y="173.59926"
            style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.82222223px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;stroke-width:0.26458332"
-           id="tspan9700-1">(2,32,32)</tspan></text>
+           id="tspan9700-1" /></text>
     </g>
     <text
        xml:space="preserve"
@@ -1111,7 +1111,7 @@
            style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.82222223px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;stroke-width:0.26458332"
            y="25.210758"
            x="-102.7173"
-           sodipodi:role="line">$\|\mathbf H\|_2$</tspan></text>
+           sodipodi:role="line">$\|\mathbf H\|$</tspan></text>
     </g>
     <path
        style="fill:none;stroke:#000000;stroke-width:0.253;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.506,0.253;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#Arrow2Lend-2-1)"
@@ -1143,7 +1143,7 @@
              x="-102.7173"
              y="25.210758"
              style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.82222223px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;stroke-width:0.26458332"
-             id="tspan9700-3-5">$\|\mathbf H\|_2$</tspan></text>
+             id="tspan9700-3-5">$\|\mathbf H\|$</tspan></text>
       </g>
       <path
          inkscape:connector-curvature="0"
@@ -1152,7 +1152,7 @@
          style="fill:none;stroke:#000000;stroke-width:0.26499999;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-start:url(#Arrow2Lstart)" />
     </g>
     <g
-       transform="translate(369.54111,0.64757538)"
+       transform="translate(369.54111,0.46369171)"
        id="g11652-5">
       <text
          xml:space="preserve"
