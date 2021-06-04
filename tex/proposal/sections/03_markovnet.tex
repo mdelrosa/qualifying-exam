@@ -1,18 +1,35 @@
+
 % 03_markovnet.tex
-In this section, we consider methods for exploiting temporal correlation between CSI of subsequent timeslots.
-Assuming the channel coherence within a certain window of time,
-a reasonably accurate CSI estimate at time $t-1$ can be used to estimate the CSI at time $t$.
+% \section{Temporal Coherence in Time-varying Channels}
+In this chapter, we consider methods for exploiting temporal correlation between CSI of subsequent timeslots. The \emph{coherence time} of a channel is the amount of time that a channel estimate can be used before that estimate's SNR falls beneath a given threshold \cite{ref:Chopra2016ChannelAging}. Within this window of time ($\Delta t = t_i - t_{i-1}$), the correlation between CSI matrices $\mathbf H_{i}$ and $\mathbf H_{i-1}$ is high (see Figure~\ref{fig:csi_img_gt} for an illustrative example). 
+% Works exploiting temporal coherence use CSI matrices from previous timeslots to supplement subsequent estimates \cite{ref:Wang2019CsiNetLSTM}.
+
+\begin{figure}[htb] \centering 
+  % \includegraphics[width=0.9\linewidth]{batch0_csi_gt.png}
+{
+  \fontsize{10pt}{12pt}
+  \def\svgwidth{1.0\columnwidth}
+  \input{../images/batch0_csi_gt.pdf_tex}
+}
+  \caption{Ground truth CSI ($\mathbf H$) for five timeslots ($t_1$ through $t_5$) on one sample from the validation set of the outdoor dataset.} 
+  \label{fig:csi_img_gt} 
+\end{figure}
+
+% Other works in channel state estimation exploit temporal coherence.
+
+Assuming the channel exhibits temporal coherence within a certain window of time,
+a reasonably accurate CSI estimate at time $t_{i-1}$ can be used to estimate the CSI at time $t_i$.
 Generically, we can write this estimator as
 \begin{align}
-\grave{\mathbf H}_t &= h(\hat{\mathbf H}_{t-1}) \label{eq:gen_estim}
+\grave{\mathbf H}_i &= h(\hat{\mathbf H}_{i-1}) \label{eq:gen_estim}
 \end{align}
-where $\mathbf{H}_t$ is the CSI matrix at time $t$ and $\hat{\mathbf H}_t$ is its estimator. 
-The estimation error under $\grave{\mathbf H}_t$ is
+where $\mathbf{H}_i$ is the CSI matrix at time $t_i$ and $\hat{\mathbf H}_i$ is its estimator. 
+The estimation error under $\grave{\mathbf H}_i$ is
 \begin{align}
-\mathbf E_{t} &= \mathbf H_{t} - \grave{\mathbf H}_{t}. \label{eq:diff_err}
+\mathbf E_{i} &= \mathbf H_{i} - \grave{\mathbf H}_{i}. \label{eq:diff_err}
 \end{align}
 
-\section{Related Work}
+\section{Recurrent Neural Networks}
 
 Prior work in temporal correlation for CSI estimation utilized state-space methods such as the Kalman filter \cite{ref:Huber2006improved,ref:Ali2020BayesKalmanFilter,ref:Kim2021KalmanVsML}. Since it relies on explicit state space and noise models, the Kalman filter's predictive power in CSI estimation is limited. Furthermore, such work generally does not propose a method for feedback compression, making comparison with the following ML methods difficult.
 
@@ -29,27 +46,27 @@ Recent works have leveraged recurrent neural networks (RNNs) to exploit temporal
 
 RNNs have been used extensively in natural language processing (NLP) for machine translation \cite{ref:Sutskever2014seq2seq} and sentiment extraction \cite{ref:Irsoy2014opinion}. For such works in NLP, authors have empirically found ``stacked'' or ``deep'' RNNs to be effective (e.g., Fig.~\ref{fig:lstm_example}), hypothesizing that having multiple recurrent layers allows the network to extract different semantic timescales \cite{ref:Irsoy2014opinion, ref:Bengio2009Learning}. Works in CSI estimation have taken cues from this work in NLP, proposing CSI estimation networks with stacked LSTMs after a sequence of autoencoders \cite{ref:Wang2019CsiNetLSTM}. While such work has demonstrated the utility of RNNs, the computational cost of LSTMs can be prohibitively high. For example, the RNN portion of the network proposed in \cite{ref:Wang2019CsiNetLSTM} accounts for $10^8$ additional parameters. Since channel estimation should not place an undue computational burden on the communications system, LSTMs can be problematic.
 
-\section{Methods}
+\section{Differential Encoding}
 
 Rather than use RNNs to extract temporal dependencies in CSI data, we proposed a lightweight network based on the principle of differential encoding. We trained a network to estimate the error (\ref{eq:diff_err}) under a linear estimator, 
 \begin{align*}
-	\grave{\mathbf H}_t &=  \hat{\mathbf H}_{t-1} \mathbf W
+	\grave{\mathbf H}_i &=  \hat{\mathbf H}_{i-1} \mathbf W
 \end{align*}
-where $\mathbf W \in \mathbb C^{R_b \times R_b}$ is the minimum mean squared error (MMSE) estimator.
+where $\mathbf W \in \mathbb C^{R_b \times R_b}$ is the minimum mean squared error (MMSE) estimator,
 \begin{align*}
-	\mathbf H_t &= \mathbf H_{t-1}\mathbf W + \mathbf E_t \\
-	\mathbf H_{t-1}^H\mathbf H_t &= \mathbf H_{t-1}^H\mathbf H_{t-1} \mathbf W + \mathbf H_{t-1}^H\mathbf E_t
+	\mathbf H_i &= \mathbf H_{i-1}\mathbf W + \mathbf E_i \\
+	\mathbf H_{i-1}^H\mathbf H_i &= \mathbf H_{i-1}^H\mathbf H_{i-1} \mathbf W + \cancelto{\mathbf 0}{\mathbf H_{i-1}^H\mathbf E_i}
 \end{align*}
-Under the principle of orthogonality, the error term $\mathbf E_t$ is orthogonal with the observed data, and the product $\mathbf H^H_{t-1}\mathbf E_t$ becomes a zero matrix. Denoting the cross correlation matrix as $\mathbf R_{i} = \mathbb{E}\left[\mathbf H_{t-i}^H\mathbf H_{t}\right]$.
+where the cancellation of the product $\mathbf H_{i-1}^H\mathbf E_i$ is due to the principle of orthogonality (i.e., the error terms are orthogonal to the observed data). Denoting the cross correlation matrix as $\mathbf R_{i} = \mathbb{E}\left[\mathbf H_{t-i}^H\mathbf H_{t}\right]$, we solve for the MMSE estimator,
 \begin{align*}
-	\mathbf W &= \mathbf R_0^{-1} \mathbf R_1 
+	\mathbf W &= \mathbf R_0^{-1} \mathbf R_1.
 \end{align*}
 In practice, the population correlation matrices are estimated
 via finite samples of size $N$,
 \begin{align*}
-	\mathbf{\hat R}_i &= \frac 1N \sum_{j}^N \mathbf H_{t-i}^H(j)\mathbf H_{t}(j),
+	\mathbf{\hat R}_k &= \frac 1N \sum_{j}^N \mathbf H_{i-k}^H(j)\mathbf H_{i}(j),
 \end{align*}
-where $\mathbf H_t(j)$ is the $j$-th sample in the training set.
+where $\mathbf H_i(j)$ is the $j$-th sample in the training set.
 The MMSE estimator based on the sample correlation matrices is written as
 \begin{align*}
 	\hat{\mathbf W} &= \hat{\mathbf R}_0^{-1} \hat{\mathbf R}_1.
@@ -63,15 +80,15 @@ We can further simplify this estimator to a scalar, $\gamma \in \mathbb R$, as
 \end{align*}
 where $k$ ($l$) are the row (column) indices of the correlation matrices. The estimator in this case is 
 \begin{align}
-	\grave{\mathbf H}_t &= \hat\gamma \hat{\mathbf H}_{t-1} \label{eq:gamma-estim}.
+	\grave{\mathbf H}_i &= \hat\gamma \hat{\mathbf H}_{i-1} \label{eq:gamma-estim}.
 \end{align}
 Under the estimator $\gamma$, we proposed to encode the error, $\mathbf E_t$, using a convolutional autoencoder, $f(\mathbf E_t)$,
 \begin{align*}
-	\hat{\mathbf E}_t &= g(f(\mathbf E_t, \vec\theta_e), \vec\theta_d),
+	\hat{\mathbf E}_i &= g(f(\mathbf E_i, \vec\theta_e), \vec\theta_d),
 \end{align*}
-where $\mathbf E_t = \mathbf H_t - \gamma\hat{\mathbf H}_{t-1}$. The base station has access to the estimators $\gamma$ and $\hat{\mathbf H}_{t-1}$, and the resulting CSI estimate at $t$ is
+where $\mathbf E_i = \mathbf H_i - \gamma\hat{\mathbf H}_{i-1}$. The base station has access to the estimators $\gamma$ and $\hat{\mathbf H}_{i-1}$, and the resulting CSI estimate at $t_i$ is
 \begin{align}
-	\hat{\mathbf H}_t &= \hat\gamma \hat{\mathbf H}_{t-1} + \hat{\mathbf{E}}_t \label{eq:diff-estim}
+	\hat{\mathbf H}_i &= \hat\gamma \hat{\mathbf H}_{i-1} + \hat{\mathbf{E}}_i \label{eq:diff-estim}
 \end{align}
 
 \subsection{MarkovNet}
@@ -113,7 +130,7 @@ The resulting network requires no recurrent layers, resulting in a substantial r
   \end{center}
 \end{table} 
 
-\section{Results}
+\subsection{Results}
 
 We compare MarkovNet with CsiNet-LSTM \cite{ref:Wang2019CsiNetLSTM} on the indoor and outdoor COST2100 datasets (for details, see Section~\ref{sect:channel_model}). For MarkovNet, we train the network at the first timeslot for 1000 epochs. In each subsequent timeslot, we initialize the network using the weights from the previous timeslot and train for 200 epochs. We use a batch size of 200. We perform a training/testing split of 75k/25k samples, and we estimate $\gamma$ using the training set. To compare the estimation accuracy of each network, we report the NMSE.
 %estimate of the previous timeslot with the scalar MMSE estimator, $\gamma$, to produce the error term $\mathbf E_t = \mathbf H_t - \gamma\hat{\mathbf H}_{t-1}$.

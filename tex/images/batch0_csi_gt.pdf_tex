@@ -50,14 +50,19 @@
   \global\let\svgwidth\undefined%
   \global\let\svgscale\undefined%
   \makeatother%
-  \begin{picture}(1,0.26089434)%
+  \begin{picture}(1,0.21656674)%
     \lineheight{1}%
     \setlength\tabcolsep{0pt}%
     \put(0,0){\includegraphics[width=\unitlength,page=1]{batch0_csi_gt.pdf}}%
-    \put(0.15974904,0.00144465){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}0 ms\end{tabular}}}}%
-    \put(0.34414622,0.00144465){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}40 ms\end{tabular}}}}%
-    \put(0.52805546,0.00144002){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}80 ms\end{tabular}}}}%
-    \put(0.71144897,0.00144002){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}120 ms\end{tabular}}}}%
-    \put(0.89556733,0.00144465){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}160 ms\end{tabular}}}}%
+    \put(0.15974904,0.00144467){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}0 ms\end{tabular}}}}%
+    \put(0.34414623,0.00144467){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}40 ms\end{tabular}}}}%
+    \put(0.52805547,0.00144004){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}80 ms\end{tabular}}}}%
+    \put(0.71144898,0.00144004){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}120 ms\end{tabular}}}}%
+    \put(0.89556733,0.00144467){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}160 ms\end{tabular}}}}%
+    \put(0.15993957,0.20079548){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$t_1$\end{tabular}}}}%
+    \put(0.34405794,0.20079548){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$t_2$\end{tabular}}}}%
+    \put(0.52817629,0.20079548){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$t_3$\end{tabular}}}}%
+    \put(0.71229473,0.20079548){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$t_4$\end{tabular}}}}%
+    \put(0.90182354,0.20079548){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$t_5$\end{tabular}}}}%
   \end{picture}%
 \endgroup%

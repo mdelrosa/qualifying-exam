@@ -70,7 +70,8 @@ To incorporate discrete latent codewords in the learning process, we employ the 
 \begin{align}
 \phi(\tilde{\mathbf z}_j) &= \left[\frac{\text{exp}(-\sigma \Arrowvert \tilde{\mathbf z}_j - \mathbf c_\ell\Arrowvert^2)}{\sum_{i=1}^L\text{exp}(-\sigma \Arrowvert \tilde{\mathbf z}_j - \mathbf c_i\Arrowvert^2)}\right]_{\ell\in [L]} \in \mathbb R^L \label{eq:soft_assign}
 \end{align}
-where (\ref{eq:soft_assign}) is typically referred to as the \emph{softmax} function, a differentiable alternative to the max function. The hyperparameter $\sigma$ controls the temperature of the softmax scores, with a lower $\sigma$ yielding a more uniform distribution and a higher $\sigma$ yielding a ``peakier'' distribution (i.e., $\sigma \to \infty \Rightarrow \phi(\tilde z_j) \to \text{max}(\tilde z_j)$).
+where $c_k$ is the $k$-th codeword in $\mathbf C$. Equation (\ref{eq:soft_assign}) is typically referred to as the \emph{softmax} function, a differentiable alternative to the max function. The hyperparameter $\sigma$ controls the temperature of the softmax scores, with a lower $\sigma$ yielding a more uniform distribution and a larger $\sigma$ yielding a onehot vector (i.e., hard quantization). % with a lower $\sigma$ yielding a more uniform distribution and a higher $\sigma$ yielding a ``peakier'' distribution (i.e., $\sigma \to \infty \Rightarrow \phi(\tilde z_j) \to \text{max}(\tilde z_j)$).
+
 
 Using the soft assignments $\phi(\tilde{\mathbf Z})$ and the codebook $\mathbf C$, we define the `SoftQuantize' layer as
 \begin{align}
@@ -93,14 +94,18 @@ To optimize the network with soft quantization \cite{ref:Agustsson2017SoftToHard
 &+ \lambda \left(\Arrowvert\theta_e\Arrowvert^2+\Arrowvert\theta_d\Arrowvert^2+\Arrowvert \mathbf C \Arrowvert^2\right) \label{eq:loss_entropy} \\
 &+ m\beta H(\phi), \nonumber
 \end{align}
-where $H(\phi)=H(p,q)$ is the crossentropy based on the hard and soft probability estimates $p$ and $q$, respectively. Before defining the estimates $p$ and $q$, we briefly discuss the population probabilities of the latent codewords. Denote the symbol encoder/decoder pair as $E:\mathbb R^m \to [L]^m$/$D:[L]^m \to \mathbb R^m$. Denote the distribution of latent variables as $\mathsf Z$ such that $\tilde{\mathbf z} \sim \mathsf Z$, and denote realizations of the encoder's output as $E(\mathsf Z)=\mathbf e$. The entropy of $\mathsf Z$ is given as 
+where $H(\phi)=H(p,q)$ is the crossentropy based on the hard and soft probability estimates $p$ and $q$, respectively. Before defining the estimates $p$ and $q$, we briefly discuss the population probabilities of the latent codewords. Define the number of latent vectors at the encoder output $m = r / d$, and denote the symbol encoder and decoder pair as ${\cal E}:\mathbb R^{d\times m} \to [L]^m$
+and ${\cal D}:[L]^m \to \mathbb R^{d\times m}$, respectively.
+Let $\mathsf Z$ denote the latent variables 
+and denote the encoding as ${\cal E}(\mathsf Z)=\mathbf y=[y_1\; y_2\;\dots\; y_m]$. The entropy of $\mathsf Z$ is given as 
+% Denote the symbol encoder/decoder pair as $E:\mathbb R^m \to [L]^m$/$D:[L]^m \to \mathbb R^m$. Denote the distribution of latent variables as $\mathsf Z$ such that $\tilde{\mathbf z} \sim \mathsf Z$, and denote realizations of the encoder's output as $E(\mathsf Z)=\mathbf e$. The entropy of $\mathsf Z$ is given as 
 \begin{align*}
-H(E(\mathsf Z)) &= -\sum_{\mathbf e\in[L]^m}P(E(\mathsf Z) = \mathbf e)\log_2(P(E(\mathsf Z)=\mathbf e)).
+H(\mathcal E(\mathsf Z)) &= -\sum_{\mathbf y\in[L]^m}P(\mathcal E(\mathsf Z) = \mathbf y)\log_2(P(\mathcal E(\mathsf Z)=\mathbf y)).
 \end{align*}
 % The true probabilities over the latent vectors as $p_j$ with entropy $H(p) = -\sum_{j}^m p_j\log_2 p_j$.
-In practice, the true population probabilities $P(E(\mathsf Z))$ are inaccessible, and we must estimate the probability masses via finite sampling over the encoder's outputs, $e(\tilde{\mathbf z})$. The hard probability estimate $p_j$ of the $j$-th codeword is
+In practice, the true population probabilities $P(\mathcal E(\mathsf Z))$ are inaccessible, and we must estimate the probability masses via finite sampling over the encoder's outputs, $e(\tilde{\mathbf z})$. The hard probability estimate $p_j$ of the $j$-th codeword is
 \begin{align*}
-p_j &= \frac{|\{e_l(\tilde{\mathbf z}_i)|l\in[m], i \in [N], e_l(\tilde{\mathbf z}_i)=j\}|}{mN}.
+p_j &= \frac{|\{y_l(\tilde{\mathbf z}_i)|l\in[m], i \in [N], y_l(\tilde{\mathbf z}_i)=j\}|}{mN}.
 \end{align*}
 The soft assignments of $\phi$ admit valid probability masses, $q_j = \phi(\tilde{\mathbf z})$, over the codewords. Using histogram estimates $p_j$ and the soft assignments $q_j$, the crossentropy term is written
 \begin{align*}
@@ -123,29 +128,29 @@ Section~\ref{sec:ent_est_quant} discusses an estimated upper bound based on quan
 
 \subsection{Entropy Estimation of Quantized CSI} \label{sec:ent_est_quant}
 
-Given angular-delay domain CSI data, $\mathbf H$, we assume i.i.d. $\mathbf H_{(i,j)}$ for $i$-th ($j$-th) row (col) of $\mathbf H$.
+Given angular-delay domain CSI data, $\mathbf H$, we assume i.i.d. $H_{(i,j)}$ for $i$-th ($j$-th) row (col) of $\mathbf H$.
 Denote the quantized CSI matrix, $\mathbf H^\Delta$, under $b$-bit quantization. The entropy of the $(i,j)$-th element is
 \begin{align*}
-H(\mathbf H^\Delta_{(i,j)}) &= - \sum_{k}^{2^b} p(\mathbf H^\Delta_{(i,j)} = k) \log p(\mathbf H^\Delta_{(i,j)} = k),
+H(H^\Delta_{(i,j)}) &= - \sum_{k}^{2^b} p(H^\Delta_{(i,j)} = k) \log p(H^\Delta_{(i,j)} = k),
 \end{align*}
 where $p(H^\Delta_{(i,j)} = k)$ can be obtained as a histogram estimate over the entire dataset,
 \begin{align*}
-	p(\mathbf H^\Delta_{(i,j)} = k) &= \frac{|\mathbf H_{(i,j)}=k:i\in[R_d],j\in[n_T],k\in[2^b-1]|}{N}.
+	p(H^\Delta_{(i,j)} = k) &= \frac{| H_{(i,j)}=k:i\in[R_d],j\in[n_T],k\in[2^b-1]|}{N}.
 \end{align*}
 A conservative upper bound on the entropy of the full CSI matrix is
 \begin{align}
-H(\mathbf H^\Delta) &\leq \sum_{i}^{R_d}\sum_{j}^{n_T} H(\mathbf H^\Delta_{(i,j)}) = H_{\text{UB}}(\mathbf H^\Delta). \label{eq:csi-ent}
+H(\mathbf H^\Delta) &\leq \sum_{i}^{R_d}\sum_{j}^{n_T} H(H^\Delta_{(i,j)}) = H_{\text{UB}}(\mathbf H^\Delta). \label{eq:csi-ent}
 \end{align}
 
 \subsection{Differential Entropy Estimation of Quantized CSI} \label{sec:diffent_est_quant}
 
-Assume i.i.d. $\mathbf H_{(i,j)}$ for $i$-th ($j$-th) row (col). The differential entropy of the $(i,j)$-th element is
+Assume i.i.d. $H_{(i,j)}$ for $i$-th ($j$-th) row (col). The differential entropy of the $(i,j)$-th element is
 \begin{align*}
-	h(\mathbf H_{(i,j)}) &= - \int p(\mathbf H{(i,j)} = k) \log p(\mathbf H_{(i,j)} = k) dk,
+	h( H_{(i,j)}) &= - \int p(H_{(i,j)} = k) \log p(H_{(i,j)} = k) dk,
 \end{align*}
 In practice, the distribution $p(\mathbf H_{(i,j)})$ is difficult to obtain. We can instead resort to the Kozachenko–Leonenko (KL) estimator \cite{ref:Kozachenko1987SampleEstimate} for each element in $\mathbf H$ and average over the elements,
 \begin{align}
-	h(\mathbf H) &\leq \sum_{i}^{R_d}\sum_{j}^{n_T} \hat h(\mathbf H_{(i,j)}) = h_{\text{UB}}(\mathbf H), \label{eq:csi-diff-ent}
+	h(\mathbf H) &\leq \sum_{i}^{R_d}\sum_{j}^{n_T} \hat h( H_{(i,j)}) = h_{\text{UB}}(\mathbf H), \label{eq:csi-diff-ent}
 \end{align}
 for KL estimator $\hat h$. Based on Theorem 8.3.1 from Cover \cite{ref:Cover1999Elements}, for sufficiently small quantization interval $\Delta = \frac {1}{2^n}$, the entropy of a quantized random variable is related to its differential entropy as,
 \begin{align}
@@ -157,9 +162,9 @@ for $n$-bit quantization. Thus, the differential entropy estimator admits an est
 
 The ultimate goal of estimating the entropy of CSI matrices is to establish a rate-distortion curve. Such a curve will establish the limits of compression and accuracy for works in learnable feedback quantization. Based on either estimator outlined above, we can utilize additive Gaussian noise, i.e.
 \begin{align*}
-	\mathbf H_{\sigma,(i,j)} &= \mathbf H_{(i,j)} + v \text{ for i.i.d } v \sim \mathcal{N}(0,\sigma^2).
+	H_{\sigma,(i,j)} &=  H_{(i,j)} + v \text{ for i.i.d } v \sim \mathcal{N}(0,\sigma^2).
 \end{align*}
-Using the corrupted CSI matrices $\mathbf H_{\sigma}=\left[\mathbf H_{\sigma,(i,j)}\right]_{i\in [R_d],j\in [N_b]}$, we can calculate the bounds $\hat H(\mathbf H_{\sigma}^\Delta)$ or $\hat h(\mathbf H_{\sigma}^\Delta)$ from (\ref{eq:csi-ent}) or (\ref{eq:csi-diff-ent}) for different noise levels $\sigma$ to establish a rate-distortion curve.
+Using the corrupted CSI matrices $\mathbf H_{\sigma}=\left[ H_{\sigma,(i,j)}\right]_{i\in [R_d],j\in [N_b]}$, we can calculate the bounds $\hat H(\mathbf H_{\sigma}^\Delta)$ or $\hat h(\mathbf H_{\sigma}^\Delta)$ from (\ref{eq:csi-ent}) or (\ref{eq:csi-diff-ent}) for different noise levels $\sigma$ to establish a rate-distortion curve.
 
 \section{Results}
 
@@ -195,7 +200,7 @@ $r$               & $512,256,128$	 & Dimensionality of encoder's output/latent l
 \end{tabular}
 \end{table}
 
-\subsection{Results: Rate-Distortion} \label{sec:results-rate-distortion}
+\subsection{Rate-Distortion} \label{sec:results-rate-distortion}
 
 Figures~\ref{fig:rate-distortion-minmax} and~\ref{fig:rate-distortion-sph} show the performance of CsiNet-Quant under minmax and spherical normalization, respectively. We demonstrate the gap between the soft (dashed line) and hard quantization (solid line) of each tested compression ratio. In addition to achieving better NMSE performance overall, the network under spherical normalization has smaller performance gaps between soft and hard quantization.
 
@@ -222,7 +227,7 @@ Figure~\ref{fig:rate-distortion-norms} shows the rate-distortion for both minmax
   \label{fig:rate-distortion-norms} 
 \end{figure}
 
-\subsection{Results: CSI Entropy Estimation} \label{sec:results-ent-estimation}
+\subsection{CSI Entropy Estimation} \label{sec:results-ent-estimation}
 
 Figure~\ref{fig:cost-ent-est} shows the estimated conditional entropy of the quantized CSI matrices ($\mathbf H^{\Delta}$) for the indoor and outdoor COST2100 channel samples. The conditional entropy is based on the following identity,
 \begin{align*}
@@ -289,35 +294,3 @@ Using $\mathbf H_\sigma^\Delta$, we can draw the rate-distortion curve for the c
 	\caption{CsiNet-SoftQuant compared to uniform quantization of latent feedback (\textbf{black}) and compared to $\hat H(\mathbf H_\sigma^\Delta)$ (\textbf{{\color{red}red}})} 
 	\label{fig:csinet-soft-bound} 
 \end{figure}
-
-\section{Future Work: Rate-optimal Quantization}
-
-Moving forward, our work in trainable CSI quantization will seek to specify networks which achieve \textbf{rate-optimal quantization}. A rate-optimal network will achieve feedback entropy approaching the entropy of the underlying CSI matrices. In addition to hyperparameter optimization (as discussed in Section~\ref{sec:results-ent-estimation}) and different quantization frameworks (e.g., $\text{MCR}^2$ \cite{ref:Yu2020MCR2}), we plan to investigate the following two avenues to achieve rate-optimal CSI compression.
-
-\subsection{ROI CSI Compression}
-
-\begin{figure}[htb] \centering 
-	\begin{subfigure}[t]{.48\textwidth}
-		\input{../images/batch0_csi_roi_lo.pdf_tex}
-		\caption{Low threshold} 
-		\label{fig:roi-lo} 
-	\end{subfigure}
-	\begin{subfigure}[t]{.48\textwidth}
-		\input{../images/batch0_csi_roi_hi.pdf_tex}
-		\caption{High threshold} 
-		\label{fig:roi-hi} 
-	\end{subfigure}
-	\caption{Hypothetical bounding boxes based on threshold, $\tau$, where $\tau_{\text{lo}} < \tau_{\text{hi}}$. The set of ROI pixels constitute $\mathbf S_{\text{ROI}}$.} 
-  	\label{fig:roi-thresh} 
-\end{figure}
-
-Region of interest (ROI) based compression emphasizes the encoding and decoding of designated sections of a given signal. By labeling ground truth ROIs, the network can be penalized based on the rate of these ROIs. For example, in the case of a CSI matrix $\mathbf H$ with a set of ROI elements, $\mathbf S_{\text{ROI}}$, the MSE of the ROI can be written as
-\begin{align*}
-	L_{\text{MSE,ROI}} &= \frac{1}{N_{\text{ROI}}} \sum_{i\in\mathbf S_{\text{ROI}}}\Arrowvert \mathbf H_i - g(f(\mathbf H_i, \theta_e), \theta_d) \Arrowvert^2.
-	% L_{\text{Rate,ROI}} &= \frac{1}{N_{\text{ROI}}} \sum_{i\in\mathbf S_{\text{ROI}}} \log_2(\mathbf H_i).
-\end{align*}
-Deep learning-based ROI compression has demonstrated success in image compression tasks, demonstrating lower distortion at lower rates compared to non-ROI image codecs \cite{ref:Cai2020EndToEndOptimizedROIImageCompression}. Given the sparsity of CSI in the angular-delay domain, ground truth ROI masks can be chosen to capture the dominant non-zero elements. In this line of investigation, a variety of metrics will be used to establish ground truth masks, such bounding boxes based on magnitude thresholding (e.g., Figure~\ref{fig:roi-thresh}). 
-
-\subsection{Differential Encoding with Trainable Feedback Quantization}
-
-As highlighted by our entropy estimation experiments (Figures~\ref{fig:cost-ent-est} and~\ref{fig:cost-diffent-est}), the conditional entropy $\hat H(\mathbf H_{t_2}|\mathbf H_{t_1})$ is appreciably lower than the entropy $\hat H(\mathbf H_{t_2})$. The resulting entropy reduction implies a corresponding reduction in feedback rate for compressed CSI. Our future work will investigate the compatibility of differential encoding (see Section~\ref{chap:markovnet}) with trainable feedback quantization. We anticipate that the achieved bit rates for quantized differential encoders should be substantially lower than non-temporal encoders.

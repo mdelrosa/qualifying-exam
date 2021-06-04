@@ -1,0 +1,35 @@
+% 05_conclusion.tex
+
+In this proposal, we discussed ways to apply domain knowledge which enable efficient MIMO channel state information (CSI) estimation. First, we highlighted the importance of data pre-processing and the author's prior work using spherical normalization, which scales each CSI sample by its power. Then, we discussed temporal coherence of MIMO channels, and we outlined a deep learning framework for differential encoding, which efficiently exploits temporal correlation between subsequent CSI samples. Finally, we presented initial results for a convolutional autoencoder network with trainable quantization for practical CSI feedback quantization. We conclude this proposal with possibile extensions which will enable rate-optimal encoding of CSI, including ROI encoding and differential encoding.
+
+\section{Future Work: Rate-optimal Quantization}
+
+Moving forward, our work in trainable CSI quantization will seek to specify networks which achieve \textbf{rate-optimal quantization}. A rate-optimal network will achieve feedback entropy approaching the entropy of the underlying CSI matrices. In addition to hyperparameter optimization (as discussed in Section~\ref{sec:results-ent-estimation}) and different quantization frameworks (e.g., $\text{MCR}^2$ \cite{ref:Yu2020MCR2}), we plan to investigate the following two avenues to achieve rate-optimal CSI compression.
+
+\subsection{ROI CSI Compression}
+
+\begin{figure}[htb] \centering 
+	\begin{subfigure}[t]{.48\textwidth}
+		\input{../images/batch0_csi_roi_lo.pdf_tex}
+		\caption{Low threshold} 
+		\label{fig:roi-lo} 
+	\end{subfigure}
+	\begin{subfigure}[t]{.48\textwidth}
+		\input{../images/batch0_csi_roi_hi.pdf_tex}
+		\caption{High threshold} 
+		\label{fig:roi-hi} 
+	\end{subfigure}
+	\caption{Hypothetical bounding boxes based on threshold, $\tau$, where $\tau_{\text{lo}} < \tau_{\text{hi}}$. The set of ROI pixels constitute $\mathbf S_{\text{ROI}}$.} 
+  	\label{fig:roi-thresh} 
+\end{figure}
+
+Region of interest (ROI) based compression emphasizes the encoding and decoding of designated sections of a given signal. By labeling ground truth ROIs, the network can be penalized based on the rate of these ROIs. For example, in the case of a CSI matrix $\mathbf H$ with a set of ROI elements, $\mathbf S_{\text{ROI}}$, the MSE of the ROI can be written as
+\begin{align*}
+	L_{\text{MSE,ROI}} &= \frac{1}{N_{\text{ROI}}} \sum_{i\in\mathbf S_{\text{ROI}}}\Arrowvert \mathbf H_i - g(f(\mathbf H_i, \theta_e), \theta_d) \Arrowvert^2.
+	% L_{\text{Rate,ROI}} &= \frac{1}{N_{\text{ROI}}} \sum_{i\in\mathbf S_{\text{ROI}}} \log_2(\mathbf H_i).
+\end{align*}
+Deep learning-based ROI compression has demonstrated success in image compression tasks, demonstrating lower distortion at lower rates compared to non-ROI image codecs \cite{ref:Cai2020EndToEndOptimizedROIImageCompression}. Given the sparsity of CSI in the angular-delay domain, ground truth ROI masks can be chosen to capture the dominant non-zero elements. In this line of investigation, a variety of metrics will be used to establish ground truth masks, such bounding boxes based on magnitude thresholding (e.g., Figure~\ref{fig:roi-thresh}). 
+
+\subsection{Differential Encoding with Trainable Feedback Quantization}
+
+As highlighted by our entropy estimation experiments (Figures~\ref{fig:cost-ent-est} and~\ref{fig:cost-diffent-est}), the conditional entropy $\hat H(\mathbf H_{t_2}|\mathbf H_{t_1})$ is appreciably lower than the entropy $\hat H(\mathbf H_{t_2})$. The resulting entropy reduction implies a corresponding reduction in feedback rate for compressed CSI. Our future work will investigate the compatibility of differential encoding (see Section~\ref{chap:markovnet}) with trainable feedback quantization. We anticipate that the achieved bit rates for quantized differential encoders should be substantially lower than non-temporal encoders.

@@ -24,6 +24,7 @@
 \usepackage{setspace}
 \usepackage[nottoc,notlot]{tocbibind}
 \usepackage{blindtext}
+\usepackage{cancel} % for cancelto method
 
 \setlength{\parskip}{1em}
 \usepackage[most]{tcolorbox}
@@ -32,6 +33,8 @@
 
 % define matplotlib colors
 \definecolor{darkgreen}{rgb}{0.0, 0.5, 0.0}
+
+
 
 \usepackage{titling}
 \newcommand{\proposalTitle}{Efficient Deep Learning for Massive MIMO Channel State Estimation}
@@ -67,24 +70,20 @@
 \chapter{Introduction}
 \input{sections/01_introduction.tex}
 
-\chapter{Scope}
-\label{chap:scope}
-\input{sections/02_scope.tex}
-
-\chapter{Spherical Normalization}
+\chapter{Data Pre-processing and Normalization}
 \label{chap:sph_norm}
-\input{sections/03_sph_norm.tex}
+\input{sections/02_sph_norm.tex}
 
-\chapter{Deep Differential Encoding}
+\chapter{Temporal Coherence}
 \label{chap:markovnet}
-\input{sections/04_markovnet.tex}
+\input{sections/03_markovnet.tex}
 
-\chapter{CsiNet-SoftQuant}
+\chapter{Feedback Quantization}
 \label{chap:csinet_quant}
-\input{sections/05_csinet_quant.tex}
+\input{sections/04_csinet_quant.tex}
 
 \chapter{Conclusion}
-\input{sections/06_conclusion.tex}
+\input{sections/05_conclusion.tex}
 
 \newpage
 \small
