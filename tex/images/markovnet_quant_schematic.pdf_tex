@@ -1,0 +1,106 @@
+%% Creator: Inkscape inkscape 0.92.4, www.inkscape.org
+%% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
+%% Accompanies image file 'markovnet_quant_schematic.pdf' (pdf, eps, ps)
+%%
+%% To include the image in your LaTeX document, write
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics{<filename>.pdf}
+%% To scale the image, write
+%%   \def\svgwidth{<desired width>}
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics[width=<desired width>]{<filename>.pdf}
+%%
+%% Images with a different path to the parent latex file can
+%% be accessed with the `import' package (which may need to be
+%% installed) using
+%%   \usepackage{import}
+%% in the preamble, and then including the image with
+%%   \import{<path to file>}{<filename>.pdf_tex}
+%% Alternatively, one can specify
+%%   \graphicspath{{<path to file>/}}
+%% 
+%% For more information, please see info/svg-inkscape on CTAN:
+%%   http://tug.ctan.org/tex-archive/info/svg-inkscape
+%%
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \newcommand*\fsize{\dimexpr\f@size pt\relax}%
+  \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{1043.88430618bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,0.75525355)%
+    \lineheight{1}%
+    \setlength\tabcolsep{0pt}%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{markovnet_quant_schematic.pdf}}%
+    \put(0.19205436,0.66144289){\color[rgb]{0.77254902,0.58039216,0.20392157}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Encoder (UE)\end{tabular}}}}%
+    \put(0.19205437,0.08329984){\color[rgb]{0.03529412,0.17254902,0.28235294}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Decoder (UE+gNB)\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{markovnet_quant_schematic.pdf}}%
+    \put(0.19206559,0.61014264){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\mathbf H_1$\end{tabular}}}}%
+    \put(0.19206559,0.1385869){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\hat{\mathbf H}_1$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=3]{markovnet_quant_schematic.pdf}}%
+    \put(0.49422436,0.74671547){\color[rgb]{0.77254902,0.58039216,0.20392157}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Encoder (UE)\end{tabular}}}}%
+    \put(0.4943912,0.00429837){\color[rgb]{0.03529412,0.17254902,0.28235294}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Decoder (UE+gNB)\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=4]{markovnet_quant_schematic.pdf}}%
+    \put(0.49423561,0.61014264){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\mathbf E_2$\end{tabular}}}}%
+    \put(0.49440245,0.1385869){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\hat{\mathbf E}_2$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=5]{markovnet_quant_schematic.pdf}}%
+    \put(0.49440245,0.04973909){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\hat{\mathbf H}_2$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=6]{markovnet_quant_schematic.pdf}}%
+    \put(0.32330573,0.06648389){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\hat\gamma$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=7]{markovnet_quant_schematic.pdf}}%
+    \put(0.49423561,0.7041048){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\mathbf H_2$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=8]{markovnet_quant_schematic.pdf}}%
+    \put(0.87616138,0.74671547){\color[rgb]{0.77254902,0.58039216,0.20392157}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Encoder (UE)\end{tabular}}}}%
+    \put(0.8763282,0.00429837){\color[rgb]{0.03529412,0.17254902,0.28235294}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Decoder (UE+gNB)\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=9]{markovnet_quant_schematic.pdf}}%
+    \put(0.87617261,0.61014264){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\mathbf E_T$\end{tabular}}}}%
+    \put(0.87633943,0.1385869){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\hat{\mathbf E}_T$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=10]{markovnet_quant_schematic.pdf}}%
+    \put(0.1920553,0.30774334){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\hat{\mathbf z}_1$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=11]{markovnet_quant_schematic.pdf}}%
+    \put(0.87633943,0.30774334){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\hat{\mathbf z}_T$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=12]{markovnet_quant_schematic.pdf}}%
+    \put(0.87633943,0.04973909){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\hat{\mathbf H}_T$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=13]{markovnet_quant_schematic.pdf}}%
+    \put(0.87617261,0.7041048){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\mathbf H_T$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=14]{markovnet_quant_schematic.pdf}}%
+    \put(0.64201683,0.066482){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\hat\gamma$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=15]{markovnet_quant_schematic.pdf}}%
+    \put(0.04227625,0.38144332){\color[rgb]{0.43529412,0.45490196,0.59607843}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Soft Quantize\\(UE+gNB)\end{tabular}}}}%
+    \put(0.19205535,0.44317708){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\mathbf z_1$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=16]{markovnet_quant_schematic.pdf}}%
+    \put(0.49440252,0.44317708){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\mathbf z_2$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=17]{markovnet_quant_schematic.pdf}}%
+    \put(0.87633936,0.44317708){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\mathbf z_T$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=18]{markovnet_quant_schematic.pdf}}%
+    \put(0.1919402,0.37534398){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\mathbf Q(\tilde{\mathbf z}_1,\mathbf C)$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=19]{markovnet_quant_schematic.pdf}}%
+    \put(0.49714507,0.37534398){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\mathbf Q(\tilde{\mathbf z}_2,\mathbf C)$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=20]{markovnet_quant_schematic.pdf}}%
+    \put(0.87633939,0.37534397){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\mathbf Q(\tilde{\mathbf z}_T,\mathbf C)$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=21]{markovnet_quant_schematic.pdf}}%
+    \put(0.49440245,0.30893766){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\hat{\mathbf z}_2$\end{tabular}}}}%
+  \end{picture}%
+\endgroup%

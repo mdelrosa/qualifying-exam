@@ -38,7 +38,7 @@
   \newcommand*\fsize{\dimexpr\f@size pt\relax}%
   \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
   \ifx\svgwidth\undefined%
-    \setlength{\unitlength}{434.0994527bp}%
+    \setlength{\unitlength}{396.97634719bp}%
     \ifx\svgscale\undefined%
       \relax%
     \else%
@@ -50,34 +50,30 @@
   \global\let\svgwidth\undefined%
   \global\let\svgscale\undefined%
   \makeatother%
-  \begin{picture}(1,0.78783437)%
+  \begin{picture}(1,0.6303701)%
     \lineheight{1}%
     \setlength\tabcolsep{0pt}%
-    \put(0.47568035,0.70406104){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}CsiNet\end{tabular}}}}%
-    \put(0.59034403,0.21272864){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}DualNet\end{tabular}}}}%
-    \put(0.7993917,0.2823597){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textit{Feedback}\\\textit{Quantization}\end{tabular}}}}%
-    \put(0.18595254,0.37749318){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textit{Variational}\\\textit{Frameworks}\end{tabular}}}}%
-    \put(0.31249534,0.36789963){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}PRVNet\end{tabular}}}}%
-    \put(0.49820811,0.36106808){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textit{CNN Architecture}\\\textit{Optimization}\end{tabular}}}}%
-    \put(0.47638222,0.31549915){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}CRNet\end{tabular}}}}%
+    \put(0.47529176,0.52570255){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}CsiNet\end{tabular}}}}%
+    \put(0.71854173,0.27938012){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}DualNet\end{tabular}}}}%
+    \put(0.49941452,0.30544448){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textit{CNN Architecture}\\\textit{Optimization}\end{tabular}}}}%
+    \put(0.47580342,0.2405002){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}CRNet\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=1]{cnns-venn-diagram-contrib.pdf}}%
-    \put(0.49781666,0.72580039){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textit{CNNs for OFDM CSI Compression/Feedback}\end{tabular}}}}%
+    \put(0.49895695,0.55703198){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textit{CNNs for CSI Compression/Feedback}\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=2]{cnns-venn-diagram-contrib.pdf}}%
-    \put(0.60572496,0.48628458){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}CsiNet-LSTM\end{tabular}}}}%
-    \put(0.63320148,0.60507272){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textit{Temporal}\\\textit{Correlation}\end{tabular}}}}%
+    \put(0.62547369,0.35359084){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}CsiNet-LSTM\end{tabular}}}}%
+    \put(0.69964443,0.443891){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textit{Temporal}\\\textit{Correlation}\end{tabular}}}}%
+    \put(0.30751689,0.44577072){\color[rgb]{1,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textit{Differential}\\\textit{Encoding}\end{tabular}}}}%
+    \put(0.50319924,0.38861015){\color[rgb]{1,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}MarkovNet\end{tabular}}}}%
+    \put(0.27807116,0.28078599){\color[rgb]{1,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}SphNet\end{tabular}}}}%
+    \put(0.86936519,0.2919741){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textit{Bidirectional}\\\textit{Reciprocity}\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=3]{cnns-venn-diagram-contrib.pdf}}%
-    \put(0.37021004,0.60679145){\color[rgb]{1,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textit{Differential}\\\textit{Encoding}\end{tabular}}}}%
-    \put(0.49774582,0.52260292){\color[rgb]{1,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}MarkovNet\end{tabular}}}}%
+    \put(0.12806223,0.2919741){\color[rgb]{1,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textit{Normalization}\\\textit{Techniques}\end{tabular}}}}%
+    \put(0.86460138,0.61434499){\color[rgb]{1,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Red = Our Contribution\end{tabular}}}}%
+    \put(0.35804801,0.11964117){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textit{Feedback}\\\textit{Quantization}\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=4]{cnns-venn-diagram-contrib.pdf}}%
-    \put(0.38271098,0.21401428){\color[rgb]{1,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}SphNet\end{tabular}}}}%
-    \put(0.63275156,0.11455657){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textit{Bidirectional}\\\textit{Reciprocity}\end{tabular}}}}%
+    \put(0.61616372,0.13087456){\color[rgb]{1,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textit{End-to-End}\\\textit{Quantization}\end{tabular}}}}%
+    \put(0.61559301,0.06814761){\color[rgb]{1,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}CsiNet-SoftQuant\end{tabular}}}}%
+    \put(0.50029457,0.18345577){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}DeepCMC\\\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=5]{cnns-venn-diagram-contrib.pdf}}%
-    \put(0.32257186,0.11455657){\color[rgb]{1,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textit{Normalization}\\\textit{Techniques}\end{tabular}}}}%
-    \put(0,0){\includegraphics[width=\unitlength,page=6]{cnns-venn-diagram-contrib.pdf}}%
-    \put(0.83100867,0.44427554){\color[rgb]{1,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}\textit{End-to-End}\\\textit{Quantization}\end{tabular}}}}%
-    \put(0.83048676,0.39727899){\color[rgb]{1,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}CsiNet-SoftQuant\end{tabular}}}}%
-    \put(0.85892096,0.7540241){\color[rgb]{1,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Red = Our Contribution\end{tabular}}}}%
-    \put(0.67466491,0.37286363){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}DeepCMC\\\end{tabular}}}}%
-    \put(0.67534993,0.35161171){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}AnalogCMC\end{tabular}}}}%
   \end{picture}%
 \endgroup%
