@@ -154,14 +154,19 @@
 		In OFDM, the fading coefficients between Tx/Rx $=$ \textbf{Channel State Information (CSI)}, $\bar{\mathbf{H}}$. 
 		\begin{align*}
 			\bar{\mathbf{H}}&=\begin{bmatrix}
-            							h_{1,1} & h_{1,2} & \dots  & h_{1,N_T} \\
-            							h_{2,1} & h_{2,2} & \dots  & h_{2,N_T} \\
+                          % h_{1,1} & h_{1,2} & \dots  & h_{1,N_b} \\
+                          % h_{2,1} & h_{2,2} & \dots  & h_{2,N_b} \\
+                          % \vdots  & \vdots  & \vdots & \vdots    \\
+                          % h_{N_{f},1} & h_{N_{f},2} & \dots  & h_{N_{f},N_b} \\
+            							h_{1,1} & h_{1,2} & \dots  & h_{1,N_f} \\
+            							h_{2,1} & h_{2,2} & \dots  & h_{2,N_f} \\
             							\vdots	& \vdots  & \vdots & \vdots    \\
-            							h_{N_{f},1} & h_{N_{f},2} & \dots  & h_{N_{f},N_T} \\
+            							h_{N_{b},1} & h_{N_{b},2} & \dots  & h_{N_{b},N_f} \\
             						\end{bmatrix}
-                        \in \mathbb C^{N_f \times N_T}
+                        % \in \mathbb C^{N_f \times N_b}
+                        \in \mathbb C^{N_b \times N_f}
 		\end{align*}
-    For $N_T$ transmit antennas and $N_f$ subcarriers.
+    For $N_b$ transmit antennas and $N_f$ subcarriers.
 	\end{frame}
 
   \begin{frame}{MIMO and CSI}
@@ -322,12 +327,13 @@
     \nofoot{
     \begin{frame}{Convolutional Neural Networks (CNNs)}
       \begin{itemize}
-        \item CNNs = state-of-the art performance in image processing
         % \item Capable of extracting features from 2D, grid-like data 
-        \item Multiple layers of trainable linear functions followed nonlinear ‘activation’ functions.
+        \item Layers of trainable linear functions followed by nonlinear ‘activation’ functions.
+        \item State-of-the art performance in image processing
+        \fignocap{0.35}{filt1.JPEG}
+        \pause
         \item No assumptions on sparsity/RIP. Instantaneous decoding.
       \end{itemize}
-      \fignocap{0.35}{filt1.JPEG}
       \blfootnote{A. Karpathy, ``Visualizing What ConvNets Learn,"  \url{http://cs231n.github.io/understanding-cnn/}. Accessed: Feb 24, 2020.}
     \end{frame}
     }
@@ -378,7 +384,7 @@
           \begin{itemize}
             \item \textbf{Normalized Mean-squared Error}
             \begin{align*}
-              \text{NMSE} = \frac 1N \sum_{i}^N \frac{\|\mathbf H_i - \hat{\mathbf H}_i \|_F^2}{\|\mathbf H_i \|_F^2}
+              \text{NMSE} = \frac 1N \sum_{i}^N \frac{\|\mathbf H_i - \hat{\mathbf H}_i \|^2}{\|\mathbf H_i \|^2}
             \end{align*}
             \item \textbf{Cosine Similarity}
             \begin{align*}
@@ -812,7 +818,7 @@
         \begin{tabular}{|l|c|c|}
           \hline 
           \textbf{Environment}      & \textbf{Indoor}  & \textbf{Outdoor} \\ \hline
-          Num. gNB Antennas ($N_T$) & \multicolumn{2}{c|}{32} \\ \hline
+          Num. gNB Antennas ($N_b$) & \multicolumn{2}{c|}{32} \\ \hline
           Num. Subcarriers ($N_f$)  & \multicolumn{2}{c|}{1024} \\ \hline
           Truncation Value ($R_d$)  & \multicolumn{2}{c|}{32} \\ \hline
           Carrier Frequency         & 5.3 GHz            & 300 MHz \\ \hline
@@ -1423,8 +1429,8 @@
     \end{itemize}
   \end{frame}
 
-% TODO: future directions
-% - entropy estimation -- does the entropy of the quantized feedback exceed that of the CSI elements themselves?
+% TODO: future Prof. Ding, s
+%, - entropy estimation -- does the entropy of the quantized feedback exceed that of the CSI elements themselves?
 % - model quantization -- (less compelling as a research direction) -does the model achieve similar performance with quantized weights?
 
 \section*{Questions?}
@@ -1438,6 +1444,15 @@
         % \LARGE{\faFileTextO}
       \end{beamercolorbox}
       \vfill
+      \begin{figure}[htb] \centering 
+        % \includegraphics[width=0.9\linewidth]{batch0_csi_gt.png}
+      {
+        \fontsize{4pt}{4pt}
+        \def\svgwidth{0.7\columnwidth}
+        \input{../images/cnns-venn-diagram-contrib.pdf_tex}
+      }
+      % \caption{Areas of \emph{domain knowledge} and corresponding CNNs.}
+      \end{figure}
     \end{frame}
 
 \section*{References}
@@ -1471,6 +1486,39 @@
     \end{beamercolorbox}
     \vfill
   \end{frame} 
+
+  \begin{frame}{Training Hyperparameters}
+    \footnotesize{
+      \textbf{SphNet (and benchmark networks)}
+      \begin{itemize}
+        \item \textbf{Epochs}: 1000
+        \item \textbf{Optimizer}: Adam with learning rate $10^{-3}$
+      \end{itemize}
+      \textbf{MarkovNet}
+      \begin{itemize}
+        \item \textbf{Epochs ($t_1$)}: 1000
+        \item \textbf{Epochs ($t_2,\dots,t_T$)}: 150
+        \item \textbf{Optimizer}: Adam with learning rate $10^{-3}$
+        \item Each timeslot is initialized with weights from previous timeslot.
+      \end{itemize}
+      \textbf{CsiNet-LSTM}
+      \begin{itemize}
+        \item \textbf{Epochs}: 1000 (pretraining CsiNet), 500 (CsiNet-LSTM)
+        \item \textbf{Optimizer}: Adam with learning rate $10^{-3}$
+      \end{itemize}
+      }
+  \end{frame}
+
+  \begin{frame}{Training Hyperparameters}
+    \footnotesize{
+      \textbf{CsiNet-SoftQuant} has three stages of training:
+      \begin{enumerate}
+        \item \textbf{Autoencoder pretraining}: No latent quantization (1000 epochs). MSE objective function.
+        \item \textbf{Center pretraining}: Train soft quantization layer to initialize centers, $\mathbf C$ (1000 epochs). Using $\vec \theta_e$ from stage 1, train on $\mathbf Z=f(\mathbf H, \vec \theta_e)$ to minimize the cluster energy, $\underset{\mathbf C}{\text{argmin}}\sum_{i=1}^N \Arrowvert \tilde{\mathbf Z} - Q(\tilde{\mathbf Z})\Arrowvert^2$.
+        \item \textbf{SHVQ finetuning}: Using the results of stage 1 and 2, finetune autoencoder and soft quantization layer (50 epochs). Loss function is the entropy-regularized MSE. Use different $\beta$ to achieve different rates.
+      \end{enumerate}
+      }
+  \end{frame}
 
   % \begin{frame}{Compressed Sensing: Benchmark Description}
   %   \footnotesize{

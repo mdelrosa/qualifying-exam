@@ -62,7 +62,7 @@
     \put(0,0){\includegraphics[width=\unitlength,page=2]{mimo-schematic-feedback.pdf}}%
     \put(0.53552767,0.29676656){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\bar{\mathbf{h}}_{1}$\end{tabular}}}}%
     \put(0.53552767,0.24688366){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\bar{\mathbf{h}}_{2}$\end{tabular}}}}%
-    \put(0.53552767,0.13087076){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\bar{\mathbf{h}}_{N_T}$\end{tabular}}}}%
+    \put(0.53552767,0.13087076){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\bar{\mathbf{h}}_{N_b}$\end{tabular}}}}%
     \put(-0.00055691,0.18303326){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\mathbf{s}$\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=3]{mimo-schematic-feedback.pdf}}%
     \put(0.68004968,0.16834487){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\mathbf y$\end{tabular}}}}%

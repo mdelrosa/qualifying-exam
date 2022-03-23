@@ -171,9 +171,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="2.8284273"
-     inkscape:cx="550.52137"
-     inkscape:cy="182.38306"
+     inkscape:zoom="2.0000001"
+     inkscape:cx="476.31814"
+     inkscape:cy="173.42891"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -551,7 +551,7 @@
          y="127.09464"
          x="100.22798"
          sodipodi:role="line"
-         id="tspan875-1-1-9">$\bar{\mathbf{h}}_{N_T}$</tspan></text>
+         id="tspan875-1-1-9">$\bar{\mathbf{h}}_{N_b}$</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.82222223px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"

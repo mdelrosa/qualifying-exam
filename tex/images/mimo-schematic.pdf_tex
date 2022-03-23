@@ -60,16 +60,17 @@
     \put(0,0){\includegraphics[width=\unitlength,page=2]{mimo-schematic.pdf}}%
     \put(0.53547392,0.22559259){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\bar{\mathbf{h}}_{1}$\end{tabular}}}}%
     \put(0.53547392,0.1757147){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\bar{\mathbf{h}}_{2}$\end{tabular}}}}%
-    \put(0.53547392,0.05971344){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\bar{\mathbf{h}}_{N_T}$\end{tabular}}}}%
+    \put(0.53547392,0.05971344){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\bar{\mathbf{h}}_{N_b}$\end{tabular}}}}%
     \put(-0.00055685,0.11187071){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\mathbf{s}$\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=3]{mimo-schematic.pdf}}%
-    \put(0.67998141,0.0971838){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\mathbf y$\end{tabular}}}}%
+    \put(0.67998141,0.09718379){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\mathbf y$\end{tabular}}}}%
     \put(0.82095451,0.09704871){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\hat{\mathbf x}$\end{tabular}}}}%
     \put(0.89565826,0.11330008){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Decoding\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=4]{mimo-schematic.pdf}}%
     \put(1.00340644,0.11380964){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\hat{\mathbf s}$\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=5]{mimo-schematic.pdf}}%
-    \put(0.28611444,0.11326631){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Beamforming\end{tabular}}}}%
-    \put(0.87154108,0.20377775){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\mathbf y = \bar{\mathbf H}^H\mathbf x + \mathbf n$\end{tabular}}}}%
+    \put(0.28611444,0.1132663){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Beamforming\end{tabular}}}}%
+    \put(0.87154108,0.20377775){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\mathbf y = \bar{\mathbf H}^H\mathbf W\mathbf x + \mathbf n$\end{tabular}}}}%
+    \put(0.37705061,0.09683931){\color[rgb]{0,0,0}\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}$\mathbf W\mathbf x$\end{tabular}}}}%
   \end{picture}%
 \endgroup%
